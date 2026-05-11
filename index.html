@@ -1,0 +1,1275 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Matthew Palacios — Full-Stack Developer & AI Automation</title>
+<meta name="description" content="Portfólio de Matthew Palacios. Full-stack developer especializado em automações com IA, plataformas SaaS e e-commerce." />
+<meta name="theme-color" content="#0A0A0A" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<style>
+/* ── reset & tokens ─────────────────────────────────────────── */
+:root {
+  --bg-primary:    #0A0A0A;
+  --bg-secondary:  #111111;
+  --bg-tertiary:   #1A1A1A;
+  --text-primary:  #FAFAFA;
+  --text-secondary:#A1A1AA;
+  --text-tertiary: #52525B;
+  --border-subtle: rgba(255,255,255,0.08);
+  --border-default:rgba(255,255,255,0.12);
+  --border-strong: rgba(255,255,255,0.20);
+  --accent:        #A855F7;
+  --accent-muted:  #22103A;
+  --accent-contrast:#FAFAFA;
+  --success: #22C55E;
+  --danger:  #EF4444;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --font-sans: 'Geist', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: 'Geist Mono', ui-monospace, 'JetBrains Mono', monospace;
+  --ease-out-quart: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out-cubic: cubic-bezier(0.65, 0, 0.35, 1);
+  --t-fast: 150ms;
+  --t-mid: 250ms;
+  --t-slow: 500ms;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { background: var(--bg-primary); scroll-behavior: smooth; }
+body {
+  font-family: var(--font-sans);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+::selection { background: var(--accent); color: var(--accent-contrast); }
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; }
+
+.container { max-width: 1120px; padding: 0 24px; margin: 0 auto; }
+
+/* ── topbar ─────────────────────────────────────────────────── */
+.topbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  background: color-mix(in srgb, var(--bg-primary) 72%, transparent);
+  border-bottom: 1px solid var(--border-subtle);
+  transform: translateY(-100%);
+  animation: slideDown 0.6s var(--ease-out-quart) 0.2s forwards;
+}
+@keyframes slideDown {
+  to { transform: translateY(0); }
+}
+.topbar-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  height: 56px;
+}
+.brand {
+  display: flex; align-items: center; gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text-primary);
+}
+.brand-dot {
+  width: 8px; height: 8px; border-radius: 999px;
+  background: var(--accent);
+  box-shadow: 0 0 12px color-mix(in srgb, var(--accent) 70%, transparent);
+  animation: pulse 3s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 12px color-mix(in srgb, var(--accent) 70%, transparent); }
+  50% { box-shadow: 0 0 24px color-mix(in srgb, var(--accent) 90%, transparent), 0 0 48px color-mix(in srgb, var(--accent) 30%, transparent); }
+}
+.brand b { font-weight: 500; }
+.topnav { display: flex; gap: 4px; }
+.topnav a {
+  font-family: var(--font-mono); font-size: 12px;
+  color: var(--text-secondary); padding: 6px 10px;
+  border-radius: var(--radius-sm);
+  transition: color var(--t-fast), background var(--t-fast);
+}
+.topnav a:hover { color: var(--text-primary); background: var(--bg-tertiary); }
+
+/* ── hero ───────────────────────────────────────────────────── */
+.hero {
+  padding: 160px 0 120px;
+  position: relative;
+  overflow: hidden;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(60% 50% at 70% 10%, color-mix(in srgb, var(--accent) 12%, transparent), transparent 70%),
+    radial-gradient(40% 40% at 0% 80%, color-mix(in srgb, var(--accent) 6%, transparent), transparent 70%);
+  pointer-events: none;
+}
+
+/* grid lines background */
+.hero::after {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(var(--border-subtle) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border-subtle) 1px, transparent 1px);
+  background-size: 80px 80px;
+  mask-image: radial-gradient(ellipse 60% 50% at 50% 50%, black 20%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse 60% 50% at 50% 50%, black 20%, transparent 70%);
+  pointer-events: none;
+  opacity: 0;
+  animation: fadeIn 1.5s var(--ease-out-quart) 0.3s forwards;
+}
+
+.hero-content { position: relative; width: 100%; }
+
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--font-mono); font-size: 12px;
+  color: var(--text-secondary);
+  margin-bottom: 24px;
+  opacity: 0; transform: translateY(20px);
+  animation: revealUp 0.7s var(--ease-out-quart) 0.4s forwards;
+}
+.eyebrow::before {
+  content: ''; width: 6px; height: 6px; border-radius: 999px;
+  background: var(--success);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--success) 28%, transparent);
+}
+
+.display {
+  font-size: clamp(48px, 8vw, 88px);
+  font-weight: 500;
+  line-height: 0.96;
+  letter-spacing: -0.045em;
+  margin: 0 0 32px;
+  max-width: 14ch;
+}
+.display .line {
+  display: block;
+  opacity: 0; transform: translateY(40px);
+  animation: revealUp 0.8s var(--ease-out-quart) forwards;
+}
+.display .line:nth-child(1) { animation-delay: 0.5s; }
+.display .line:nth-child(2) { animation-delay: 0.6s; }
+.display .line:nth-child(3) { animation-delay: 0.7s; }
+.display em { font-style: normal; color: var(--text-tertiary); font-weight: 400; }
+.display .ink { color: var(--accent); }
+
+.lede {
+  font-size: 18px; line-height: 1.65;
+  color: var(--text-secondary);
+  max-width: 56ch; margin: 0 0 40px;
+  opacity: 0; transform: translateY(20px);
+  animation: revealUp 0.7s var(--ease-out-quart) 0.9s forwards;
+}
+.lede strong { color: var(--text-primary); font-weight: 500; }
+
+.hero-cta {
+  display: flex; flex-wrap: wrap; gap: 12px; align-items: center;
+  opacity: 0; transform: translateY(20px);
+  animation: revealUp 0.7s var(--ease-out-quart) 1.05s forwards;
+}
+
+.hero-stats {
+  display: flex; flex-wrap: wrap; gap: 48px;
+  margin-top: 64px;
+  opacity: 0; transform: translateY(20px);
+  animation: revealUp 0.7s var(--ease-out-quart) 1.2s forwards;
+}
+.stat-num {
+  font-size: 36px; font-weight: 600; letter-spacing: -0.03em;
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+}
+.stat-label {
+  font-family: var(--font-mono); font-size: 12px;
+  color: var(--text-tertiary); margin-top: 4px;
+}
+
+@keyframes revealUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+
+/* ── buttons ────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 14px; font-weight: 500;
+  height: 42px; padding: 0 20px;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  background: transparent; color: var(--text-primary);
+  position: relative; overflow: hidden;
+  transition: all var(--t-mid) var(--ease-out-quart);
+}
+.btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.btn-primary {
+  background: var(--text-primary); color: var(--bg-primary);
+}
+.btn-primary::before {
+  content: ''; position: absolute; left: 0; right: 0; bottom: 0; top: 100%;
+  background: var(--accent);
+  transition: top var(--t-mid) var(--ease-out-quart);
+}
+.btn-primary:hover { color: var(--accent-contrast); }
+.btn-primary:hover::before { top: 0; }
+.btn-primary span { position: relative; }
+
+.btn-secondary {
+  background: var(--bg-tertiary);
+  border-color: var(--border-default);
+}
+.btn-secondary:hover {
+  background: var(--bg-secondary);
+  border-color: var(--border-strong);
+}
+.btn .arrow { transition: transform var(--t-mid) var(--ease-out-quart); }
+.btn:hover .arrow { transform: translateX(3px); }
+
+/* ── sections ───────────────────────────────────────────────── */
+section.block {
+  padding: 120px 0;
+  border-bottom: 1px solid var(--border-subtle);
+}
+.section-head {
+  display: grid; gap: 8px;
+  margin-bottom: 56px;
+}
+.section-num {
+  font-family: var(--font-mono); font-size: 12px;
+  color: var(--text-tertiary);
+}
+.section-title {
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  margin: 0;
+}
+.section-sub {
+  color: var(--text-secondary);
+  font-size: 16px; line-height: 1.6;
+  max-width: 64ch; margin: 4px 0 0;
+}
+
+/* ── scroll reveal ──────────────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.7s var(--ease-out-quart), transform 0.7s var(--ease-out-quart);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+.reveal-delay-5 { transition-delay: 0.5s; }
+
+/* ── filter tabs ────────────────────────────────────────────── */
+.filter-bar {
+  display: flex; flex-wrap: wrap; gap: 4px;
+  margin-bottom: 40px;
+  position: relative;
+}
+.filter-btn {
+  font-family: var(--font-mono); font-size: 12px;
+  color: var(--text-secondary);
+  padding: 8px 16px; border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  background: transparent;
+  transition: all var(--t-mid) var(--ease-out-quart);
+}
+.filter-btn:hover { color: var(--text-primary); background: var(--bg-tertiary); }
+.filter-btn.active {
+  color: var(--text-primary);
+  background: var(--bg-tertiary);
+  border-color: var(--border-default);
+}
+
+/* ── project cards ──────────────────────────────────────────── */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+@media (max-width: 720px) { .projects-grid { grid-template-columns: 1fr; } }
+
+.pc {
+  display: grid; gap: 16px;
+  padding: 20px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  text-decoration: none;
+  color: var(--text-primary);
+  transition: all var(--t-mid) var(--ease-out-quart);
+  position: relative;
+  overflow: hidden;
+}
+.pc::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%),
+    color-mix(in srgb, var(--card-accent, var(--accent)) 8%, transparent),
+    transparent 60%);
+  opacity: 0;
+  transition: opacity 0.4s;
+  pointer-events: none;
+}
+.pc:hover::before { opacity: 1; }
+.pc:hover {
+  transform: translateY(-4px);
+  border-color: color-mix(in srgb, var(--card-accent, var(--accent)) 50%, transparent);
+  box-shadow: 0 12px 40px -12px color-mix(in srgb, var(--card-accent, var(--accent)) 15%, transparent);
+}
+
+.pc-featured {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 24px;
+}
+@media (max-width: 720px) { .pc-featured { grid-template-columns: 1fr; } }
+
+.pc-cover {
+  aspect-ratio: 16/10;
+  border-radius: var(--radius-md);
+  position: relative; overflow: hidden;
+  border: 1px solid var(--border-subtle);
+}
+.pc-cover-bg {
+  position: absolute; inset: 0;
+  background: var(--card-gradient);
+}
+.pc-cover-pattern {
+  position: absolute; inset: 0;
+  transition: transform 0.6s var(--ease-out-quart);
+}
+.pc:hover .pc-cover-pattern { transform: scale(1.05); }
+
+/* cover pattern variants */
+.pattern-grid .pc-cover-pattern {
+  background-image:
+    linear-gradient(var(--card-accent) 1px, transparent 1px),
+    linear-gradient(90deg, var(--card-accent) 1px, transparent 1px);
+  background-size: 32px 32px;
+  opacity: 0.08;
+}
+.pattern-dots .pc-cover-pattern {
+  background-image: radial-gradient(circle, var(--card-accent) 1px, transparent 1px);
+  background-size: 20px 20px;
+  opacity: 0.12;
+}
+.pattern-lines .pc-cover-pattern {
+  background-image: repeating-linear-gradient(
+    135deg, transparent 0 9px,
+    color-mix(in srgb, var(--card-accent) 12%, transparent) 9px 10px
+  );
+}
+.pattern-wave .pc-cover-pattern {
+  background-image: repeating-linear-gradient(
+    45deg, transparent 0 14px,
+    color-mix(in srgb, var(--card-accent) 8%, transparent) 14px 15px
+  );
+}
+
+.pc-cover-icon {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 48px;
+  opacity: 0.6;
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.3));
+}
+
+.pc-cover-label {
+  position: absolute; left: 14px; bottom: 12px;
+  font-family: var(--font-mono); font-size: 11px;
+  color: var(--text-secondary);
+  background: color-mix(in srgb, var(--bg-primary) 75%, transparent);
+  backdrop-filter: blur(6px);
+  padding: 4px 8px; border-radius: var(--radius-sm);
+  border: 1px solid var(--border-subtle);
+}
+
+.pc-body { display: grid; gap: 12px; }
+.pc-row {
+  display: flex; align-items: center; justify-content: space-between;
+  font-family: var(--font-mono); font-size: 11px; color: var(--text-tertiary);
+}
+.pc-title {
+  font-size: 22px; font-weight: 500; letter-spacing: -0.02em; margin: 0;
+}
+.pc-featured .pc-title { font-size: 28px; }
+.pc-desc {
+  color: var(--text-secondary); margin: 0; line-height: 1.6; font-size: 14px;
+}
+.pc-stack { display: flex; flex-wrap: wrap; gap: 6px; }
+
+/* ── badges ─────────────────────────────────────────────────── */
+.badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--font-mono); font-size: 11px;
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  background: var(--bg-tertiary);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-subtle);
+}
+.badge-dot {
+  width: 6px; height: 6px; border-radius: 999px;
+  background: var(--text-tertiary);
+}
+.badge.live .badge-dot {
+  background: var(--success);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--success) 22%, transparent);
+}
+.badge.wip .badge-dot { background: var(--accent); }
+
+/* ── featured marquee (horizontal scroll for categories) ───── */
+.cat-label {
+  font-family: var(--font-mono); font-size: 11px;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--text-tertiary);
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+/* ── stack section ──────────────────────────────────────────── */
+.stack-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1px;
+  background: var(--border-subtle);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+.stack-item {
+  padding: 24px;
+  background: var(--bg-secondary);
+  transition: background var(--t-mid);
+}
+.stack-item:hover { background: var(--bg-tertiary); }
+.stack-item h4 {
+  font-size: 15px; font-weight: 500; margin: 0 0 6px;
+}
+.stack-item p {
+  font-family: var(--font-mono); font-size: 12px;
+  color: var(--text-tertiary); margin: 0; line-height: 1.5;
+}
+
+/* ── about section ──────────────────────────────────────────── */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: start;
+}
+@media (max-width: 720px) { .about-grid { grid-template-columns: 1fr; gap: 40px; } }
+.about-text {
+  font-size: 17px; line-height: 1.7;
+  color: var(--text-secondary);
+}
+.about-text p { margin: 0 0 20px; }
+.about-text strong { color: var(--text-primary); font-weight: 500; }
+
+/* ── contact / CTA ──────────────────────────────────────────── */
+.cta-section {
+  padding: 120px 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.cta-section::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(50% 50% at 50% 100%,
+    color-mix(in srgb, var(--accent) 10%, transparent), transparent 70%);
+  pointer-events: none;
+}
+.cta-title {
+  font-size: clamp(32px, 5vw, 56px);
+  font-weight: 500; letter-spacing: -0.03em;
+  margin: 0 0 20px;
+  position: relative;
+}
+.cta-sub {
+  font-size: 17px; color: var(--text-secondary);
+  max-width: 48ch; margin: 0 auto 36px;
+  line-height: 1.6;
+  position: relative;
+}
+.cta-links {
+  display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
+  position: relative;
+}
+
+/* ── footer ─────────────────────────────────────────────────── */
+footer.foot {
+  padding: 48px 0 64px;
+  border-top: 1px solid var(--border-subtle);
+}
+.foot-row {
+  display: flex; justify-content: space-between; align-items: baseline;
+  gap: 24px; flex-wrap: wrap;
+  font-family: var(--font-mono); font-size: 12px;
+  color: var(--text-tertiary);
+}
+footer a {
+  color: var(--text-secondary);
+  border-bottom: 1px dashed var(--border-default);
+  transition: color var(--t-fast);
+}
+footer a:hover { color: var(--text-primary); }
+
+/* ── project card hide/show animation ───────────────────────── */
+.pc[data-visible="false"] {
+  display: none;
+}
+
+/* ── scrollbar ──────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--bg-primary); }
+::-webkit-scrollbar-thumb {
+  background: var(--border-default);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover { background: var(--border-strong); }
+
+/* ── mobile responsive ──────────────────────────────────────── */
+@media (max-width: 720px) {
+  .hero { padding: 120px 0 80px; min-height: auto; }
+  .hero-stats { gap: 32px; }
+  .topnav { display: none; }
+  section.block { padding: 80px 0; }
+  .pc-featured { grid-column: 1 / -1; }
+  .stat-num { font-size: 28px; }
+}
+
+/* ── reduced motion ─────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    transition-duration: 0.01ms !important;
+  }
+  .reveal { opacity: 1; transform: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════ TOPBAR ═══════════════════ -->
+<header class="topbar">
+  <div class="container topbar-inner">
+    <div class="brand">
+      <span class="brand-dot"></span>
+      <b>matthew</b>
+    </div>
+    <nav class="topnav">
+      <a href="#projetos">projetos</a>
+      <a href="#stack">stack</a>
+      <a href="#sobre">sobre</a>
+      <a href="#contato">contato</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ═══════════════════ HERO ═══════════════════ -->
+<section class="hero">
+  <div class="container hero-content">
+    <div class="eyebrow">disponível para projetos</div>
+    <h1 class="display">
+      <span class="line">Construo</span>
+      <span class="line"><em>produtos digitais</em></span>
+      <span class="line">com IA<span class="ink">.</span></span>
+    </h1>
+    <p class="lede">
+      Full-stack developer. Crio <strong>plataformas SaaS</strong>,
+      <strong>automações inteligentes</strong> e <strong>e-commerces</strong>
+      que operam com agentes de IA — do lead ao fechamento.
+    </p>
+    <div class="hero-cta">
+      <a href="#projetos" class="btn btn-primary"><span>ver projetos</span> <span class="arrow">→</span></a>
+      <a href="#contato" class="btn btn-secondary">entrar em contato</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num" data-count="12">0</div>
+        <div class="stat-label">projetos entregues</div>
+      </div>
+      <div>
+        <div class="stat-num" data-count="5">0</div>
+        <div class="stat-label">plataformas em produção</div>
+      </div>
+      <div>
+        <div class="stat-num" data-count="4">0</div>
+        <div class="stat-label">automações com IA</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ PROJETOS ═══════════════════ -->
+<section class="block" id="projetos">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="section-num">§ 01 — projetos</div>
+      <h2 class="section-title">O que eu construo.</h2>
+      <p class="section-sub">
+        Plataformas, automações e produtos digitais — do conceito ao deploy.
+        Cada projeto resolve um problema real de negócio.
+      </p>
+    </div>
+
+    <div class="filter-bar reveal">
+      <button class="filter-btn active" data-filter="all">todos</button>
+      <button class="filter-btn" data-filter="saas">SaaS</button>
+      <button class="filter-btn" data-filter="automacao">automação IA</button>
+      <button class="filter-btn" data-filter="app">apps</button>
+      <button class="filter-btn" data-filter="lp">landing pages</button>
+    </div>
+
+    <div class="projects-grid" id="projects-grid">
+
+      <!-- ── ELEG.EAI ── -->
+      <div class="pc pc-featured reveal pattern-grid"
+           data-cat="saas"
+           style="--card-accent: #8B5CF6; --card-gradient: linear-gradient(135deg, #1a0a2e 0%, #0f0a1a 100%);">
+        <div class="pc-cover">
+          <div class="pc-cover-bg"></div>
+          <div class="pc-cover-pattern"></div>
+          <div class="pc-cover-icon">🧠</div>
+          <div class="pc-cover-label">eleg.eai</div>
+        </div>
+        <div class="pc-body">
+          <div class="pc-row">
+            <span>2026</span>
+            <span class="badge live"><span class="badge-dot"></span> live</span>
+          </div>
+          <h3 class="pc-title">Eleg.eai — CRM com Agente de IA</h3>
+          <p class="pc-desc">
+            CRM completo com agente de IA integrado ao WhatsApp. Pipeline kanban,
+            inbox com takeover humano, e IA que processa texto, áudio e imagens
+            para qualificar e mover leads automaticamente pelo funil.
+          </p>
+          <div class="pc-stack">
+            <span class="badge">typescript</span>
+            <span class="badge">react</span>
+            <span class="badge">supabase</span>
+            <span class="badge">whatsapp</span>
+            <span class="badge">claude sdk</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── 5S BRAND ── -->
+      <div class="pc reveal pattern-dots"
+           data-cat="saas"
+           style="--card-accent: #F59E0B; --card-gradient: linear-gradient(135deg, #1a1400 0%, #0f0a05 100%);">
+        <div class="pc-cover">
+          <div class="pc-cover-bg"></div>
+          <div class="pc-cover-pattern"></div>
+          <div class="pc-cover-icon">🛒</div>
+          <div class="pc-cover-label">5sbrand.com</div>
+        </div>
+        <div class="pc-body">
+          <div class="pc-row">
+            <span>2025–2026</span>
+            <span class="badge live"><span class="badge-dot"></span> live</span>
+          </div>
+          <h3 class="pc-title">5S Brand — E-commerce + Admin + IA</h3>
+          <p class="pc-desc">
+            Loja online completa com painel administrativo que gerencia toda a operação.
+            Agente de IA atende clientes via WhatsApp, consulta valores e estoque
+            em tempo real, e envia links dos produtos direto para compra. Pagamentos via Asaas.
+          </p>
+          <div class="pc-stack">
+            <span class="badge">typescript</span>
+            <span class="badge">next.js</span>
+            <span class="badge">supabase</span>
+            <span class="badge">asaas</span>
+            <span class="badge">agente ia</span>
+          </div>
+          <a href="https://5sbrand.com" target="_blank" class="btn btn-secondary" style="justify-self:start; height:34px; font-size:12px;">
+            visitar site <span class="arrow">→</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- ── SESH ── -->
+      <div class="pc reveal pattern-lines"
+           data-cat="saas"
+           style="--card-accent: #06B6D4; --card-gradient: linear-gradient(135deg, #021a1f 0%, #0a0f12 100%);">
+        <div class="pc-cover">
+          <div class="pc-cover-bg"></div>
+          <div class="pc-cover-pattern"></div>
+          <div class="pc-cover-icon">💬</div>
+          <div class="pc-cover-label">sesh.com.br</div>
+        </div>
+        <div class="pc-body">
+          <div class="pc-row">
+            <span>2026</span>
+            <span class="badge live"><span class="badge-dot"></span> live</span>
+          </div>
+          <h3 class="pc-title">SESH — Multitenant + Agente SDR</h3>
+          <p class="pc-desc">
+            Plataforma multitenant de marca com agente de IA atuando como SDR.
+            Qualifica leads vindos do marketing e direciona os qualificados
+            diretamente para o time comercial. Cada marca com seu ambiente isolado.
+          </p>
+          <div class="pc-stack">
+            <span class="badge">typescript</span>
+            <span class="badge">next.js</span>
+            <span class="badge">supabase</span>
+            <span class="badge">multitenant</span>
+            <span class="badge">agente sdr</span>
+          </div>
+          <a href="https://www.sesh.com.br" target="_blank" class="btn btn-secondary" style="justify-self:start; height:34px; font-size:12px;">
+            visitar site <span class="arrow">→</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- ── AUTOMAÇÃO DE LICITAÇÕES ── -->
+      <div class="pc reveal pattern-wave"
+           data-cat="automacao"
+           style="--card-accent: #10B981; --card-gradient: linear-gradient(135deg, #021a12 0%, #0a1210 100%);">
+        <div class="pc-cover">
+          <div class="pc-cover-bg"></div>
+          <div class="pc-cover-pattern"></div>
+          <div class="pc-cover-icon">📋</div>
+          <div class="pc-cover-label">licitações</div>
+        </div>
+        <div class="pc-body">
+          <div class="pc-row">
+            <span>2026</span>
+            <span class="badge wip"><span class="badge-dot"></span> wip</span>
+          </div>
+          <h3 class="pc-title">Automação de Licitações</h3>
+          <p class="pc-desc">
+            Captura licitações automaticamente e projeta os dados via IA em planilha padronizada.
+            Cruza com banco de dados de fornecedores para match ideal e gera
+            o preço mínimo competitivo para disputar cada licitação.
+          </p>
+          <div class="pc-stack">
+            <span class="badge">typescript</span>
+            <span class="badge">claude sdk</span>
+            <span class="badge">postgres</span>
+            <span class="badge">automação</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── AUTOMAÇÃO DE SITES ── -->
+      <div class="pc reveal pattern-grid"
+           data-cat="automacao"
+           style="--card-accent: #EC4899; --card-gradient: linear-gradient(135deg, #1a0515 0%, #120a0f 100%);">
+        <div class="pc-cover">
+          <div class="pc-cover-bg"></div>
+          <div class="pc-cover-pattern"></div>
+          <div class="pc-cover-icon">🏗️</div>
+          <div class="pc-cover-label">automacao-sites</div>
+        </div>
+        <div class="pc-body">
+          <div class="pc-row">
+            <span>2026</span>
+            <span class="badge live"><span class="badge-dot"></span> live</span>
+          </div>
+          <h3 class="pc-title">Automação de Sites — Lead-Gen + Builder</h3>
+          <p class="pc-desc">
+            Pipeline de lead-gen com qualificador inteligente e builder automático
+            de landing pages. Integração com WhatsApp via Evolution API
+            para conectar instâncias por QR e disparar mensagens.
+          </p>
+          <div class="pc-stack">
+            <span class="badge">next.js</span>
+            <span class="badge">claude sdk</span>
+            <span class="badge">evolution api</span>
+            <span class="badge">supabase</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── AUTOMAÇÃO DE E-BOOKS ── -->
+      <div class="pc reveal pattern-dots"
+           data-cat="automacao"
+           style="--card-accent: #F97316; --card-gradient: linear-gradient(135deg, #1a0f00 0%, #120a05 100%);">
+        <div class="pc-cover">
+          <div class="pc-cover-bg"></div>
+          <div class="pc-cover-pattern"></div>
+          <div class="pc-cover-icon">📚</div>
+          <div class="pc-cover-label">ebook-tool</div>
+        </div>
+        <div class="pc-body">
+          <div class="pc-row">
+            <span>2026</span>
+            <span class="badge live"><span class="badge-dot"></span> live</span>
+          </div>
+          <h3 class="pc-title">Automação de E-books — 31 Idiomas</h3>
+          <p class="pc-desc">
+            Recebe texto em português, traduz e diagrama automaticamente em até
+            31 idiomas. Gera PDFs A4 finalizados via Puppeteer com 12 componentes
+            e 3 temas. Interface Liquid Glass.
+          </p>
+          <div class="pc-stack">
+            <span class="badge">fastify</span>
+            <span class="badge">claude sdk</span>
+            <span class="badge">puppeteer</span>
+            <span class="badge">react</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── YOUTUBE TRENDS + VEO3 ── -->
+      <div class="pc reveal pattern-wave"
+           data-cat="automacao"
+           style="--card-accent: #EF4444; --card-gradient: linear-gradient(135deg, #1a0505 0%, #120a0a 100%);">
+        <div class="pc-cover">
+          <div class="pc-cover-bg"></div>
+          <div class="pc-cover-pattern"></div>
+          <div class="pc-cover-icon">🎬</div>
+          <div class="pc-cover-label">youtube + veo3</div>
+        </div>
+        <div class="pc-body">
+          <div class="pc-row">
+            <span>2026</span>
+            <span class="badge wip"><span class="badge-dot"></span> wip</span>
+          </div>
+          <h3 class="pc-title">YouTube Trends → Roteiro → Veo3</h3>
+          <p class="pc-desc">
+            Pipeline completo de criação de vídeo: busca trends do YouTube automaticamente,
+            gera roteiros por nicho com IA, e conecta com Google Veo3 para produzir
+            os vídeos sem intervenção humana.
+          </p>
+          <div class="pc-stack">
+            <span class="badge">typescript</span>
+            <span class="badge">gemini</span>
+            <span class="badge">veo3</span>
+            <span class="badge">youtube api</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── DR. DANIEL ── -->
+      <div class="pc reveal pattern-lines"
+           data-cat="app"
+           style="--card-accent: #14B8A6; --card-gradient: linear-gradient(135deg, #021a18 0%, #0a1210 100%);">
+        <div class="pc-cover">
+          <div class="pc-cover-bg"></div>
+          <div class="pc-cover-pattern"></div>
+          <div class="pc-cover-icon">📱</div>
+          <div class="pc-cover-label">dr.daniel</div>
+        </div>
+        <div class="pc-body">
+          <div class="pc-row">
+            <span>2026</span>
+            <span class="badge live"><span class="badge-dot"></span> live</span>
+          </div>
+          <h3 class="pc-title">Dr. Daniel — Jornada Diária</h3>
+          <p class="pc-desc">
+            App PWA para acompanhamento de rotinas diárias. Sistema de gamificação
+            com fases, check-ins e recompensas. Internacionalização completa
+            e animações com Framer Motion.
+          </p>
+          <div class="pc-stack">
+            <span class="badge">react 19</span>
+            <span class="badge">supabase</span>
+            <span class="badge">pwa</span>
+            <span class="badge">i18n</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── RECEITAS FIT ── -->
+      <div class="pc reveal pattern-grid"
+           data-cat="app"
+           style="--card-accent: #84CC16; --card-gradient: linear-gradient(135deg, #0f1a05 0%, #0a120a 100%);">
+        <div class="pc-cover">
+          <div class="pc-cover-bg"></div>
+          <div class="pc-cover-pattern"></div>
+          <div class="pc-cover-icon">🥗</div>
+          <div class="pc-cover-label">receitas-fit</div>
+        </div>
+        <div class="pc-body">
+          <div class="pc-row">
+            <span>2025–2026</span>
+            <span class="badge live"><span class="badge-dot"></span> live</span>
+          </div>
+          <h3 class="pc-title">Receitas Fit — App de Receitas Fitness</h3>
+          <p class="pc-desc">
+            App PWA de receitas fitness com sistema de check-ins, gamificação
+            e conclusão de receitas. Performance otimizada e interface
+            responsiva com animações fluidas.
+          </p>
+          <div class="pc-stack">
+            <span class="badge">typescript</span>
+            <span class="badge">react</span>
+            <span class="badge">supabase</span>
+            <span class="badge">pwa</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── LEADS ── -->
+      <div class="pc reveal pattern-dots"
+           data-cat="app"
+           style="--card-accent: #6366F1; --card-gradient: linear-gradient(135deg, #0a0a1e 0%, #0a0a14 100%);">
+        <div class="pc-cover">
+          <div class="pc-cover-bg"></div>
+          <div class="pc-cover-pattern"></div>
+          <div class="pc-cover-icon">🎯</div>
+          <div class="pc-cover-label">leads</div>
+        </div>
+        <div class="pc-body">
+          <div class="pc-row">
+            <span>2026</span>
+            <span class="badge live"><span class="badge-dot"></span> live</span>
+          </div>
+          <h3 class="pc-title">LEADS — Prospecção Inteligente</h3>
+          <p class="pc-desc">
+            Plataforma de prospecção com disparador de mensagens, SDR automático
+            e gerador de leads do LinkedIn. Pipeline completo do primeiro
+            contato à qualificação.
+          </p>
+          <div class="pc-stack">
+            <span class="badge">next.js</span>
+            <span class="badge">typescript</span>
+            <span class="badge">linkedin</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── LANDING PAGES ── -->
+      <div class="pc reveal pattern-lines"
+           data-cat="lp"
+           style="--card-accent: #D946EF; --card-gradient: linear-gradient(135deg, #1a051a 0%, #120a12 100%);">
+        <div class="pc-cover">
+          <div class="pc-cover-bg"></div>
+          <div class="pc-cover-pattern"></div>
+          <div class="pc-cover-icon">✨</div>
+          <div class="pc-cover-label">landing pages</div>
+        </div>
+        <div class="pc-body">
+          <div class="pc-row">
+            <span>2026</span>
+            <span class="badge live"><span class="badge-dot"></span> live</span>
+          </div>
+          <h3 class="pc-title">Landing Pages — Clínicas & Institucional</h3>
+          <p class="pc-desc">
+            Pacote de landing pages para clínicas de estética e projetos institucionais.
+            SINDICAPRO (gestão sindical), Dra. Claudia Roque, Mia Clinic.
+            Sistema de templates para geração automatizada de novas LPs.
+          </p>
+          <div class="pc-stack">
+            <span class="badge">html/css</span>
+            <span class="badge">typescript</span>
+            <span class="badge">react</span>
+            <span class="badge">vercel</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── GERADOR DE THUMBNAILS ── -->
+      <div class="pc reveal pattern-wave"
+           data-cat="app"
+           style="--card-accent: #FACC15; --card-gradient: linear-gradient(135deg, #1a1600 0%, #121005 100%);">
+        <div class="pc-cover">
+          <div class="pc-cover-bg"></div>
+          <div class="pc-cover-pattern"></div>
+          <div class="pc-cover-icon">🖼️</div>
+          <div class="pc-cover-label">tumb-gen</div>
+        </div>
+        <div class="pc-body">
+          <div class="pc-row">
+            <span>2026</span>
+            <span class="badge wip"><span class="badge-dot"></span> wip</span>
+          </div>
+          <h3 class="pc-title">Gerador de Thumbnails — YouTube</h3>
+          <p class="pc-desc">
+            Ferramenta que gera thumbnails otimizadas para YouTube usando
+            Gemini AI. Interface intuitiva para criação rápida de capas
+            com alta taxa de clique.
+          </p>
+          <div class="pc-stack">
+            <span class="badge">typescript</span>
+            <span class="badge">gemini</span>
+            <span class="badge">react</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ STACK ═══════════════════ -->
+<section class="block" id="stack">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="section-num">§ 02 — stack</div>
+      <h2 class="section-title">Ferramentas do dia a dia.</h2>
+      <p class="section-sub">
+        Tecnologias que uso em produção. Cada escolha é baseada em necessidade real,
+        não hype.
+      </p>
+    </div>
+
+    <div class="stack-grid reveal">
+      <div class="stack-item">
+        <h4>TypeScript</h4>
+        <p>Linguagem principal em todos os projetos</p>
+      </div>
+      <div class="stack-item">
+        <h4>React / Next.js</h4>
+        <p>Frontend e full-stack com App Router</p>
+      </div>
+      <div class="stack-item">
+        <h4>Supabase</h4>
+        <p>Auth, database, realtime, storage</p>
+      </div>
+      <div class="stack-item">
+        <h4>Claude AI SDK</h4>
+        <p>Agentes inteligentes e automações</p>
+      </div>
+      <div class="stack-item">
+        <h4>Tailwind CSS</h4>
+        <p>Estilização utility-first</p>
+      </div>
+      <div class="stack-item">
+        <h4>PostgreSQL</h4>
+        <p>Banco relacional, RLS, functions</p>
+      </div>
+      <div class="stack-item">
+        <h4>Vercel</h4>
+        <p>Deploy e hosting de produção</p>
+      </div>
+      <div class="stack-item">
+        <h4>Node.js / Fastify</h4>
+        <p>APIs e microserviços backend</p>
+      </div>
+      <div class="stack-item">
+        <h4>WhatsApp / Evolution API</h4>
+        <p>Integração de mensageria</p>
+      </div>
+      <div class="stack-item">
+        <h4>Puppeteer</h4>
+        <p>Automação de browser e PDF</p>
+      </div>
+      <div class="stack-item">
+        <h4>Docker</h4>
+        <p>Containerização e deploy</p>
+      </div>
+      <div class="stack-item">
+        <h4>Gemini / Veo3</h4>
+        <p>Geração de conteúdo e vídeo</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ SOBRE ═══════════════════ -->
+<section class="block" id="sobre">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="section-num">§ 03 — sobre</div>
+      <h2 class="section-title">Quem está por trás.</h2>
+    </div>
+
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p>
+          Sou <strong>Matthew Palacios</strong>, full-stack developer focado em criar
+          produtos digitais que resolvem problemas reais de negócio.
+        </p>
+        <p>
+          Meu trabalho vive na interseção entre <strong>desenvolvimento web</strong> e
+          <strong>inteligência artificial</strong>. Construo desde CRMs com agentes de IA
+          até pipelines de automação que eliminam trabalho manual repetitivo.
+        </p>
+        <p>
+          Acredito que a melhor tecnologia é a que <strong>desaparece</strong> —
+          o usuário não precisa saber que tem IA por trás,
+          ele só precisa que o problema seja resolvido.
+        </p>
+      </div>
+      <div class="stack-grid reveal reveal-delay-2" style="align-self: start;">
+        <div class="stack-item">
+          <h4>Foco atual</h4>
+          <p>Automações com agentes de IA e plataformas SaaS</p>
+        </div>
+        <div class="stack-item">
+          <h4>Abordagem</h4>
+          <p>Produto primeiro, tecnologia a serviço do resultado</p>
+        </div>
+        <div class="stack-item">
+          <h4>Entrega</h4>
+          <p>Do conceito ao deploy em produção</p>
+        </div>
+        <div class="stack-item">
+          <h4>Diferencial</h4>
+          <p>IA integrada nativamente, não como feature bolt-on</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ CTA / CONTATO ═══════════════════ -->
+<section class="cta-section" id="contato">
+  <div class="container">
+    <h2 class="cta-title reveal">Vamos construir algo<span class="ink">?</span></h2>
+    <p class="cta-sub reveal reveal-delay-1">
+      Se você tem um projeto que precisa de tecnologia com inteligência,
+      entre em contato.
+    </p>
+    <div class="cta-links reveal reveal-delay-2">
+      <a href="https://github.com/matpgomes" target="_blank" class="btn btn-primary">
+        <span>GitHub</span> <span class="arrow">→</span>
+      </a>
+      <a href="https://wa.me/5500000000000" target="_blank" class="btn btn-secondary">
+        WhatsApp
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ FOOTER ═══════════════════ -->
+<footer class="foot">
+  <div class="container foot-row">
+    <div>© 2026 Matthew Palacios</div>
+    <div>feito com <a href="https://github.com/matpgomes" target="_blank">código próprio</a></div>
+  </div>
+</footer>
+
+<!-- ═══════════════════ SCRIPTS ═══════════════════ -->
+<script>
+// ── Scroll Reveal (IntersectionObserver) ──────────────────────
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+// ── Animated counters ─────────────────────────────────────────
+const counterObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const el = entry.target;
+      const target = parseInt(el.dataset.count);
+      const duration = 1200;
+      const start = performance.now();
+
+      function update(now) {
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 4);
+        el.textContent = Math.round(eased * target);
+        if (progress < 1) requestAnimationFrame(update);
+      }
+      requestAnimationFrame(update);
+      counterObserver.unobserve(el);
+    }
+  });
+}, { threshold: 0.5 });
+
+document.querySelectorAll('[data-count]').forEach(el => counterObserver.observe(el));
+
+// ── Filter tabs ───────────────────────────────────────────────
+const filterBtns = document.querySelectorAll('.filter-btn');
+const cards = document.querySelectorAll('.pc');
+
+filterBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    filterBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    const filter = btn.dataset.filter;
+
+    cards.forEach((card, i) => {
+      const cat = card.dataset.cat;
+      const show = filter === 'all' || cat === filter;
+
+      if (show) {
+        card.removeAttribute('data-visible');
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+        setTimeout(() => {
+          card.style.transition = 'opacity 0.4s var(--ease-out-quart), transform 0.4s var(--ease-out-quart)';
+          card.style.opacity = '1';
+          card.style.transform = 'translateY(0)';
+        }, i * 60);
+      } else {
+        card.setAttribute('data-visible', 'false');
+      }
+    });
+
+    // Fix grid for featured cards
+    const grid = document.getElementById('projects-grid');
+    const visibleCards = grid.querySelectorAll('.pc:not([data-visible="false"])');
+    visibleCards.forEach(c => {
+      if (filter !== 'all') {
+        c.classList.remove('pc-featured');
+        c.style.gridColumn = '';
+      } else if (c.dataset.cat === 'saas' && c.querySelector('.pc-title')?.textContent.includes('Eleg.eai')) {
+        c.classList.add('pc-featured');
+      }
+    });
+  });
+});
+
+// ── Card mouse glow effect ────────────────────────────────────
+cards.forEach(card => {
+  card.addEventListener('mousemove', (e) => {
+    const rect = card.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    card.style.setProperty('--mx', x + '%');
+    card.style.setProperty('--my', y + '%');
+  });
+});
+
+// ── Smooth nav scroll ─────────────────────────────────────────
+document.querySelectorAll('.topnav a, .hero-cta a[href^="#"]').forEach(a => {
+  a.addEventListener('click', (e) => {
+    const id = a.getAttribute('href');
+    if (!id.startsWith('#')) return;
+    const el = document.querySelector(id);
+    if (!el) return;
+    e.preventDefault();
+    window.scrollTo({ top: el.offsetTop - 56, behavior: 'smooth' });
+  });
+});
+</script>
+
+</body>
+</html>

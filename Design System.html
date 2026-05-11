@@ -1,0 +1,1105 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Design System — Portfólio</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<style>
+  :root {
+    /* — neutrals (dark mode default) — */
+    --bg-primary:    #0A0A0A;
+    --bg-secondary:  #111111;
+    --bg-tertiary:   #1A1A1A;
+    --text-primary:  #FAFAFA;
+    --text-secondary:#A1A1AA;
+    --text-tertiary: #52525B;
+    --border-subtle: rgba(255,255,255,0.08);
+    --border-default:rgba(255,255,255,0.12);
+    --border-strong: rgba(255,255,255,0.20);
+
+    /* — accent (rewritten by Tweaks) — */
+    --accent:        #FACC15;
+    --accent-muted:  #422006;
+    --accent-contrast:#0A0A0A;
+
+    /* — semantic — */
+    --success: #22C55E;
+    --danger:  #EF4444;
+
+    /* — radii — */
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 16px;
+    --radius-xl: 24px;
+
+    /* — type stack (rewritten by Tweaks) — */
+    --font-sans: 'Geist', ui-sans-serif, system-ui, -apple-system, sans-serif;
+    --font-mono: 'Geist Mono', ui-monospace, 'JetBrains Mono', monospace;
+
+    /* — motion — */
+    --ease-out-quart:   cubic-bezier(0.22, 1, 0.36, 1);
+    --ease-in-out-cubic:cubic-bezier(0.65, 0, 0.35, 1);
+    --t-fast:   150ms;
+    --t-mid:    250ms;
+    --t-slow:   500ms;
+
+    color-scheme: dark;
+  }
+
+  [data-theme="light"] {
+    --bg-primary:    #FAFAFA;
+    --bg-secondary:  #FFFFFF;
+    --bg-tertiary:   #F4F4F5;
+    --text-primary:  #0A0A0A;
+    --text-secondary:#52525B;
+    --text-tertiary: #A1A1AA;
+    --border-subtle: rgba(0,0,0,0.06);
+    --border-default:rgba(0,0,0,0.10);
+    --border-strong: rgba(0,0,0,0.18);
+    --accent-muted:  #FEF3C7;
+    color-scheme: light;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  html { background: var(--bg-primary); }
+  body {
+    font-family: var(--font-sans);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: 'ss01', 'cv11';
+    text-rendering: optimizeLegibility;
+    min-height: 100vh;
+    transition: background var(--t-mid) var(--ease-out-quart),
+                color    var(--t-mid) var(--ease-out-quart);
+  }
+
+  ::selection { background: var(--accent); color: var(--accent-contrast); }
+
+  .container {
+    max-width: 1120px;
+    padding: 0 24px;
+    margin: 0 auto;
+  }
+
+  /* ── topbar ─────────────────────────────────────────────────── */
+  .topbar {
+    position: sticky; top: 0; z-index: 50;
+    backdrop-filter: blur(12px) saturate(160%);
+    -webkit-backdrop-filter: blur(12px) saturate(160%);
+    background: color-mix(in srgb, var(--bg-primary) 72%, transparent);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  .topbar-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 56px;
+  }
+  .brand {
+    display: flex; align-items: center; gap: 10px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--text-primary);
+    letter-spacing: -0.01em;
+  }
+  .brand-dot {
+    width: 8px; height: 8px; border-radius: 999px;
+    background: var(--accent);
+    box-shadow: 0 0 12px color-mix(in srgb, var(--accent) 70%, transparent);
+  }
+  .brand b { font-weight: 500; }
+  .brand-sep { color: var(--text-tertiary); }
+  .brand span.path { color: var(--text-secondary); }
+
+  .topnav { display:flex; gap: 4px; }
+  .topnav a {
+    font-family: var(--font-mono); font-size: 12px;
+    color: var(--text-secondary); text-decoration: none;
+    padding: 6px 10px; border-radius: var(--radius-sm);
+    transition: color var(--t-fast) var(--ease-out-quart),
+                background var(--t-fast) var(--ease-out-quart);
+  }
+  .topnav a:hover { color: var(--text-primary); background: var(--bg-tertiary); }
+
+  /* ── hero ───────────────────────────────────────────────────── */
+  .hero {
+    padding: 120px 0 96px;
+    border-bottom: 1px solid var(--border-subtle);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(60% 60% at 80% 0%, color-mix(in srgb, var(--accent) 14%, transparent), transparent 70%),
+      radial-gradient(40% 40% at 0% 100%, color-mix(in srgb, var(--accent) 8%, transparent), transparent 70%);
+    pointer-events: none;
+  }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--font-mono); font-size: 12px;
+    color: var(--text-secondary);
+    margin-bottom: 24px;
+  }
+  .eyebrow::before {
+    content:''; width:6px; height:6px; border-radius:999px;
+    background: var(--accent);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 28%, transparent);
+  }
+
+  .display {
+    font-family: var(--font-sans);
+    font-size: clamp(48px, 8vw, 88px);
+    font-weight: 500;
+    line-height: 0.98;
+    letter-spacing: -0.045em;
+    margin: 0 0 28px;
+    max-width: 14ch;
+  }
+  .display em {
+    font-style: normal;
+    color: var(--text-tertiary);
+    font-weight: 400;
+  }
+  .display .ink { color: var(--accent); }
+
+  .lede {
+    font-size: 18px;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    max-width: 60ch;
+    margin: 0;
+  }
+  .lede strong { color: var(--text-primary); font-weight: 500; }
+
+  .hero-meta {
+    margin-top: 40px;
+    display: flex; flex-wrap: wrap; gap: 12px 32px;
+    font-family: var(--font-mono); font-size: 12px;
+    color: var(--text-tertiary);
+  }
+  .hero-meta b { color: var(--text-primary); font-weight: 500; margin-right: 6px;}
+
+  /* ── section ────────────────────────────────────────────────── */
+  section.block {
+    padding: 96px 0;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  .section-head {
+    display: grid; gap: 8px;
+    margin-bottom: 48px;
+  }
+  .section-num {
+    font-family: var(--font-mono); font-size: 12px;
+    color: var(--text-tertiary);
+  }
+  .section-title {
+    font-size: clamp(28px, 4vw, 40px);
+    font-weight: 500;
+    letter-spacing: -0.03em;
+    margin: 0;
+    color: var(--text-primary);
+  }
+  .section-sub {
+    color: var(--text-secondary);
+    font-size: 16px; line-height: 1.6;
+    max-width: 64ch;
+    margin: 4px 0 0;
+  }
+
+  /* ── colors ─────────────────────────────────────────────────── */
+  .color-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 16px;
+  }
+  .swatch {
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: var(--bg-secondary);
+    transition: border-color var(--t-fast) var(--ease-out-quart),
+                transform var(--t-fast) var(--ease-out-quart);
+  }
+  .swatch:hover { border-color: var(--border-default); transform: translateY(-2px); }
+  .swatch-chip {
+    height: 96px;
+    position: relative;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  .swatch-chip[data-on-canvas="true"]::after {
+    content:''; position:absolute; inset:0;
+    background-image:
+      linear-gradient(45deg, rgba(255,255,255,0.04) 25%, transparent 25%, transparent 75%, rgba(255,255,255,0.04) 75%),
+      linear-gradient(45deg, rgba(255,255,255,0.04) 25%, transparent 25%, transparent 75%, rgba(255,255,255,0.04) 75%);
+    background-size: 16px 16px;
+    background-position: 0 0, 8px 8px;
+    pointer-events:none;
+  }
+  .swatch-meta {
+    padding: 14px 16px;
+    display: grid; gap: 4px;
+  }
+  .swatch-name { font-size: 13px; color: var(--text-primary); font-weight: 500; }
+  .swatch-tok {
+    font-family: var(--font-mono); font-size: 11px;
+    color: var(--text-tertiary);
+  }
+  .swatch-val {
+    font-family: var(--font-mono); font-size: 11px;
+    color: var(--text-secondary);
+  }
+
+  /* ── typography scale ───────────────────────────────────────── */
+  .type-row {
+    display: grid;
+    grid-template-columns: 110px 1fr 220px;
+    gap: 24px;
+    padding: 24px 0;
+    border-bottom: 1px solid var(--border-subtle);
+    align-items: baseline;
+  }
+  .type-row:last-child { border-bottom: 0; }
+  .type-label {
+    font-family: var(--font-mono); font-size: 12px;
+    color: var(--text-tertiary);
+  }
+  .type-spec {
+    font-family: var(--font-mono); font-size: 11px;
+    color: var(--text-secondary); line-height: 1.6;
+    text-align: right;
+  }
+  .type-sample { color: var(--text-primary); }
+  .ts-display { font-size: 64px; font-weight: 500; letter-spacing: -0.04em; line-height: 1; }
+  .ts-h1      { font-size: 48px; font-weight: 500; letter-spacing: -0.03em; line-height: 1.05; }
+  .ts-h2      { font-size: 32px; font-weight: 500; letter-spacing: -0.02em; line-height: 1.1; }
+  .ts-h3      { font-size: 22px; font-weight: 500; line-height: 1.2; }
+  .ts-body    { font-size: 17px; font-weight: 400; line-height: 1.6; color: var(--text-secondary);}
+  .ts-small   { font-size: 13px; font-weight: 400; color: var(--text-secondary);}
+  .ts-mono    { font-family: var(--font-mono); font-size: 14px; color: var(--text-secondary);}
+
+  /* ── spacing ────────────────────────────────────────────────── */
+  .scale-row {
+    display: flex; align-items: center; gap: 20px;
+    padding: 12px 0;
+    border-bottom: 1px dashed var(--border-subtle);
+  }
+  .scale-row:last-child { border-bottom: 0; }
+  .scale-tok {
+    width: 72px;
+    font-family: var(--font-mono); font-size: 12px;
+    color: var(--text-secondary);
+  }
+  .scale-bar {
+    height: 14px;
+    background: var(--accent);
+    border-radius: 3px;
+    box-shadow: 0 0 0 1px var(--border-subtle) inset;
+  }
+  .scale-val {
+    margin-left: auto;
+    font-family: var(--font-mono); font-size: 12px;
+    color: var(--text-tertiary);
+  }
+
+  /* ── radii ──────────────────────────────────────────────────── */
+  .radii-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+  }
+  .radii-card {
+    padding: 24px; aspect-ratio: 1.2;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-subtle);
+    display: flex; flex-direction: column; justify-content: space-between;
+  }
+  .radii-shape {
+    background: linear-gradient(135deg,
+      color-mix(in srgb, var(--accent) 14%, transparent),
+      color-mix(in srgb, var(--accent) 4%, transparent));
+    border: 1px solid color-mix(in srgb, var(--accent) 38%, transparent);
+    flex: 1;
+  }
+  .radii-meta {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-top: 16px;
+    font-family: var(--font-mono); font-size: 11px;
+  }
+  .radii-meta b { color: var(--text-primary); font-weight: 500; }
+  .radii-meta span { color: var(--text-tertiary); }
+
+  /* ── components — buttons ───────────────────────────────────── */
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--font-sans);
+    font-size: 14px; font-weight: 500;
+    height: 38px; padding: 0 16px;
+    border-radius: var(--radius-md);
+    border: 1px solid transparent;
+    background: transparent;
+    color: var(--text-primary);
+    cursor: pointer;
+    text-decoration: none;
+    position: relative; overflow: hidden;
+    transition:
+      color var(--t-mid) var(--ease-out-quart),
+      background var(--t-mid) var(--ease-out-quart),
+      border-color var(--t-mid) var(--ease-out-quart);
+  }
+  .btn:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+  .btn-primary {
+    background: var(--text-primary);
+    color: var(--bg-primary);
+  }
+  .btn-primary::before {
+    content:'';
+    position: absolute; left: 0; right: 0; bottom: 0; top: 100%;
+    background: var(--accent);
+    transition: top var(--t-mid) var(--ease-out-quart);
+  }
+  .btn-primary:hover { color: var(--accent-contrast); }
+  .btn-primary:hover::before { top: 0; }
+  .btn-primary span { position: relative; }
+
+  .btn-secondary {
+    background: var(--bg-tertiary);
+    border-color: var(--border-default);
+    color: var(--text-primary);
+  }
+  .btn-secondary:hover {
+    background: var(--bg-secondary);
+    border-color: var(--border-strong);
+  }
+  .btn-ghost {
+    color: var(--text-secondary);
+  }
+  .btn-ghost:hover { color: var(--text-primary); background: var(--bg-tertiary); }
+  .btn-link {
+    height: auto; padding: 0;
+    color: var(--text-primary);
+    background: transparent;
+    border-radius: 0;
+  }
+  .btn-link .underline {
+    position: relative;
+  }
+  .btn-link .underline::after {
+    content:''; position:absolute; left:0; right:0; bottom:-2px;
+    height: 1px; background: currentColor;
+    transform: scaleX(0); transform-origin: left;
+    transition: transform var(--t-mid) var(--ease-out-quart);
+  }
+  .btn-link:hover .underline::after { transform: scaleX(1); }
+  .btn .arrow { transition: transform var(--t-mid) var(--ease-out-quart); }
+  .btn:hover .arrow { transform: translateX(3px); }
+
+  .btn-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+
+  /* ── components — badges ────────────────────────────────────── */
+  .badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: var(--font-mono); font-size: 12px;
+    padding: 4px 10px;
+    border-radius: var(--radius-sm);
+    background: var(--bg-tertiary);
+    color: var(--text-secondary);
+    border: 1px solid var(--border-subtle);
+  }
+  .badge-dot { width:6px; height:6px; border-radius:999px; background: var(--text-tertiary); }
+  .badge.live .badge-dot { background: var(--success); box-shadow: 0 0 0 3px color-mix(in srgb, var(--success) 22%, transparent); }
+  .badge.wip  .badge-dot { background: var(--accent); }
+  .badge.arch .badge-dot { background: var(--text-tertiary); }
+  .badge-accent {
+    background: color-mix(in srgb, var(--accent) 14%, transparent);
+    border-color: color-mix(in srgb, var(--accent) 35%, transparent);
+    color: var(--accent);
+  }
+
+  /* ── components — project card ──────────────────────────────── */
+  .pc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 720px) { .pc-grid { grid-template-columns: 1fr; } }
+
+  .pc {
+    display: grid; gap: 16px;
+    padding: 20px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    color: var(--text-primary);
+    transition:
+      transform var(--t-mid) var(--ease-out-quart),
+      border-color var(--t-mid) var(--ease-out-quart),
+      background var(--t-mid) var(--ease-out-quart);
+  }
+  .pc:hover {
+    transform: translateY(-4px);
+    border-color: color-mix(in srgb, var(--accent) 50%, transparent);
+    background: var(--bg-tertiary);
+  }
+  .pc-cover {
+    aspect-ratio: 16/10;
+    border-radius: var(--radius-md);
+    background:
+      linear-gradient(135deg,
+        color-mix(in srgb, var(--accent) 22%, var(--bg-tertiary)) 0%,
+        var(--bg-tertiary) 100%);
+    position: relative; overflow: hidden;
+    border: 1px solid var(--border-subtle);
+  }
+  .pc-cover::before {
+    content:''; position:absolute; inset:0;
+    background-image:
+      repeating-linear-gradient(135deg,
+        transparent 0 9px,
+        color-mix(in srgb, var(--text-primary) 6%, transparent) 9px 10px);
+    transition: transform var(--t-slow) var(--ease-out-quart);
+  }
+  .pc:hover .pc-cover::before { transform: scale(1.04); }
+  .pc-cover-label {
+    position: absolute; left: 14px; bottom: 12px;
+    font-family: var(--font-mono); font-size: 11px;
+    color: var(--text-secondary);
+    background: color-mix(in srgb, var(--bg-primary) 75%, transparent);
+    backdrop-filter: blur(6px);
+    padding: 4px 8px; border-radius: var(--radius-sm);
+    border: 1px solid var(--border-subtle);
+  }
+  .pc-row {
+    display:flex; align-items: center; justify-content: space-between;
+    font-family: var(--font-mono); font-size: 11px; color: var(--text-tertiary);
+  }
+  .pc-title { font-size: 22px; font-weight: 500; letter-spacing: -0.02em; margin: 0;}
+  .pc-tag { color: var(--text-secondary); margin: 0; line-height: 1.5; font-size: 14px;}
+  .pc-stack { display: flex; flex-wrap: wrap; gap: 6px;}
+
+  /* ── prompt code block ──────────────────────────────────────── */
+  .prompt-wrap {
+    position: relative;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    background: var(--bg-secondary);
+    overflow: hidden;
+  }
+  .prompt-head {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border-subtle);
+    background: var(--bg-tertiary);
+    font-family: var(--font-mono); font-size: 12px;
+    color: var(--text-secondary);
+  }
+  .prompt-head .dots { display: inline-flex; gap: 6px; margin-right: 12px; }
+  .prompt-head .dots i { width:8px; height:8px; border-radius:999px; background: var(--border-strong); display: inline-block;}
+  .prompt-head-left { display: inline-flex; align-items: center; }
+  .copy-btn {
+    font-family: var(--font-mono); font-size: 11px;
+    background: transparent;
+    border: 1px solid var(--border-default);
+    color: var(--text-secondary);
+    padding: 4px 10px; border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all var(--t-fast) var(--ease-out-quart);
+  }
+  .copy-btn:hover { color: var(--text-primary); border-color: var(--border-strong); background: var(--bg-primary); }
+  .copy-btn.copied { color: var(--success); border-color: color-mix(in srgb, var(--success) 50%, transparent);}
+
+  pre.prompt {
+    margin: 0;
+    padding: 24px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    overflow: auto;
+    white-space: pre;
+    max-height: 560px;
+  }
+  pre.prompt b { color: var(--text-primary); font-weight: 500; }
+  pre.prompt em { color: var(--accent); font-style: normal; }
+  pre.prompt .com { color: var(--text-tertiary); }
+
+  /* ── motion table ───────────────────────────────────────────── */
+  .motion-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .motion-table th, .motion-table td {
+    text-align: left;
+    padding: 14px 12px;
+    border-bottom: 1px solid var(--border-subtle);
+    font-size: 13px;
+    color: var(--text-secondary);
+  }
+  .motion-table th {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-tertiary);
+    font-weight: 500;
+  }
+  .motion-table td:first-child { color: var(--text-primary); font-weight: 500; }
+  .motion-table td.mono { font-family: var(--font-mono); font-size: 12px; color: var(--text-secondary); }
+
+  /* ── principles ─────────────────────────────────────────────── */
+  .pri-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px;
+    background: var(--border-subtle);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+  @media (max-width: 720px) { .pri-grid { grid-template-columns: 1fr; } }
+  .pri {
+    padding: 28px;
+    background: var(--bg-secondary);
+  }
+  .pri-num {
+    font-family: var(--font-mono); font-size: 12px; color: var(--accent);
+  }
+  .pri-title {
+    font-size: 22px; letter-spacing: -0.02em; font-weight: 500;
+    margin: 8px 0 8px;
+  }
+  .pri-body { color: var(--text-secondary); line-height: 1.6; font-size: 15px; margin: 0;}
+
+  /* ── footer ─────────────────────────────────────────────────── */
+  footer.foot {
+    padding: 64px 0 80px;
+    color: var(--text-tertiary);
+    font-family: var(--font-mono);
+    font-size: 12px;
+  }
+  footer.foot .foot-row { display:flex; justify-content: space-between; align-items: baseline; gap:24px; flex-wrap: wrap;}
+  footer.foot a { color: var(--text-secondary); text-decoration: none; border-bottom: 1px dashed var(--border-default);}
+  footer.foot a:hover { color: var(--text-primary);}
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+  }
+
+  @media (max-width: 720px) {
+    .type-row { grid-template-columns: 1fr; gap: 8px; }
+    .type-spec { text-align: left; }
+    .radii-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body data-theme="dark">
+
+<header class="topbar">
+  <div class="container topbar-inner">
+    <div class="brand">
+      <span class="brand-dot"></span>
+      <b>portfolio</b>
+      <span class="brand-sep">/</span>
+      <span class="path">design-system</span>
+    </div>
+    <nav class="topnav">
+      <a href="#manifesto">manifesto</a>
+      <a href="#tokens">tokens</a>
+      <a href="#components">componentes</a>
+      <a href="#motion">motion</a>
+      <a href="#prompt">prompt</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container" style="position: relative;">
+    <div class="eyebrow">v1.0 · maio 2026 · documento vivo</div>
+    <h1 class="display">
+      Tokens & system prompt<br/>
+      <em>para o portfólio</em> <span class="ink">.</span>
+    </h1>
+    <p class="lede">
+      Análise destilada do PRD em um <strong>sistema operável</strong>: cores, tipografia,
+      espaçamento, motion e componentes — mais o prompt-mestre que orienta a construção.
+      Esta página usa os próprios tokens que documenta. O que você vê é o que será.
+    </p>
+    <div class="hero-meta">
+      <div><b>stack</b> Next.js · TS · Tailwind v4 · Motion</div>
+      <div><b>tom</b> confiante, contemporâneo, sem excesso</div>
+      <div><b>destaque</b> uma única cor de accent</div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="manifesto">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-num">§ 01 — princípios</div>
+      <h2 class="section-title">Manifesto, em quatro frases.</h2>
+      <p class="section-sub">
+        Extraídos da §5.1 do PRD. Toda decisão estética e técnica desce daqui. Em conflito, o princípio vence o gosto.
+      </p>
+    </div>
+    <div class="pri-grid">
+      <div class="pri">
+        <div class="pri-num">01</div>
+        <h3 class="pri-title">Espaço respira.</h3>
+        <p class="pri-body">Densidade baixa, margens generosas. Cada elemento tem ar. Antes de adicionar, considere remover.</p>
+      </div>
+      <div class="pri">
+        <div class="pri-num">02</div>
+        <h3 class="pri-title">Tipografia carrega o peso.</h3>
+        <p class="pri-body">Antes de cor, ilustração ou efeito, é o texto que comunica. Hierarquia se faz com tamanho e peso, não com decoração.</p>
+      </div>
+      <div class="pri">
+        <div class="pri-num">03</div>
+        <h3 class="pri-title">Movimento com propósito.</h3>
+        <p class="pri-body">Animação serve à compreensão, nunca à decoração. Um efeito-assinatura, não cinco. Respeita <span style="font-family:var(--font-mono); color:var(--text-primary);">prefers-reduced-motion</span>.</p>
+      </div>
+      <div class="pri">
+        <div class="pri-num">04</div>
+        <h3 class="pri-title">Detalhes que recompensam.</h3>
+        <p class="pri-body">Hover states, micro-interações e um easter egg ou outro para quem explora. A recompensa é cumulativa, não imediata.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="tokens">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-num">§ 02 — tokens · cores</div>
+      <h2 class="section-title">Paleta neutra + accent único.</h2>
+      <p class="section-sub">
+        Modo escuro padrão; modo claro como alternativa polida. Acento único usado com parcimônia — confirmação, links de ênfase, focus rings. Troque o accent abaixo via <b>Tweaks</b>.
+      </p>
+    </div>
+
+    <div class="color-grid" id="colors-mount"></div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-num">§ 03 — tokens · tipografia</div>
+      <h2 class="section-title">Geist Sans + Geist Mono.</h2>
+      <p class="section-sub">
+        Pareamento moderno via <span style="font-family:var(--font-mono); color:var(--text-primary);">next/font</span>. Mono carrega todo metadado técnico — stacks, datas, badges, números — criando contraste sem cor adicional.
+      </p>
+    </div>
+
+    <div class="type-row">
+      <div class="type-label">display</div>
+      <div class="type-sample ts-display">Construindo na web.</div>
+      <div class="type-spec">Geist Sans · 500<br/>56–96px · −0.04em</div>
+    </div>
+    <div class="type-row">
+      <div class="type-label">h1</div>
+      <div class="type-sample ts-h1">Projetos em destaque</div>
+      <div class="type-spec">Geist Sans · 500<br/>40–56px · −0.03em</div>
+    </div>
+    <div class="type-row">
+      <div class="type-label">h2</div>
+      <div class="type-sample ts-h2">O que aprendi construindo isso</div>
+      <div class="type-spec">Geist Sans · 500<br/>28–36px · −0.02em</div>
+    </div>
+    <div class="type-row">
+      <div class="type-label">h3</div>
+      <div class="type-sample ts-h3">Decisões técnicas</div>
+      <div class="type-spec">Geist Sans · 500<br/>20–24px</div>
+    </div>
+    <div class="type-row">
+      <div class="type-label">body</div>
+      <div class="type-sample ts-body">Construo interfaces que carregam rápido, comunicam sem ruído e envelhecem bem. Trabalho com TypeScript, Next.js e a opinião de que produto bem-feito é o documento.</div>
+      <div class="type-spec">Geist Sans · 400<br/>16–18px · leading 1.6</div>
+    </div>
+    <div class="type-row">
+      <div class="type-label">small</div>
+      <div class="type-sample ts-small">Legenda, rótulo de campo, dica auxiliar.</div>
+      <div class="type-spec">Geist Sans · 400<br/>13–14px</div>
+    </div>
+    <div class="type-row">
+      <div class="type-label">mono</div>
+      <div class="type-sample ts-mono">typescript · postgres · 2025 · v1.0.4</div>
+      <div class="type-spec">Geist Mono · 400<br/>14–15px · tabular-nums</div>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-num">§ 04 — tokens · espaçamento & raios</div>
+      <h2 class="section-title">Escala de 4 e quatro raios.</h2>
+      <p class="section-sub">
+        Espaçamento: passos de 4px até 192px. Seções da home respiram a 96px em mobile e 160px em desktop. Quatro raios cobrem o sistema inteiro — não invente outros.
+      </p>
+    </div>
+
+    <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 56px;" id="scale-radii-wrap">
+      <div>
+        <div class="type-label" style="font-family:var(--font-mono); font-size:11px; color:var(--text-tertiary); text-transform:uppercase; letter-spacing:.08em; margin-bottom:16px;">spacing scale</div>
+        <div id="scale-mount"></div>
+      </div>
+      <div>
+        <div class="type-label" style="font-family:var(--font-mono); font-size:11px; color:var(--text-tertiary); text-transform:uppercase; letter-spacing:.08em; margin-bottom:16px;">radii</div>
+        <div class="radii-grid">
+          <div class="radii-card">
+            <div class="radii-shape" style="border-radius: 6px;"></div>
+            <div class="radii-meta"><b>sm</b><span>6px</span></div>
+          </div>
+          <div class="radii-card">
+            <div class="radii-shape" style="border-radius: 10px;"></div>
+            <div class="radii-meta"><b>md</b><span>10px</span></div>
+          </div>
+          <div class="radii-card">
+            <div class="radii-shape" style="border-radius: 16px;"></div>
+            <div class="radii-meta"><b>lg</b><span>16px</span></div>
+          </div>
+          <div class="radii-card">
+            <div class="radii-shape" style="border-radius: 24px;"></div>
+            <div class="radii-meta"><b>xl</b><span>24px</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="components">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-num">§ 05 — componentes obrigatórios</div>
+      <h2 class="section-title">Primitivos que sustentam tudo.</h2>
+      <p class="section-sub">
+        Tudo escrito com Tailwind direto no JSX. Variantes via <span style="font-family:var(--font-mono); color:var(--text-primary);">cva</span>. Sem UI kits, sem styled-components.
+      </p>
+    </div>
+
+    <div style="display:grid; gap: 56px;">
+
+      <!-- buttons -->
+      <div>
+        <div class="type-label" style="font-family:var(--font-mono); font-size:11px; color:var(--text-tertiary); text-transform:uppercase; letter-spacing:.08em; margin-bottom:20px;">Button — 4 variants</div>
+        <div class="btn-row">
+          <button class="btn btn-primary"><span>ver projetos</span> <span class="arrow">→</span></button>
+          <button class="btn btn-secondary">baixar CV</button>
+          <button class="btn btn-ghost">github</button>
+          <a class="btn btn-link" href="#"><span class="underline">leia o case completo</span> <span class="arrow">→</span></a>
+        </div>
+      </div>
+
+      <!-- badges -->
+      <div>
+        <div class="type-label" style="font-family:var(--font-mono); font-size:11px; color:var(--text-tertiary); text-transform:uppercase; letter-spacing:.08em; margin-bottom:20px;">Badge — stack & status</div>
+        <div class="btn-row">
+          <span class="badge"><span class="badge-dot"></span> typescript</span>
+          <span class="badge">next.js</span>
+          <span class="badge">postgres</span>
+          <span class="badge">framer-motion</span>
+          <span class="badge live"><span class="badge-dot"></span> live</span>
+          <span class="badge wip"><span class="badge-dot"></span> wip</span>
+          <span class="badge arch"><span class="badge-dot"></span> archived</span>
+          <span class="badge badge-accent">featured</span>
+        </div>
+      </div>
+
+      <!-- project cards -->
+      <div>
+        <div class="type-label" style="font-family:var(--font-mono); font-size:11px; color:var(--text-tertiary); text-transform:uppercase; letter-spacing:.08em; margin-bottom:20px;">ProjectCard — featured</div>
+        <div class="pc-grid">
+          <a class="pc" href="#">
+            <div class="pc-cover">
+              <div class="pc-cover-label">/projects/atlas/cover.png</div>
+            </div>
+            <div class="pc-row"><span>2025</span><span class="badge live"><span class="badge-dot"></span> live</span></div>
+            <h3 class="pc-title">Atlas — registros distribuídos</h3>
+            <p class="pc-tag">Plataforma de logs com query estruturada e retenção configurável. Substituiu três serviços internos.</p>
+            <div class="pc-stack">
+              <span class="badge">typescript</span>
+              <span class="badge">next.js</span>
+              <span class="badge">clickhouse</span>
+            </div>
+          </a>
+          <a class="pc" href="#">
+            <div class="pc-cover">
+              <div class="pc-cover-label">/projects/quiet/cover.png</div>
+            </div>
+            <div class="pc-row"><span>2024</span><span class="badge wip"><span class="badge-dot"></span> wip</span></div>
+            <h3 class="pc-title">Quiet — leitor de RSS focado</h3>
+            <p class="pc-tag">Cliente local-first para feeds. Sincroniza por arquivo, sem servidor. 12k downloads desde o beta.</p>
+            <div class="pc-stack">
+              <span class="badge">swift</span>
+              <span class="badge">sqlite</span>
+              <span class="badge">cloudkit</span>
+            </div>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="block" id="motion">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-num">§ 06 — motion</div>
+      <h2 class="section-title">Quatro regras, uma tabela.</h2>
+      <p class="section-sub">
+        60fps ou nada — só <span style="font-family:var(--font-mono); color:var(--text-primary);">transform</span> e <span style="font-family:var(--font-mono); color:var(--text-primary);">opacity</span>. Micro-interações 150–250ms. Transições 400–600ms. Easing humano por padrão.
+      </p>
+    </div>
+
+    <table class="motion-table">
+      <thead>
+        <tr><th>onde</th><th>animação</th><th>tempo</th><th>trigger</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Hero — entrada</td><td>texto sobe + fade, stagger por palavra</td><td class="mono">600ms / +60ms</td><td class="mono">on mount</td></tr>
+        <tr><td>Navegação</td><td>backdrop blur ao rolar &gt; 40px</td><td class="mono">200ms</td><td class="mono">scroll</td></tr>
+        <tr><td>ProjectCard</td><td>lift −4px + brilho de borda</td><td class="mono">250ms</td><td class="mono">hover</td></tr>
+        <tr><td>Scroll reveal</td><td>sobe 24px com fade</td><td class="mono">500ms</td><td class="mono">in-view</td></tr>
+        <tr><td>Botão primário</td><td>fill sobe de baixo pra cima</td><td class="mono">250ms</td><td class="mono">hover</td></tr>
+        <tr><td>Link inline</td><td>underline anima da esquerda</td><td class="mono">300ms</td><td class="mono">hover</td></tr>
+        <tr><td>Tab/filtros</td><td>indicador deslizante (layoutId)</td><td class="mono">300ms</td><td class="mono">click</td></tr>
+        <tr><td>Page transition</td><td>fade via View Transitions API</td><td class="mono">400ms</td><td class="mono">route</td></tr>
+      </tbody>
+    </table>
+
+    <div style="margin-top: 32px; display:flex; gap: 28px; flex-wrap: wrap; font-family: var(--font-mono); font-size: 12px; color: var(--text-secondary);">
+      <div><b style="color:var(--text-primary);">--ease-out-quart</b> &nbsp; cubic-bezier(0.22, 1, 0.36, 1)</div>
+      <div><b style="color:var(--text-primary);">--ease-in-out-cubic</b> &nbsp; cubic-bezier(0.65, 0, 0.35, 1)</div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="prompt">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-num">§ 07 — system prompt</div>
+      <h2 class="section-title">Instrução-mestre para o Claude Code.</h2>
+      <p class="section-sub">
+        Refinada a partir da §9 do PRD. Cole no início da sessão, anexe o PRD em seguida, e envie os <span style="font-family:var(--font-mono); color:var(--text-primary);">.mdx</span> de projetos como contexto.
+      </p>
+    </div>
+
+    <div class="prompt-wrap">
+      <div class="prompt-head">
+        <span class="prompt-head-left"><span class="dots"><i></i><i></i><i></i></span> system-prompt.md</span>
+        <button class="copy-btn" id="copy-btn">copiar</button>
+      </div>
+<pre class="prompt" id="prompt-text"><b>// papel</b>
+Você é um <em>engenheiro front-end sênior</em> construindo um portfólio pessoal.
+Trabalha com <em>Next.js 14+ (App Router), TypeScript strict, Tailwind v4,
+Framer Motion, MDX</em>, deploy na Vercel. O PRD anexo é a fonte de verdade.
+Em qualquer conflito, ele vence decisões padrão. Se ambíguo, <b>pergunte
+antes de assumir</b>.
+
+<b>// princípios de trabalho</b>
+<span class="com">1.</span> Componentes pequenos e composáveis. Quebre por responsabilidade —
+   nunca "MegaComponent.tsx" de 300 linhas.
+<span class="com">2.</span> Tipos primeiro. Sem `any`. Use `unknown` + narrowing.
+<span class="com">3.</span> Tailwind direto no JSX. Variantes complexas via `clsx` ou `cva`.
+   Nada de CSS modules ou styled-components.
+<span class="com">4.</span> Animações via Framer Motion ou CSS transitions. Animar apenas
+   `transform` e `opacity`. Nunca `width`, `height`, `top`, `left`.
+<span class="com">5.</span> Toda animação decorativa respeita `prefers-reduced-motion`.
+   Crie `useReducedMotion` se ainda não existir.
+<span class="com">6.</span> Acessibilidade não é opcional: focus visível, ARIA quando
+   necessário, navegação por teclado funcional.
+<span class="com">7.</span> Performance: `next/image`, `next/font`, code-splitting por rota.
+   Sem libs pesadas se houver alternativa leve.
+
+<b>// estética</b>
+Inspirações: <em>vercel · linear · rauno · paco</em>. Confiante, contemporâneo,
+sem excessos. A <b>tipografia carrega o peso</b>. <em>Uma única cor de accent</em>
+ao longo do site. Monospace para metadados técnicos (stack, datas, números).
+Movimento com propósito — <em>um efeito-assinatura, não cinco</em>.
+
+<b>// convenções de código</b>
+- Arquivos: `kebab-case.tsx` para rotas; `PascalCase.tsx` para componentes.
+- Imports: (1) externos, (2) absolutos `@/...`, (3) relativos, (4) tipos.
+- `export default` só para páginas e componentes únicos; nomeados p/ utils.
+- Comentário só onde a intenção não é óbvia.
+
+<b>// processo esperado</b>
+<span class="com">1.</span> Confirme entendimento do PRD em 5 linhas antes de codar.
+<span class="com">2.</span> Proponha estrutura de pastas e roteamento. <b>Aguarde OK.</b>
+<span class="com">3.</span> Implemente design system primeiro: tokens → primitivos → layout.
+<span class="com">4.</span> Seções da home, uma por vez, com revisão entre cada.
+<span class="com">5.</span> Página de projetos e individual em seguida.
+<span class="com">6.</span> Animações por <b>último</b>, sobre conteúdo já funcional.
+<span class="com">7.</span> Auditoria final: Lighthouse ≥ 95, a11y, reduced motion.
+
+<b>// o que não fazer</b>
+✗ Material UI, Chakra ou qualquer UI kit completo.
+✗ Templates prontos copiados de exemplos.
+✗ Redux, Zustand — estado local basta.
+✗ Dark mode com classe `.dark` manual — use `next-themes`.
+✗ Copiar componentes sem entender. <b>Se em dúvida, pergunte.</b></pre>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="container foot-row">
+    <div>v1.0 · maio 2026 · documento vivo — atualize quando os tokens mudarem.</div>
+    <div>derivado de <a href="#">PRD-portfolio-v1</a></div>
+  </div>
+</footer>
+
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel">
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "accent": "#A855F7",
+  "theme": "dark",
+  "fontPair": "geist"
+}/*EDITMODE-END*/;
+
+const ACCENT_OPTIONS = [
+  { hex: '#FACC15', muted: '#422006', contrast: '#0A0A0A' }, // amber
+  { hex: '#2A6FDB', muted: '#0B1E3A', contrast: '#FAFAFA' }, // blue
+  { hex: '#22C55E', muted: '#0A2614', contrast: '#0A0A0A' }, // green
+  { hex: '#A855F7', muted: '#22103A', contrast: '#FAFAFA' }, // purple
+];
+
+const FONT_PAIRS = {
+  geist:  { sans: "'Geist', ui-sans-serif, system-ui, sans-serif",
+            mono: "'Geist Mono', ui-monospace, monospace" },
+  inter:  { sans: "'Inter', ui-sans-serif, system-ui, sans-serif",
+            mono: "'JetBrains Mono', ui-monospace, monospace" },
+};
+
+function App() {
+  const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+
+  React.useEffect(() => {
+    const root = document.documentElement;
+    const opt = ACCENT_OPTIONS.find(o => o.hex.toLowerCase() === String(t.accent).toLowerCase())
+              || ACCENT_OPTIONS[0];
+    root.style.setProperty('--accent', opt.hex);
+    root.style.setProperty('--accent-muted', opt.muted);
+    root.style.setProperty('--accent-contrast', opt.contrast);
+  }, [t.accent]);
+
+  React.useEffect(() => {
+    document.body.setAttribute('data-theme', t.theme);
+  }, [t.theme]);
+
+  React.useEffect(() => {
+    const root = document.documentElement;
+    const f = FONT_PAIRS[t.fontPair] || FONT_PAIRS.geist;
+    root.style.setProperty('--font-sans', f.sans);
+    root.style.setProperty('--font-mono', f.mono);
+  }, [t.fontPair]);
+
+  return (
+    <TweaksPanel title="Tweaks">
+      <TweakSection label="Identidade">
+        <TweakColor label="Accent" value={t.accent}
+          options={ACCENT_OPTIONS.map(o => o.hex)}
+          onChange={(v) => setTweak('accent', v)} />
+        <TweakRadio label="Tema" value={t.theme}
+          options={['dark', 'light']}
+          onChange={(v) => setTweak('theme', v)} />
+        <TweakRadio label="Fontes" value={t.fontPair}
+          options={[{value:'geist', label:'Geist'}, {value:'inter', label:'Inter'}]}
+          onChange={(v) => setTweak('fontPair', v)} />
+      </TweakSection>
+    </TweaksPanel>
+  );
+}
+
+// ── render color swatches ──────────────────────────────────────
+const COLORS = [
+  { name: 'bg / primary',    tok: '--bg-primary',     val: '#0A0A0A', col: '#0A0A0A' },
+  { name: 'bg / secondary',  tok: '--bg-secondary',   val: '#111111', col: '#111111' },
+  { name: 'bg / tertiary',   tok: '--bg-tertiary',    val: '#1A1A1A', col: '#1A1A1A' },
+  { name: 'text / primary',  tok: '--text-primary',   val: '#FAFAFA', col: '#FAFAFA' },
+  { name: 'text / secondary',tok: '--text-secondary', val: '#A1A1AA', col: '#A1A1AA' },
+  { name: 'text / tertiary', tok: '--text-tertiary',  val: '#52525B', col: '#52525B' },
+  { name: 'border / subtle', tok: '--border-subtle',  val: 'rgba(255,255,255,.08)', col: 'rgba(255,255,255,.08)', onCanvas: true },
+  { name: 'border / default',tok: '--border-default', val: 'rgba(255,255,255,.12)', col: 'rgba(255,255,255,.12)', onCanvas: true },
+  { name: 'accent',          tok: '--accent',         val: 'var(--accent)', col: 'var(--accent)' },
+  { name: 'accent / muted',  tok: '--accent-muted',   val: 'var(--accent-muted)', col: 'var(--accent-muted)' },
+  { name: 'success',         tok: '--success',        val: '#22C55E', col: '#22C55E' },
+  { name: 'danger',          tok: '--danger',         val: '#EF4444', col: '#EF4444' },
+];
+
+function Colors() {
+  return (
+    <>
+      {COLORS.map((c) => (
+        <div className="swatch" key={c.tok}>
+          <div className="swatch-chip" data-on-canvas={c.onCanvas ? 'true' : 'false'} style={{ background: c.col }} />
+          <div className="swatch-meta">
+            <div className="swatch-name">{c.name}</div>
+            <div className="swatch-tok">{c.tok}</div>
+            <div className="swatch-val">{c.val}</div>
+          </div>
+        </div>
+      ))}
+    </>
+  );
+}
+
+// ── render spacing scale ───────────────────────────────────────
+const SCALE = [4, 8, 12, 16, 24, 32, 48, 64, 96, 128, 192];
+function Scale() {
+  const max = Math.max(...SCALE);
+  return (
+    <>
+      {SCALE.map((n) => (
+        <div className="scale-row" key={n}>
+          <div className="scale-tok">space-{n}</div>
+          <div className="scale-bar" style={{ width: (n / max) * 100 + '%' }} />
+          <div className="scale-val">{n}px</div>
+        </div>
+      ))}
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('colors-mount')).render(<Colors />);
+ReactDOM.createRoot(document.getElementById('scale-mount')).render(<Scale />);
+
+const __tweaksRoot = document.createElement('div');
+document.body.appendChild(__tweaksRoot);
+ReactDOM.createRoot(__tweaksRoot).render(<App />);
+
+// copy button
+document.getElementById('copy-btn').addEventListener('click', async () => {
+  const text = document.getElementById('prompt-text').innerText;
+  try {
+    await navigator.clipboard.writeText(text);
+    const btn = document.getElementById('copy-btn');
+    btn.textContent = 'copiado ✓';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'copiar'; btn.classList.remove('copied'); }, 1600);
+  } catch (e) { console.warn(e); }
+});
+
+// smooth in-page nav
+document.querySelectorAll('.topnav a').forEach(a => {
+  a.addEventListener('click', (e) => {
+    const id = a.getAttribute('href').slice(1);
+    const el = document.getElementById(id);
+    if (!el) return;
+    e.preventDefault();
+    window.scrollTo({ top: el.offsetTop - 56, behavior: 'smooth' });
+  });
+});
+</script>
+
+</body>
+</html>
