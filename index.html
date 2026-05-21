@@ -1913,6 +1913,11 @@ footer a:hover { color: var(--accent); }
 
 <!-- ═══════════════════ SCRIPTS ═══════════════════ -->
 <script>
+// ── Scroll to top on load ────────────────────────────────────
+window.addEventListener('beforeunload', () => { window.scrollTo(0, 0); });
+if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+window.scrollTo(0, 0);
+
 // ── Scroll Reveal ────────────────────────────────────────────
 const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
