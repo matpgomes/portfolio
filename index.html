@@ -5,108 +5,137 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Matthew Palacios — Full-Stack Developer & AI Automation</title>
 <meta name="description" content="Portfólio de Matthew Palacios. Full-stack developer especializado em automações com IA, plataformas SaaS e e-commerce." />
-<meta name="theme-color" content="#0A0A0A" />
+<meta name="theme-color" content="#0B0E14" />
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
 <style>
-/* ── reset & tokens ─────────────────────────────────────────── */
+/* ══════════════════════════════════════════════════════════════
+   DESIGN TOKENS
+   ══════════════════════════════════════════════════════════════ */
 :root {
-  --bg-primary:    #0A0A0A;
-  --bg-secondary:  #111111;
-  --bg-tertiary:   #1A1A1A;
-  --text-primary:  #FAFAFA;
-  --text-secondary:#A1A1AA;
-  --text-tertiary: #52525B;
-  --border-subtle: rgba(255,255,255,0.08);
-  --border-default:rgba(255,255,255,0.12);
-  --border-strong: rgba(255,255,255,0.20);
-  --accent:        #A855F7;
-  --accent-muted:  #22103A;
-  --accent-contrast:#FAFAFA;
-  --success: #22C55E;
-  --danger:  #EF4444;
-  --radius-sm: 6px;
-  --radius-md: 10px;
-  --radius-lg: 16px;
-  --radius-xl: 24px;
-  --font-sans: 'Geist', ui-sans-serif, system-ui, -apple-system, sans-serif;
-  --font-mono: 'Geist Mono', ui-monospace, 'JetBrains Mono', monospace;
-  --ease-out-quart: cubic-bezier(0.22, 1, 0.36, 1);
-  --ease-in-out-cubic: cubic-bezier(0.65, 0, 0.35, 1);
-  --t-fast: 150ms;
-  --t-mid: 250ms;
-  --t-slow: 500ms;
+  --bg-deep:      #0B0E14;
+  --bg-card:      #111621;
+  --bg-elevated:  #181E2C;
+  --bg-hover:     #1E2536;
+  --surface:      #232B3B;
+
+  --text-main:    #E8E4DD;
+  --text-soft:    #9CA0AC;
+  --text-dim:     #5A5F6D;
+
+  --accent:       #C9A55C;
+  --accent-soft:  rgba(201,165,92,0.10);
+  --accent-glow:  rgba(201,165,92,0.25);
+  --accent-text:  #F5E6C4;
+
+  --border:       rgba(255,255,255,0.06);
+  --border-light: rgba(255,255,255,0.10);
+  --border-accent:rgba(201,165,92,0.20);
+
+  --success:      #4ADE80;
+  --danger:       #F87171;
+
+  --radius-sm:  6px;
+  --radius-md:  12px;
+  --radius-lg:  18px;
+  --radius-xl:  28px;
+
+  --font-display: 'Syne', sans-serif;
+  --font-body:    'Plus Jakarta Sans', sans-serif;
+  --font-mono:    'JetBrains Mono', monospace;
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
   color-scheme: dark;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { background: var(--bg-primary); scroll-behavior: smooth; }
+html { background: var(--bg-deep); scroll-behavior: smooth; }
 body {
-  font-family: var(--font-sans);
-  background: var(--bg-primary);
-  color: var(--text-primary);
+  font-family: var(--font-body);
+  background: var(--bg-deep);
+  color: var(--text-main);
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   min-height: 100vh;
   overflow-x: hidden;
+  line-height: 1.6;
 }
-::selection { background: var(--accent); color: var(--accent-contrast); }
+::selection { background: var(--accent); color: var(--bg-deep); }
 a { color: inherit; text-decoration: none; }
-button { font-family: inherit; cursor: pointer; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+img { max-width: 100%; display: block; }
 
-.container { max-width: 1120px; padding: 0 24px; margin: 0 auto; }
+.container { max-width: 1200px; padding: 0 28px; margin: 0 auto; }
+.container-wide { max-width: 1400px; padding: 0 28px; margin: 0 auto; }
 
-/* ── topbar ─────────────────────────────────────────────────── */
-.topbar {
+/* ══════════════════════════════════════════════════════════════
+   NOISE TEXTURE OVERLAY
+   ══════════════════════════════════════════════════════════════ */
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 9999;
+  pointer-events: none;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   NAVIGATION
+   ══════════════════════════════════════════════════════════════ */
+.nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-  backdrop-filter: blur(16px) saturate(160%);
-  -webkit-backdrop-filter: blur(16px) saturate(160%);
-  background: color-mix(in srgb, var(--bg-primary) 72%, transparent);
-  border-bottom: 1px solid var(--border-subtle);
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+  background: rgba(11,14,20,0.75);
+  border-bottom: 1px solid var(--border);
   transform: translateY(-100%);
-  animation: slideDown 0.6s var(--ease-out-quart) 0.2s forwards;
+  animation: slideDown 0.7s var(--ease-out) 0.15s forwards;
 }
-@keyframes slideDown {
-  to { transform: translateY(0); }
-}
-.topbar-inner {
-  display: flex; align-items: center; justify-content: space-between;
-  height: 56px;
-}
-.brand {
-  display: flex; align-items: center; gap: 10px;
-  font-family: var(--font-mono);
-  font-size: 13px;
-  color: var(--text-primary);
-}
-.brand-dot {
-  width: 8px; height: 8px; border-radius: 999px;
-  background: var(--accent);
-  box-shadow: 0 0 12px color-mix(in srgb, var(--accent) 70%, transparent);
-  animation: pulse 3s ease-in-out infinite;
-}
-@keyframes pulse {
-  0%, 100% { box-shadow: 0 0 12px color-mix(in srgb, var(--accent) 70%, transparent); }
-  50% { box-shadow: 0 0 24px color-mix(in srgb, var(--accent) 90%, transparent), 0 0 48px color-mix(in srgb, var(--accent) 30%, transparent); }
-}
-.brand b { font-weight: 500; }
-.topnav { display: flex; gap: 4px; }
-.topnav a {
-  font-family: var(--font-mono); font-size: 12px;
-  color: var(--text-secondary); padding: 6px 10px;
-  border-radius: var(--radius-sm);
-  transition: color var(--t-fast), background var(--t-fast);
-}
-.topnav a:hover { color: var(--text-primary); background: var(--bg-tertiary); }
+@keyframes slideDown { to { transform: translateY(0); } }
 
-/* ── hero ───────────────────────────────────────────────────── */
+.nav-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  height: 64px;
+}
+.nav-brand {
+  display: flex; align-items: center; gap: 12px;
+  font-family: var(--font-display);
+  font-weight: 700; font-size: 18px;
+  letter-spacing: -0.02em;
+}
+.nav-brand-accent {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 16px var(--accent-glow);
+  animation: glow 3s ease-in-out infinite;
+}
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 12px var(--accent-glow); }
+  50% { box-shadow: 0 0 28px var(--accent-glow), 0 0 48px rgba(201,165,92,0.08); }
+}
+.nav-links { display: flex; gap: 6px; }
+.nav-links a {
+  font-family: var(--font-mono); font-size: 12px; font-weight: 500;
+  color: var(--text-soft); padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  transition: all 0.2s;
+  letter-spacing: 0.02em;
+}
+.nav-links a:hover { color: var(--text-main); background: var(--bg-elevated); }
+
+/* ══════════════════════════════════════════════════════════════
+   HERO
+   ══════════════════════════════════════════════════════════════ */
 .hero {
-  padding: 160px 0 120px;
+  padding: 180px 0 100px;
   position: relative;
   overflow: hidden;
   min-height: 100vh;
@@ -117,480 +146,970 @@ button { font-family: inherit; cursor: pointer; }
   content: '';
   position: absolute; inset: 0;
   background:
-    radial-gradient(60% 50% at 70% 10%, color-mix(in srgb, var(--accent) 12%, transparent), transparent 70%),
-    radial-gradient(40% 40% at 0% 80%, color-mix(in srgb, var(--accent) 6%, transparent), transparent 70%);
+    radial-gradient(ellipse 70% 50% at 65% 0%, rgba(201,165,92,0.06) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 60% at 0% 80%, rgba(201,165,92,0.03) 0%, transparent 60%);
   pointer-events: none;
 }
-
-/* grid lines background */
 .hero::after {
   content: '';
   position: absolute; inset: 0;
   background-image:
-    linear-gradient(var(--border-subtle) 1px, transparent 1px),
-    linear-gradient(90deg, var(--border-subtle) 1px, transparent 1px);
-  background-size: 80px 80px;
-  mask-image: radial-gradient(ellipse 60% 50% at 50% 50%, black 20%, transparent 70%);
-  -webkit-mask-image: radial-gradient(ellipse 60% 50% at 50% 50%, black 20%, transparent 70%);
+    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 100px 100px;
+  mask-image: radial-gradient(ellipse 50% 40% at 50% 30%, black 10%, transparent 60%);
+  -webkit-mask-image: radial-gradient(ellipse 50% 40% at 50% 30%, black 10%, transparent 60%);
   pointer-events: none;
   opacity: 0;
-  animation: fadeIn 1.5s var(--ease-out-quart) 0.3s forwards;
+  animation: fadeIn 2s var(--ease-out) 0.4s forwards;
 }
+@keyframes fadeIn { to { opacity: 1; } }
 
-.hero-content { position: relative; width: 100%; }
+.hero-content { position: relative; width: 100%; max-width: 840px; }
 
-.eyebrow {
-  display: inline-flex; align-items: center; gap: 8px;
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 10px;
   font-family: var(--font-mono); font-size: 12px;
-  color: var(--text-secondary);
-  margin-bottom: 24px;
+  color: var(--text-soft); letter-spacing: 0.05em;
+  margin-bottom: 28px;
   opacity: 0; transform: translateY(20px);
-  animation: revealUp 0.7s var(--ease-out-quart) 0.4s forwards;
+  animation: revealUp 0.7s var(--ease-out) 0.4s forwards;
 }
-.eyebrow::before {
-  content: ''; width: 6px; height: 6px; border-radius: 999px;
+.hero-eyebrow::before {
+  content: '';
+  width: 7px; height: 7px; border-radius: 50%;
   background: var(--success);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--success) 28%, transparent);
+  box-shadow: 0 0 0 4px rgba(74,222,128,0.18);
 }
 
-.display {
-  font-size: clamp(48px, 8vw, 88px);
-  font-weight: 500;
-  line-height: 0.96;
-  letter-spacing: -0.045em;
-  margin: 0 0 32px;
-  max-width: 14ch;
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(44px, 7.5vw, 84px);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  margin-bottom: 32px;
 }
-.display .line {
+.hero-title .line {
   display: block;
   opacity: 0; transform: translateY(40px);
-  animation: revealUp 0.8s var(--ease-out-quart) forwards;
+  animation: revealUp 0.85s var(--ease-out) forwards;
 }
-.display .line:nth-child(1) { animation-delay: 0.5s; }
-.display .line:nth-child(2) { animation-delay: 0.6s; }
-.display .line:nth-child(3) { animation-delay: 0.7s; }
-.display em { font-style: normal; color: var(--text-tertiary); font-weight: 400; }
-.display .ink { color: var(--accent); }
+.hero-title .line:nth-child(1) { animation-delay: 0.5s; }
+.hero-title .line:nth-child(2) { animation-delay: 0.62s; }
+.hero-title .line:nth-child(3) { animation-delay: 0.74s; }
+.hero-title .subtle { color: var(--text-dim); font-weight: 500; }
+.hero-title .gold { color: var(--accent); }
 
-.lede {
-  font-size: 18px; line-height: 1.65;
-  color: var(--text-secondary);
-  max-width: 56ch; margin: 0 0 40px;
+.hero-desc {
+  font-size: 18px; line-height: 1.7;
+  color: var(--text-soft);
+  max-width: 52ch; margin-bottom: 40px;
   opacity: 0; transform: translateY(20px);
-  animation: revealUp 0.7s var(--ease-out-quart) 0.9s forwards;
+  animation: revealUp 0.7s var(--ease-out) 0.9s forwards;
 }
-.lede strong { color: var(--text-primary); font-weight: 500; }
+.hero-desc strong { color: var(--text-main); font-weight: 600; }
 
-.hero-cta {
+.hero-actions {
   display: flex; flex-wrap: wrap; gap: 12px; align-items: center;
   opacity: 0; transform: translateY(20px);
-  animation: revealUp 0.7s var(--ease-out-quart) 1.05s forwards;
+  animation: revealUp 0.7s var(--ease-out) 1.05s forwards;
 }
 
-.hero-stats {
-  display: flex; flex-wrap: wrap; gap: 48px;
-  margin-top: 64px;
+.hero-metrics {
+  display: flex; flex-wrap: wrap; gap: 56px;
+  margin-top: 72px;
   opacity: 0; transform: translateY(20px);
-  animation: revealUp 0.7s var(--ease-out-quart) 1.2s forwards;
+  animation: revealUp 0.7s var(--ease-out) 1.2s forwards;
 }
-.stat-num {
-  font-size: 36px; font-weight: 600; letter-spacing: -0.03em;
-  color: var(--text-primary);
+.metric-value {
+  font-family: var(--font-display);
+  font-size: 40px; font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--text-main);
   font-variant-numeric: tabular-nums;
 }
-.stat-label {
-  font-family: var(--font-mono); font-size: 12px;
-  color: var(--text-tertiary); margin-top: 4px;
+.metric-label {
+  font-family: var(--font-mono); font-size: 11px;
+  color: var(--text-dim); margin-top: 4px;
+  letter-spacing: 0.04em; text-transform: uppercase;
 }
 
 @keyframes revealUp {
   to { opacity: 1; transform: translateY(0); }
 }
-@keyframes fadeIn {
-  to { opacity: 1; }
-}
 
-/* ── buttons ────────────────────────────────────────────────── */
+/* ══════════════════════════════════════════════════════════════
+   BUTTONS
+   ══════════════════════════════════════════════════════════════ */
 .btn {
   display: inline-flex; align-items: center; gap: 8px;
-  font-size: 14px; font-weight: 500;
-  height: 42px; padding: 0 20px;
+  font-family: var(--font-body);
+  font-size: 14px; font-weight: 600;
+  height: 46px; padding: 0 24px;
   border-radius: var(--radius-md);
   border: 1px solid transparent;
-  background: transparent; color: var(--text-primary);
   position: relative; overflow: hidden;
-  transition: all var(--t-mid) var(--ease-out-quart);
+  transition: all 0.3s var(--ease-out);
+  letter-spacing: 0.01em;
 }
 .btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
-.btn-primary {
-  background: var(--text-primary); color: var(--bg-primary);
-}
-.btn-primary::before {
-  content: ''; position: absolute; left: 0; right: 0; bottom: 0; top: 100%;
+.btn-gold {
   background: var(--accent);
-  transition: top var(--t-mid) var(--ease-out-quart);
+  color: var(--bg-deep);
 }
-.btn-primary:hover { color: var(--accent-contrast); }
-.btn-primary:hover::before { top: 0; }
-.btn-primary span { position: relative; }
+.btn-gold::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.15), transparent 60%);
+  opacity: 0; transition: opacity 0.3s;
+}
+.btn-gold:hover::before { opacity: 1; }
+.btn-gold:hover {
+  box-shadow: 0 8px 32px -8px var(--accent-glow);
+  transform: translateY(-2px);
+}
 
-.btn-secondary {
-  background: var(--bg-tertiary);
-  border-color: var(--border-default);
+.btn-ghost {
+  background: var(--bg-elevated);
+  border-color: var(--border-light);
+  color: var(--text-main);
 }
-.btn-secondary:hover {
-  background: var(--bg-secondary);
-  border-color: var(--border-strong);
+.btn-ghost:hover {
+  background: var(--bg-hover);
+  border-color: var(--border-accent);
 }
-.btn .arrow { transition: transform var(--t-mid) var(--ease-out-quart); }
+
+.btn .arrow {
+  transition: transform 0.3s var(--ease-out);
+  font-size: 16px;
+}
 .btn:hover .arrow { transform: translateX(3px); }
 
-/* ── sections ───────────────────────────────────────────────── */
+/* ══════════════════════════════════════════════════════════════
+   SECTIONS
+   ══════════════════════════════════════════════════════════════ */
 section.block {
   padding: 120px 0;
-  border-bottom: 1px solid var(--border-subtle);
-}
-.section-head {
-  display: grid; gap: 8px;
-  margin-bottom: 56px;
-}
-.section-num {
-  font-family: var(--font-mono); font-size: 12px;
-  color: var(--text-tertiary);
-}
-.section-title {
-  font-size: clamp(28px, 4vw, 44px);
-  font-weight: 500;
-  letter-spacing: -0.03em;
-  margin: 0;
-}
-.section-sub {
-  color: var(--text-secondary);
-  font-size: 16px; line-height: 1.6;
-  max-width: 64ch; margin: 4px 0 0;
-}
-
-/* ── scroll reveal ──────────────────────────────────────────── */
-.reveal {
-  opacity: 0;
-  transform: translateY(32px);
-  transition: opacity 0.7s var(--ease-out-quart), transform 0.7s var(--ease-out-quart);
-}
-.reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-.reveal-delay-1 { transition-delay: 0.1s; }
-.reveal-delay-2 { transition-delay: 0.2s; }
-.reveal-delay-3 { transition-delay: 0.3s; }
-.reveal-delay-4 { transition-delay: 0.4s; }
-.reveal-delay-5 { transition-delay: 0.5s; }
-
-/* ── filter tabs ────────────────────────────────────────────── */
-.filter-bar {
-  display: flex; flex-wrap: wrap; gap: 4px;
-  margin-bottom: 40px;
+  border-bottom: 1px solid var(--border);
   position: relative;
 }
-.filter-btn {
-  font-family: var(--font-mono); font-size: 12px;
-  color: var(--text-secondary);
-  padding: 8px 16px; border-radius: var(--radius-sm);
-  border: 1px solid transparent;
-  background: transparent;
-  transition: all var(--t-mid) var(--ease-out-quart);
+.section-label {
+  font-family: var(--font-mono); font-size: 11px;
+  color: var(--accent); letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
 }
-.filter-btn:hover { color: var(--text-primary); background: var(--bg-tertiary); }
-.filter-btn.active {
-  color: var(--text-primary);
-  background: var(--bg-tertiary);
-  border-color: var(--border-default);
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  margin-bottom: 8px;
+  line-height: 1.1;
+}
+.section-desc {
+  color: var(--text-soft);
+  font-size: 16px; line-height: 1.7;
+  max-width: 56ch; margin-top: 8px;
 }
 
-/* ── project cards ──────────────────────────────────────────── */
-.projects-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
+/* ══════════════════════════════════════════════════════════════
+   SCROLL REVEAL
+   ══════════════════════════════════════════════════════════════ */
+.reveal {
+  opacity: 0;
+  transform: translateY(36px);
+  transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
 }
-@media (max-width: 720px) { .projects-grid { grid-template-columns: 1fr; } }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-d1 { transition-delay: 0.1s; }
+.reveal-d2 { transition-delay: 0.2s; }
+.reveal-d3 { transition-delay: 0.3s; }
+.reveal-d4 { transition-delay: 0.4s; }
 
-.pc {
-  display: grid; gap: 16px;
-  padding: 20px;
-  background: var(--bg-secondary);
-  border: 1px solid var(--border-subtle);
+/* ══════════════════════════════════════════════════════════════
+   SCREENSHOT MOCKUP
+   ══════════════════════════════════════════════════════════════ */
+.mockup {
+  position: relative;
   border-radius: var(--radius-lg);
-  text-decoration: none;
-  color: var(--text-primary);
-  transition: all var(--t-mid) var(--ease-out-quart);
+  overflow: hidden;
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  cursor: pointer;
+  animation: floatIdle 6s ease-in-out infinite;
+  transition: transform 0.5s var(--ease-out), box-shadow 0.5s var(--ease-out), border-color 0.4s;
+}
+.mockup:hover {
+  transform: translateY(-8px) scale(1.01);
+  box-shadow: 0 24px 64px -16px rgba(0,0,0,0.5), 0 0 0 1px var(--border-accent);
+  border-color: var(--accent);
+  animation-play-state: paused;
+}
+
+@keyframes floatIdle {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+}
+.mockup-delay-1 { animation-delay: -1s; }
+.mockup-delay-2 { animation-delay: -2s; }
+.mockup-delay-3 { animation-delay: -3s; }
+.mockup-delay-4 { animation-delay: -4s; }
+
+.mockup-bar {
+  display: flex; align-items: center; gap: 8px;
+  padding: 10px 16px;
+  background: var(--bg-elevated);
+  border-bottom: 1px solid var(--border);
+}
+.mockup-dots {
+  display: flex; gap: 6px;
+}
+.mockup-dots span {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--surface);
+}
+.mockup-url {
+  flex: 1;
+  font-family: var(--font-mono); font-size: 11px;
+  color: var(--text-dim);
+  background: var(--bg-deep);
+  padding: 4px 12px;
+  border-radius: var(--radius-sm);
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.mockup img {
+  width: 100%; display: block;
+  transition: transform 0.6s var(--ease-out);
+}
+.mockup:hover img {
+  transform: scale(1.02);
+}
+
+/* no browser bar variant */
+.mockup-clean {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  cursor: pointer;
+  animation: floatIdle 6s ease-in-out infinite;
+  transition: transform 0.5s var(--ease-out), box-shadow 0.5s var(--ease-out);
+  border: 1px solid var(--border-light);
+}
+.mockup-clean:hover {
+  transform: translateY(-8px) scale(1.01);
+  box-shadow: 0 24px 64px -16px rgba(0,0,0,0.5), 0 0 0 1px var(--border-accent);
+  animation-play-state: paused;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   FEATURED PROJECT SHOWCASE
+   ══════════════════════════════════════════════════════════════ */
+.showcase {
+  padding: 100px 0;
+  border-bottom: 1px solid var(--border);
   position: relative;
   overflow: hidden;
 }
-.pc::before {
+.showcase::before {
   content: '';
   position: absolute; inset: 0;
-  background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%),
-    color-mix(in srgb, var(--card-accent, var(--accent)) 8%, transparent),
-    transparent 60%);
-  opacity: 0;
-  transition: opacity 0.4s;
   pointer-events: none;
 }
-.pc:hover::before { opacity: 1; }
-.pc:hover {
-  transform: translateY(-4px);
-  border-color: color-mix(in srgb, var(--card-accent, var(--accent)) 50%, transparent);
-  box-shadow: 0 12px 40px -12px color-mix(in srgb, var(--card-accent, var(--accent)) 15%, transparent);
+.showcase-elegeia::before {
+  background: radial-gradient(ellipse 60% 50% at 80% 30%, rgba(139,92,246,0.04), transparent 60%);
+}
+.showcase-theog::before {
+  background: radial-gradient(ellipse 60% 50% at 20% 60%, rgba(245,158,11,0.03), transparent 60%);
+}
+.showcase-5sbrand::before {
+  background: radial-gradient(ellipse 60% 50% at 80% 40%, rgba(201,165,92,0.03), transparent 60%);
 }
 
-.pc-featured {
-  grid-column: 1 / -1;
-  display: grid;
-  grid-template-columns: 1.2fr 1fr;
-  gap: 24px;
+.showcase-header {
+  margin-bottom: 48px;
 }
-@media (max-width: 720px) { .pc-featured { grid-template-columns: 1fr; } }
-
-.pc-cover {
-  aspect-ratio: 16/10;
-  border-radius: var(--radius-md);
-  position: relative; overflow: hidden;
-  border: 1px solid var(--border-subtle);
-}
-.pc-cover-bg {
-  position: absolute; inset: 0;
-  background: var(--card-gradient);
-}
-.pc-cover-pattern {
-  position: absolute; inset: 0;
-  transition: transform 0.6s var(--ease-out-quart);
-}
-.pc:hover .pc-cover-pattern { transform: scale(1.05); }
-
-/* cover pattern variants */
-.pattern-grid .pc-cover-pattern {
-  background-image:
-    linear-gradient(var(--card-accent) 1px, transparent 1px),
-    linear-gradient(90deg, var(--card-accent) 1px, transparent 1px);
-  background-size: 32px 32px;
-  opacity: 0.08;
-}
-.pattern-dots .pc-cover-pattern {
-  background-image: radial-gradient(circle, var(--card-accent) 1px, transparent 1px);
-  background-size: 20px 20px;
-  opacity: 0.12;
-}
-.pattern-lines .pc-cover-pattern {
-  background-image: repeating-linear-gradient(
-    135deg, transparent 0 9px,
-    color-mix(in srgb, var(--card-accent) 12%, transparent) 9px 10px
-  );
-}
-.pattern-wave .pc-cover-pattern {
-  background-image: repeating-linear-gradient(
-    45deg, transparent 0 14px,
-    color-mix(in srgb, var(--card-accent) 8%, transparent) 14px 15px
-  );
-}
-
-.pc-cover-icon {
-  position: absolute;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 48px;
-  opacity: 0.6;
-  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.3));
-}
-
-.pc-cover-label {
-  position: absolute; left: 14px; bottom: 12px;
+.showcase-tag {
+  display: inline-flex; align-items: center; gap: 8px;
   font-family: var(--font-mono); font-size: 11px;
-  color: var(--text-secondary);
-  background: color-mix(in srgb, var(--bg-primary) 75%, transparent);
-  backdrop-filter: blur(6px);
-  padding: 4px 8px; border-radius: var(--radius-sm);
-  border: 1px solid var(--border-subtle);
+  padding: 5px 14px;
+  border-radius: 999px;
+  margin-bottom: 20px;
+  letter-spacing: 0.04em;
+}
+.tag-saas {
+  background: rgba(139,92,246,0.10);
+  color: #B794F6;
+  border: 1px solid rgba(139,92,246,0.15);
+}
+.tag-ecommerce {
+  background: rgba(245,158,11,0.10);
+  color: #FBD38D;
+  border: 1px solid rgba(245,158,11,0.15);
+}
+.tag-ia {
+  background: rgba(201,165,92,0.10);
+  color: var(--accent-text);
+  border: 1px solid var(--border-accent);
 }
 
-.pc-body { display: grid; gap: 12px; }
-.pc-row {
-  display: flex; align-items: center; justify-content: space-between;
-  font-family: var(--font-mono); font-size: 11px; color: var(--text-tertiary);
+.showcase-title {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  margin-bottom: 12px;
+  line-height: 1.1;
 }
-.pc-title {
-  font-size: 22px; font-weight: 500; letter-spacing: -0.02em; margin: 0;
+.showcase-desc {
+  color: var(--text-soft);
+  font-size: 16px; line-height: 1.75;
+  max-width: 60ch;
 }
-.pc-featured .pc-title { font-size: 28px; }
-.pc-desc {
-  color: var(--text-secondary); margin: 0; line-height: 1.6; font-size: 14px;
+.showcase-proof {
+  margin-top: 20px;
+  display: flex; flex-wrap: wrap; gap: 24px;
 }
-.pc-stack { display: flex; flex-wrap: wrap; gap: 6px; }
+.proof-item {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 14px; color: var(--text-soft);
+}
+.proof-num {
+  font-family: var(--font-display);
+  font-size: 22px; font-weight: 700;
+  color: var(--accent);
+}
+.showcase-stack {
+  display: flex; flex-wrap: wrap; gap: 6px;
+  margin-top: 20px;
+}
 
-/* ── badges ─────────────────────────────────────────────────── */
+.showcase-screens {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 20px;
+  margin-top: 12px;
+}
+.showcase-screens-single {
+  max-width: 900px;
+}
+.showcase-screens-equal {
+  grid-template-columns: 1fr 1fr;
+}
+@media (max-width: 768px) {
+  .showcase-screens,
+  .showcase-screens-equal { grid-template-columns: 1fr; }
+}
+
+.showcase-cta {
+  margin-top: 28px;
+  display: flex; gap: 12px; flex-wrap: wrap;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   BADGES
+   ══════════════════════════════════════════════════════════════ */
 .badge {
   display: inline-flex; align-items: center; gap: 6px;
   font-family: var(--font-mono); font-size: 11px;
-  padding: 4px 10px;
+  padding: 4px 11px;
   border-radius: var(--radius-sm);
-  background: var(--bg-tertiary);
-  color: var(--text-secondary);
-  border: 1px solid var(--border-subtle);
+  background: var(--bg-elevated);
+  color: var(--text-soft);
+  border: 1px solid var(--border);
+  letter-spacing: 0.02em;
 }
-.badge-dot {
-  width: 6px; height: 6px; border-radius: 999px;
-  background: var(--text-tertiary);
+.badge-live {
+  color: var(--success);
 }
-.badge.live .badge-dot {
+.badge-live::before {
+  content: '';
+  width: 6px; height: 6px; border-radius: 50%;
   background: var(--success);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--success) 22%, transparent);
+  box-shadow: 0 0 0 3px rgba(74,222,128,0.18);
 }
-.badge.wip .badge-dot { background: var(--accent); }
 
-/* ── featured marquee (horizontal scroll for categories) ───── */
-.cat-label {
+/* ══════════════════════════════════════════════════════════════
+   PROJECT CARDS (for non-featured projects)
+   ══════════════════════════════════════════════════════════════ */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+@media (max-width: 900px) { .projects-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .projects-grid { grid-template-columns: 1fr; } }
+
+.pcard {
+  padding: 28px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  transition: all 0.35s var(--ease-out);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.pcard::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%),
+    rgba(201,165,92,0.06), transparent 60%);
+  opacity: 0; transition: opacity 0.4s;
+  pointer-events: none;
+}
+.pcard:hover::before { opacity: 1; }
+.pcard:hover {
+  transform: translateY(-4px);
+  border-color: var(--border-accent);
+  box-shadow: 0 16px 48px -12px rgba(0,0,0,0.35);
+}
+
+.pcard-top {
+  display: flex; align-items: center; justify-content: space-between;
+}
+.pcard-icon {
+  font-size: 28px;
+}
+.pcard-year {
   font-family: var(--font-mono); font-size: 11px;
-  text-transform: uppercase; letter-spacing: 0.08em;
-  color: var(--text-tertiary);
-  margin-bottom: 20px;
-  padding-bottom: 12px;
-  border-bottom: 1px solid var(--border-subtle);
+  color: var(--text-dim);
+}
+.pcard-title {
+  font-family: var(--font-display);
+  font-size: 20px; font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+.pcard-desc {
+  color: var(--text-soft);
+  font-size: 14px; line-height: 1.65;
+  flex: 1;
+}
+.pcard-proof {
+  font-size: 13px;
+  color: var(--accent);
+  font-weight: 500;
+  display: flex; align-items: center; gap: 6px;
+}
+.pcard-proof::before {
+  content: '★';
+  font-size: 10px;
+}
+.pcard-stack {
+  display: flex; flex-wrap: wrap; gap: 5px;
+}
+.pcard-stack .badge { font-size: 10px; padding: 3px 8px; }
+
+/* ══════════════════════════════════════════════════════════════
+   SOCIAL PROOF BANNER
+   ══════════════════════════════════════════════════════════════ */
+.proof-banner {
+  padding: 80px 0;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-card);
+}
+.proof-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+  text-align: center;
+}
+@media (max-width: 768px) { .proof-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; } }
+.proof-big {
+  font-family: var(--font-display);
+  font-size: 44px; font-weight: 800;
+  color: var(--accent);
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+.proof-text {
+  font-size: 14px; color: var(--text-soft);
+  margin-top: 8px;
 }
 
-/* ── stack section ──────────────────────────────────────────── */
+/* ══════════════════════════════════════════════════════════════
+   STACK SECTION
+   ══════════════════════════════════════════════════════════════ */
 .stack-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 1px;
-  background: var(--border-subtle);
-  border: 1px solid var(--border-subtle);
+  background: var(--border);
+  border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   overflow: hidden;
 }
 .stack-item {
-  padding: 24px;
-  background: var(--bg-secondary);
-  transition: background var(--t-mid);
+  padding: 26px;
+  background: var(--bg-card);
+  transition: background 0.25s;
 }
-.stack-item:hover { background: var(--bg-tertiary); }
+.stack-item:hover { background: var(--bg-elevated); }
 .stack-item h4 {
-  font-size: 15px; font-weight: 500; margin: 0 0 6px;
+  font-family: var(--font-display);
+  font-size: 15px; font-weight: 600; margin-bottom: 6px;
 }
 .stack-item p {
   font-family: var(--font-mono); font-size: 12px;
-  color: var(--text-tertiary); margin: 0; line-height: 1.5;
+  color: var(--text-dim); line-height: 1.5;
 }
 
-/* ── about section ──────────────────────────────────────────── */
-.about-top {
+/* ══════════════════════════════════════════════════════════════
+   ABOUT
+   ══════════════════════════════════════════════════════════════ */
+.about-layout {
   display: grid;
-  grid-template-columns: 280px 1fr;
+  grid-template-columns: 260px 1fr;
   gap: 56px;
   align-items: start;
   margin-bottom: 48px;
 }
-@media (max-width: 720px) { .about-top { grid-template-columns: 1fr; gap: 32px; } }
+@media (max-width: 768px) { .about-layout { grid-template-columns: 1fr; gap: 32px; } }
+
 .about-photo {
   border-radius: var(--radius-xl);
   overflow: hidden;
-  border: 1px solid var(--border-default);
+  border: 1px solid var(--border-light);
+  position: relative;
 }
-.about-photo img {
-  width: 100%; display: block;
+.about-photo::after {
+  content: '';
+  position: absolute; inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 -40px 60px -20px rgba(11,14,20,0.4);
+  pointer-events: none;
 }
+.about-photo img { width: 100%; display: block; }
+
+.about-text {
+  font-size: 17px; line-height: 1.75;
+  color: var(--text-soft);
+}
+.about-text p { margin-bottom: 20px; }
+.about-text p:last-child { margin-bottom: 0; }
+.about-text strong { color: var(--text-main); font-weight: 600; }
+
 .about-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 1px;
-  background: var(--border-subtle);
-  border: 1px solid var(--border-subtle);
+  background: var(--border);
+  border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   overflow: hidden;
 }
-@media (max-width: 720px) { .about-grid { grid-template-columns: repeat(2, 1fr); } }
-.about-text {
-  font-size: 17px; line-height: 1.7;
-  color: var(--text-secondary);
-}
-.about-text p { margin: 0 0 20px; }
-.about-text p:last-child { margin: 0; }
-.about-text strong { color: var(--text-primary); font-weight: 500; }
+@media (max-width: 768px) { .about-grid { grid-template-columns: repeat(2, 1fr); } }
 
-/* ── contact / CTA ──────────────────────────────────────────── */
-.cta-section {
+/* ══════════════════════════════════════════════════════════════
+   CTA / CONTACT
+   ══════════════════════════════════════════════════════════════ */
+.cta {
   padding: 120px 0;
   text-align: center;
   position: relative;
   overflow: hidden;
 }
-.cta-section::before {
+.cta::before {
   content: '';
   position: absolute; inset: 0;
-  background: radial-gradient(50% 50% at 50% 100%,
-    color-mix(in srgb, var(--accent) 10%, transparent), transparent 70%);
+  background: radial-gradient(50% 60% at 50% 100%, rgba(201,165,92,0.06), transparent 70%);
   pointer-events: none;
 }
 .cta-title {
+  font-family: var(--font-display);
   font-size: clamp(32px, 5vw, 56px);
-  font-weight: 500; letter-spacing: -0.03em;
-  margin: 0 0 20px;
+  font-weight: 800; letter-spacing: -0.03em;
+  margin-bottom: 20px;
   position: relative;
 }
-.cta-sub {
-  font-size: 17px; color: var(--text-secondary);
+.cta-title .gold { color: var(--accent); }
+.cta-desc {
+  font-size: 17px; color: var(--text-soft);
   max-width: 48ch; margin: 0 auto 36px;
-  line-height: 1.6;
-  position: relative;
+  line-height: 1.7; position: relative;
 }
-.cta-links {
-  display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
+.cta-actions {
+  display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;
   position: relative;
 }
 
-/* ── footer ─────────────────────────────────────────────────── */
+/* ══════════════════════════════════════════════════════════════
+   FOOTER
+   ══════════════════════════════════════════════════════════════ */
 footer.foot {
   padding: 48px 0 64px;
-  border-top: 1px solid var(--border-subtle);
+  border-top: 1px solid var(--border);
 }
 .foot-row {
-  display: flex; justify-content: space-between; align-items: baseline;
+  display: flex; justify-content: space-between; align-items: center;
   gap: 24px; flex-wrap: wrap;
   font-family: var(--font-mono); font-size: 12px;
-  color: var(--text-tertiary);
+  color: var(--text-dim);
 }
 footer a {
-  color: var(--text-secondary);
-  border-bottom: 1px dashed var(--border-default);
-  transition: color var(--t-fast);
+  color: var(--text-soft);
+  border-bottom: 1px dashed var(--border-light);
+  transition: color 0.2s;
 }
-footer a:hover { color: var(--text-primary); }
+footer a:hover { color: var(--accent); }
 
-/* ── project card hide/show animation ───────────────────────── */
-.pc[data-visible="false"] {
-  display: none;
+/* ══════════════════════════════════════════════════════════════
+   FILTER TABS
+   ══════════════════════════════════════════════════════════════ */
+.filter-bar {
+  display: flex; flex-wrap: wrap; gap: 4px;
+  margin-bottom: 40px;
+}
+.filter-btn {
+  font-family: var(--font-mono); font-size: 12px;
+  color: var(--text-soft); padding: 8px 18px;
+  border-radius: var(--radius-sm);
+  transition: all 0.25s var(--ease-out);
+  letter-spacing: 0.02em;
+}
+.filter-btn:hover { color: var(--text-main); background: var(--bg-elevated); }
+.filter-btn.active {
+  color: var(--accent);
+  background: var(--accent-soft);
+  border: 1px solid var(--border-accent);
 }
 
-/* ── scrollbar ──────────────────────────────────────────────── */
+/* ══════════════════════════════════════════════════════════════
+   IMAGE PLACEHOLDER (rich visual mockup when no image file)
+   ══════════════════════════════════════════════════════════════ */
+.img-placeholder {
+  width: 100%;
+  aspect-ratio: 16/10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text-dim);
+  background: linear-gradient(135deg, var(--bg-elevated), var(--bg-deep));
+}
+
+/* Rich placeholder screens */
+.screen-mock {
+  width: 100%; aspect-ratio: 16/10;
+  position: relative; overflow: hidden;
+}
+
+/* ElegeIA inbox mock */
+.screen-elegeia {
+  background: linear-gradient(135deg, #0C1527 0%, #111B30 100%);
+  display: grid;
+  grid-template-columns: 180px 240px 1fr;
+}
+.screen-elegeia .se-sidebar {
+  background: #0A1020;
+  padding: 20px 14px;
+  border-right: 1px solid rgba(255,255,255,0.06);
+  display: flex; flex-direction: column; gap: 6px;
+}
+.screen-elegeia .se-logo {
+  font-family: var(--font-display); font-size: 14px; font-weight: 700;
+  color: var(--accent-text); padding: 8px 0 16px;
+  letter-spacing: 0.02em;
+}
+.screen-elegeia .se-nav-item {
+  height: 32px; border-radius: 6px;
+  background: rgba(255,255,255,0.03);
+  display: flex; align-items: center; padding: 0 10px;
+  font-size: 11px; color: var(--text-dim);
+}
+.screen-elegeia .se-nav-item.active {
+  background: rgba(201,165,92,0.08);
+  color: var(--accent);
+}
+.screen-elegeia .se-inbox {
+  background: #0D1628;
+  border-right: 1px solid rgba(255,255,255,0.06);
+  padding: 16px;
+}
+.screen-elegeia .se-inbox-title {
+  font-family: var(--font-display); font-size: 15px; font-weight: 600;
+  margin-bottom: 14px; color: var(--text-main);
+}
+.screen-elegeia .se-contact {
+  padding: 10px; border-radius: 8px;
+  background: rgba(201,165,92,0.05);
+  border: 1px solid rgba(201,165,92,0.1);
+  margin-bottom: 8px;
+}
+.screen-elegeia .se-contact-name {
+  font-size: 12px; font-weight: 600; color: var(--text-main);
+}
+.screen-elegeia .se-contact-msg {
+  font-size: 10px; color: var(--text-dim); margin-top: 3px;
+}
+.screen-elegeia .se-chat {
+  padding: 16px; display: flex; flex-direction: column;
+  gap: 10px; justify-content: flex-end;
+}
+.screen-elegeia .se-bubble {
+  max-width: 70%; padding: 10px 14px; border-radius: 12px;
+  font-size: 11px; line-height: 1.5;
+}
+.screen-elegeia .se-bubble.user {
+  background: rgba(255,255,255,0.05);
+  color: var(--text-soft); align-self: flex-start;
+  border-bottom-left-radius: 4px;
+}
+.screen-elegeia .se-bubble.ai {
+  background: rgba(74,222,128,0.08);
+  border: 1px solid rgba(74,222,128,0.12);
+  color: #a3e4b8; align-self: flex-end;
+  border-bottom-right-radius: 4px;
+}
+.screen-elegeia .se-ai-badge {
+  font-size: 9px; color: var(--success);
+  margin-bottom: 4px; display: flex; align-items: center; gap: 4px;
+}
+.screen-elegeia .se-ai-badge::before {
+  content: '✦'; font-size: 8px;
+}
+
+/* The OG Store mock */
+.screen-theog-store {
+  background: #0a0a0a;
+  display: flex; flex-direction: column;
+}
+.screen-theog-store .st-topbar {
+  background: #111; display: flex; align-items: center;
+  justify-content: space-between; padding: 12px 24px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.screen-theog-store .st-logo {
+  font-family: var(--font-display); font-size: 18px; font-weight: 800;
+  color: #fff; letter-spacing: 0.04em;
+}
+.screen-theog-store .st-nav {
+  display: flex; gap: 16px;
+}
+.screen-theog-store .st-nav span {
+  font-size: 10px; font-weight: 600; text-transform: uppercase;
+  color: var(--text-dim); letter-spacing: 0.06em;
+}
+.screen-theog-store .st-hero {
+  flex: 1; display: flex; align-items: flex-end;
+  padding: 32px;
+  background: linear-gradient(180deg, rgba(100,40,120,0.15) 0%, #0a0a0a 100%);
+  position: relative;
+}
+.screen-theog-store .st-hero-text {
+  font-family: var(--font-display);
+  font-size: 42px; font-weight: 800; line-height: 0.95;
+  color: #fff; letter-spacing: -0.03em;
+}
+.screen-theog-store .st-badge-bar {
+  position: absolute; top: 12px; left: 0; right: 0;
+  text-align: center; font-size: 10px; color: #e879a0;
+  font-weight: 600; letter-spacing: 0.04em;
+}
+
+/* The OG Admin mock */
+.screen-theog-admin {
+  background: #1a1a1a;
+  display: grid; grid-template-columns: 170px 1fr;
+}
+.screen-theog-admin .sa-sidebar {
+  background: #111; padding: 16px 12px;
+  border-right: 1px solid rgba(255,255,255,0.06);
+  display: flex; flex-direction: column; gap: 4px;
+}
+.screen-theog-admin .sa-brand {
+  font-family: var(--font-display); font-size: 12px; font-weight: 700;
+  color: var(--accent); padding: 6px 0 14px;
+  display: flex; align-items: center; gap: 6px;
+}
+.screen-theog-admin .sa-brand::before {
+  content: ''; width: 22px; height: 22px; border-radius: 6px;
+  background: var(--accent); display: block;
+}
+.screen-theog-admin .sa-nav-item {
+  height: 28px; border-radius: 5px; padding: 0 8px;
+  display: flex; align-items: center;
+  font-size: 11px; color: var(--text-dim);
+}
+.screen-theog-admin .sa-nav-item.active {
+  background: rgba(245,158,11,0.1); color: #FBD38D;
+}
+.screen-theog-admin .sa-main {
+  padding: 20px;
+}
+.screen-theog-admin .sa-title {
+  font-family: var(--font-display); font-size: 18px; font-weight: 700;
+  color: var(--text-main); margin-bottom: 16px;
+}
+.screen-theog-admin .sa-cards {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;
+  margin-bottom: 16px;
+}
+.screen-theog-admin .sa-card {
+  background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 8px; padding: 12px;
+}
+.screen-theog-admin .sa-card-label {
+  font-size: 9px; text-transform: uppercase; color: var(--text-dim);
+  letter-spacing: 0.06em; margin-bottom: 6px;
+}
+.screen-theog-admin .sa-card-value {
+  font-family: var(--font-display); font-size: 16px; font-weight: 700;
+  color: var(--text-main);
+}
+.screen-theog-admin .sa-chart {
+  background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 8px; height: 80px; display: flex; align-items: flex-end;
+  padding: 8px 12px; gap: 8px;
+}
+.screen-theog-admin .sa-bar {
+  flex: 1; background: rgba(245,158,11,0.3); border-radius: 3px 3px 0 0;
+  min-height: 8px;
+}
+
+/* 5S Brand Store mock */
+.screen-5s-store {
+  background: #f8f6f3;
+  display: flex; flex-direction: column;
+}
+.screen-5s-store .ss-topbar {
+  background: #fff; display: flex; align-items: center;
+  justify-content: space-between; padding: 14px 24px;
+  border-bottom: 1px solid #e8e4df;
+}
+.screen-5s-store .ss-logo {
+  font-family: var(--font-display); font-size: 20px; font-weight: 700;
+  color: #1a1a1a;
+}
+.screen-5s-store .ss-nav { display: flex; gap: 18px; }
+.screen-5s-store .ss-nav span {
+  font-size: 11px; color: #666; font-weight: 500;
+}
+.screen-5s-store .ss-hero {
+  flex: 1; display: flex; align-items: center; justify-content: center;
+  flex-direction: column; gap: 12px;
+  background: linear-gradient(180deg, #c9b896 0%, #a89070 100%);
+}
+.screen-5s-store .ss-hero-title {
+  font-family: var(--font-display);
+  font-size: 36px; font-weight: 600;
+  color: #fff; letter-spacing: -0.02em;
+}
+.screen-5s-store .ss-hero-sub {
+  font-size: 13px; color: rgba(255,255,255,0.8);
+}
+.screen-5s-store .ss-hero-btn {
+  padding: 10px 28px; border: 1px solid #fff;
+  color: #fff; font-size: 11px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.1em;
+  margin-top: 8px;
+}
+
+/* 5S Brand Admin mock */
+.screen-5s-admin {
+  background: #0f1320;
+  display: grid; grid-template-columns: 170px 1fr;
+}
+.screen-5s-admin .sa5-sidebar {
+  background: #0a0e18; padding: 16px 12px;
+  border-right: 1px solid rgba(255,255,255,0.06);
+  display: flex; flex-direction: column; gap: 4px;
+}
+.screen-5s-admin .sa5-brand {
+  font-family: var(--font-display); font-size: 12px; font-weight: 700;
+  color: #6C8AFF; padding: 6px 0 14px;
+  display: flex; align-items: center; gap: 6px;
+}
+.screen-5s-admin .sa5-brand::before {
+  content: '5s'; font-size: 10px; font-weight: 800;
+  background: #4466DD; color: #fff; padding: 3px 6px;
+  border-radius: 5px;
+}
+.screen-5s-admin .sa5-nav-item {
+  height: 28px; border-radius: 5px; padding: 0 8px;
+  display: flex; align-items: center;
+  font-size: 11px; color: var(--text-dim);
+}
+.screen-5s-admin .sa5-nav-item.active {
+  background: rgba(100,130,255,0.1); color: #8CABFF;
+}
+.screen-5s-admin .sa5-main { padding: 20px; }
+.screen-5s-admin .sa5-title {
+  font-family: var(--font-display); font-size: 18px; font-weight: 700;
+  color: var(--text-main); margin-bottom: 16px;
+  display: flex; align-items: center; gap: 8px;
+}
+.screen-5s-admin .sa5-cards {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;
+  margin-bottom: 16px;
+}
+.screen-5s-admin .sa5-card {
+  background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 8px; padding: 12px;
+}
+.screen-5s-admin .sa5-card-label {
+  font-size: 9px; text-transform: uppercase; color: var(--text-dim);
+  letter-spacing: 0.06em; margin-bottom: 6px;
+}
+.screen-5s-admin .sa5-card-value {
+  font-family: var(--font-display); font-size: 16px; font-weight: 700;
+  color: var(--text-main);
+}
+.screen-5s-admin .sa5-chart {
+  background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 8px; height: 80px;
+  display: flex; align-items: flex-end; padding: 8px 12px; gap: 6px;
+}
+.screen-5s-admin .sa5-bar {
+  flex: 1; background: rgba(100,130,255,0.3); border-radius: 3px 3px 0 0;
+  min-height: 8px;
+}
+
+@media (max-width: 768px) {
+  .screen-elegeia { grid-template-columns: 1fr; }
+  .screen-elegeia .se-sidebar,
+  .screen-elegeia .se-inbox { display: none; }
+  .screen-theog-admin { grid-template-columns: 1fr; }
+  .screen-theog-admin .sa-sidebar { display: none; }
+  .screen-5s-admin { grid-template-columns: 1fr; }
+  .screen-5s-admin .sa5-sidebar { display: none; }
+  .screen-theog-store .st-hero-text { font-size: 28px; }
+  .screen-5s-store .ss-hero-title { font-size: 24px; }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   SCROLLBAR
+   ══════════════════════════════════════════════════════════════ */
 ::-webkit-scrollbar { width: 8px; }
-::-webkit-scrollbar-track { background: var(--bg-primary); }
+::-webkit-scrollbar-track { background: var(--bg-deep); }
 ::-webkit-scrollbar-thumb {
-  background: var(--border-default);
+  background: var(--border-light);
   border-radius: 4px;
 }
-::-webkit-scrollbar-thumb:hover { background: var(--border-strong); }
+::-webkit-scrollbar-thumb:hover { background: var(--surface); }
 
-/* ── mobile responsive ──────────────────────────────────────── */
-@media (max-width: 720px) {
-  .hero { padding: 120px 0 80px; min-height: auto; }
-  .hero-stats { gap: 32px; }
-  .topnav { display: none; }
-  section.block { padding: 80px 0; }
-  .pc-featured { grid-column: 1 / -1; }
-  .stat-num { font-size: 28px; }
+/* ══════════════════════════════════════════════════════════════
+   RESPONSIVE
+   ══════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .hero { padding: 140px 0 80px; min-height: auto; }
+  .hero-metrics { gap: 32px; }
+  .nav-links { display: none; }
+  section.block, .showcase { padding: 80px 0; }
+  .metric-value { font-size: 32px; }
+  .proof-big { font-size: 36px; }
 }
 
-/* ── reduced motion ─────────────────────────────────────────── */
+/* ══════════════════════════════════════════════════════════════
+   REDUCED MOTION
+   ══════════════════════════════════════════════════════════════ */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
@@ -598,19 +1117,20 @@ footer a:hover { color: var(--text-primary); }
     transition-duration: 0.01ms !important;
   }
   .reveal { opacity: 1; transform: none; }
+  .mockup, .mockup-clean { animation: none; }
 }
 </style>
 </head>
 <body>
 
-<!-- ═══════════════════ TOPBAR ═══════════════════ -->
-<header class="topbar">
-  <div class="container topbar-inner">
-    <div class="brand">
-      <span class="brand-dot"></span>
-      <b>matthew</b>
+<!-- ═══════════════════ NAVIGATION ═══════════════════ -->
+<header class="nav">
+  <div class="container nav-inner">
+    <div class="nav-brand">
+      <span class="nav-brand-accent"></span>
+      matthew palacios
     </div>
-    <nav class="topnav">
+    <nav class="nav-links">
       <a href="#projetos">projetos</a>
       <a href="#stack">stack</a>
       <a href="#sobre">sobre</a>
@@ -622,49 +1142,379 @@ footer a:hover { color: var(--text-primary); }
 <!-- ═══════════════════ HERO ═══════════════════ -->
 <section class="hero">
   <div class="container hero-content">
-    <div class="eyebrow">disponível para projetos</div>
-    <h1 class="display">
+    <div class="hero-eyebrow">disponível para projetos</div>
+    <h1 class="hero-title">
       <span class="line">Construo</span>
-      <span class="line"><em>produtos digitais</em></span>
-      <span class="line">com IA<span class="ink">.</span></span>
+      <span class="line"><span class="subtle">produtos digitais</span></span>
+      <span class="line">com IA<span class="gold">.</span></span>
     </h1>
-    <p class="lede">
+    <p class="hero-desc">
       Full-stack developer. Crio <strong>plataformas SaaS</strong>,
       <strong>automações inteligentes</strong> e <strong>e-commerces</strong>
       que operam com agentes de IA — do lead ao fechamento.
     </p>
-    <div class="hero-cta">
-      <a href="#projetos" class="btn btn-primary"><span>ver projetos</span> <span class="arrow">→</span></a>
-      <a href="#contato" class="btn btn-secondary">entrar em contato</a>
+    <div class="hero-actions">
+      <a href="#projetos" class="btn btn-gold"><span>ver projetos</span> <span class="arrow">→</span></a>
+      <a href="#contato" class="btn btn-ghost">entrar em contato</a>
     </div>
-    <div class="hero-stats">
+    <div class="hero-metrics">
       <div>
-        <div class="stat-num" data-count="13">0</div>
-        <div class="stat-label">projetos entregues</div>
+        <div class="metric-value" data-count="13">0</div>
+        <div class="metric-label">Projetos entregues</div>
       </div>
       <div>
-        <div class="stat-num" data-count="6">0</div>
-        <div class="stat-label">plataformas em produção</div>
+        <div class="metric-value" data-count="6">0</div>
+        <div class="metric-label">Plataformas em produção</div>
       </div>
       <div>
-        <div class="stat-num" data-count="4">0</div>
-        <div class="stat-label">automações com IA</div>
+        <div class="metric-value" data-count="4">0</div>
+        <div class="metric-label">Automações com IA</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══════════════════ PROJETOS ═══════════════════ -->
-<section class="block" id="projetos">
-  <div class="container">
-    <div class="section-head reveal">
-      <div class="section-num">§ 01 — projetos</div>
-      <h2 class="section-title">O que eu construo.</h2>
-      <p class="section-sub">
-        Plataformas, automações e produtos digitais — do conceito ao deploy.
-        Cada projeto resolve um problema real de negócio.
+<!-- ═══════════════════ SHOWCASE: ELEGEIA ═══════════════════ -->
+<div class="showcase showcase-elegeia" id="projetos">
+  <div class="container-wide">
+    <div class="showcase-header reveal">
+      <div class="showcase-tag tag-saas"><span class="badge-live"></span> SaaS · Setor Público</div>
+      <h2 class="showcase-title">Eleg.eai — CRM com IA para Campanhas</h2>
+      <p class="showcase-desc">
+        Sistema de automação de atendimento para campanhas políticas com inteligência artificial.
+        Agente de IA integrado ao WhatsApp que processa texto, áudio e imagens — qualifica eleitores
+        e move automaticamente pelo funil. Pipeline kanban, inbox com takeover humano e relatórios.
       </p>
+      <div class="showcase-proof">
+        <div class="proof-item">
+          <span class="proof-num">400+</span>
+          <span>candidatos atendidos em 2024</span>
+        </div>
+        <div class="proof-item">
+          <span class="proof-num">500</span>
+          <span>interações/dia processadas por IA</span>
+        </div>
+      </div>
+      <div class="showcase-stack" style="margin-top: 16px;">
+        <span class="badge">typescript</span>
+        <span class="badge">react</span>
+        <span class="badge">supabase</span>
+        <span class="badge">whatsapp</span>
+        <span class="badge">claude sdk</span>
+        <span class="badge">langchain</span>
+        <span class="badge">langgraph</span>
+        <span class="badge">n8n</span>
+      </div>
+      <div class="showcase-cta">
+        <a href="https://elegeia-landing.vercel.app/" target="_blank" class="btn btn-gold" style="height:40px; font-size:13px;">
+          ver landing page <span class="arrow">→</span>
+        </a>
+        <a href="https://vscode-elege.wnpesi.easypanel.host/inbox" target="_blank" class="btn btn-ghost" style="height:40px; font-size:13px;">
+          acessar plataforma <span class="arrow">→</span>
+        </a>
+      </div>
     </div>
+
+    <div class="showcase-screens showcase-screens-single reveal reveal-d2">
+      <a href="https://elegeia-landing.vercel.app/" target="_blank" class="mockup" title="ElegeIA — Inbox com Agente de IA">
+        <div class="mockup-bar">
+          <div class="mockup-dots"><span></span><span></span><span></span></div>
+          <div class="mockup-url">elegeia — inbox · agente de ia</div>
+        </div>
+        <div class="screen-mock screen-elegeia">
+          <div class="se-sidebar">
+            <div class="se-logo">ELEGEIA</div>
+            <div class="se-nav-item">Dashboard</div>
+            <div class="se-nav-item active">Inbox</div>
+            <div class="se-nav-item">Eleitores</div>
+            <div class="se-nav-item">Funil do Eleitor</div>
+            <div class="se-nav-item" style="margin-top:16px; font-size:9px; color:var(--text-dim); opacity:0.5;">FERRAMENTAS</div>
+            <div class="se-nav-item">Agente de IA</div>
+            <div class="se-nav-item">Campanhas</div>
+            <div class="se-nav-item">Templates</div>
+          </div>
+          <div class="se-inbox">
+            <div class="se-inbox-title">Inbox</div>
+            <div class="se-contact">
+              <div class="se-contact-name">Matthew Gomes</div>
+              <div class="se-contact-msg">Claro! João Silva quer aumentar a ofer...</div>
+            </div>
+            <div class="se-contact" style="opacity:0.4; border-color:transparent; background:rgba(255,255,255,0.02);">
+              <div class="se-contact-name" style="color:var(--text-dim)">Maria Santos</div>
+              <div class="se-contact-msg">Obrigada pela informação sobre...</div>
+            </div>
+          </div>
+          <div class="se-chat">
+            <div class="se-bubble user">Eu quero saber mais sobre o plano de governo do João Silva.</div>
+            <div class="se-bubble ai">
+              <div class="se-ai-badge">Agente IA respondendo</div>
+              Obrigado pelo interesse! Para entender melhor suas prioridades, posso perguntar de onde você é e qual a principal dificuldade que você enfrenta no seu dia a dia?
+            </div>
+            <div class="se-bubble user">Eu moro em Caraí, tenho 30 anos, e não consigo encontrar creches...</div>
+            <div class="se-bubble ai">
+              <div class="se-ai-badge">Agente IA respondendo</div>
+              Entendo como a falta de creches pode ser um desafio. Uma das principais propostas do João Silva é ampliar o número de creches e escolas para garantir que mais crianças tenham um lugar seguro.
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ SHOWCASE: THE OG STORE ═══════════════════ -->
+<div class="showcase showcase-theog">
+  <div class="container-wide">
+    <div class="showcase-header reveal">
+      <div class="showcase-tag tag-ecommerce"><span class="badge-live"></span> E-commerce · Lifestyle</div>
+      <h2 class="showcase-title">The OG Store — E-commerce Completo</h2>
+      <p class="showcase-desc">
+        Loja online completa com painel administrativo (Grupo GOT Admin). Gestão de catálogo,
+        estoque, pedidos, cupons e coleções. Agente de IA integrado para atendimento via WhatsApp
+        com consulta de produtos e envio de links diretos para compra.
+      </p>
+      <div class="showcase-proof">
+        <div class="proof-item">
+          <span class="proof-num">12+</span>
+          <span>categorias de produtos</span>
+        </div>
+        <div class="proof-item">
+          <span class="proof-num">100%</span>
+          <span>gestão via painel próprio</span>
+        </div>
+      </div>
+      <div class="showcase-stack" style="margin-top: 16px;">
+        <span class="badge">typescript</span>
+        <span class="badge">next.js</span>
+        <span class="badge">supabase</span>
+        <span class="badge">asaas</span>
+        <span class="badge">langchain</span>
+        <span class="badge">langgraph</span>
+        <span class="badge">n8n</span>
+      </div>
+      <div class="showcase-cta">
+        <a href="https://www.theog.com.br/" target="_blank" class="btn btn-gold" style="height:40px; font-size:13px;">
+          visitar loja <span class="arrow">→</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="showcase-screens reveal reveal-d2">
+      <a href="https://www.theog.com.br/" target="_blank" class="mockup" title="The OG Store — Loja Online">
+        <div class="mockup-bar">
+          <div class="mockup-dots"><span></span><span></span><span></span></div>
+          <div class="mockup-url">theog.com.br</div>
+        </div>
+        <div class="screen-mock screen-theog-store">
+          <div class="st-topbar">
+            <div class="st-logo">THE OG</div>
+            <div class="st-nav">
+              <span>TODOS</span><span>VESTUÁRIO</span><span>ACESSÓRIOS</span>
+              <span>PITEIRAS</span><span>FILTROS</span><span>KITS</span>
+            </div>
+          </div>
+          <div class="st-hero">
+            <div class="st-badge-bar">🚀 FRETE GRÁTIS para compras acima de R$ 500</div>
+            <div class="st-hero-text">ORIGINAL<br>PRODUCTS</div>
+          </div>
+        </div>
+      </a>
+      <a href="https://www.theog.com.br/" target="_blank" class="mockup mockup-delay-2" title="The OG Store — Painel Admin">
+        <div class="mockup-bar">
+          <div class="mockup-dots"><span></span><span></span><span></span></div>
+          <div class="mockup-url">admin · grupo got</div>
+        </div>
+        <div class="screen-mock screen-theog-admin">
+          <div class="sa-sidebar">
+            <div class="sa-brand">GRUPO GOT</div>
+            <div class="sa-nav-item active">Dashboard</div>
+            <div class="sa-nav-item">Pedidos</div>
+            <div class="sa-nav-item">Relatórios</div>
+            <div class="sa-nav-item" style="margin-top:10px;font-size:9px;opacity:0.4;">CATÁLOGO</div>
+            <div class="sa-nav-item">Produtos</div>
+            <div class="sa-nav-item">Estoque</div>
+            <div class="sa-nav-item">Categorias</div>
+            <div class="sa-nav-item">Coleções</div>
+          </div>
+          <div class="sa-main">
+            <div class="sa-title">Dashboard</div>
+            <div class="sa-cards">
+              <div class="sa-card">
+                <div class="sa-card-label">Receita Total</div>
+                <div class="sa-card-value">R$ 0,00</div>
+              </div>
+              <div class="sa-card">
+                <div class="sa-card-label">Pedidos</div>
+                <div class="sa-card-value">0</div>
+              </div>
+              <div class="sa-card">
+                <div class="sa-card-label">Ticket Médio</div>
+                <div class="sa-card-value">R$ 0,00</div>
+              </div>
+              <div class="sa-card">
+                <div class="sa-card-label">Estoque Baixo</div>
+                <div class="sa-card-value" style="color:#F59E0B;">12</div>
+              </div>
+            </div>
+            <div class="sa-chart">
+              <div class="sa-bar" style="height:30%"></div>
+              <div class="sa-bar" style="height:20%"></div>
+              <div class="sa-bar" style="height:45%"></div>
+              <div class="sa-bar" style="height:60%"></div>
+              <div class="sa-bar" style="height:35%"></div>
+              <div class="sa-bar" style="height:50%"></div>
+              <div class="sa-bar" style="height:25%"></div>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ SHOWCASE: 5S BRAND ═══════════════════ -->
+<div class="showcase showcase-5sbrand">
+  <div class="container-wide">
+    <div class="showcase-header reveal">
+      <div class="showcase-tag tag-ecommerce"><span class="badge-live"></span> E-commerce · Moda</div>
+      <h2 class="showcase-title">5S Brand — E-commerce + Admin + IA</h2>
+      <p class="showcase-desc">
+        Plataforma e-commerce de moda com painel administrativo completo. Dashboard de vendas,
+        gestão de produtos, estoque, pedidos e relatórios. Agente de IA atende clientes
+        via WhatsApp, consulta valores e estoque em tempo real. Pagamentos via Asaas.
+      </p>
+      <div class="showcase-proof">
+        <div class="proof-item">
+          <span class="proof-num">385</span>
+          <span>produtos catalogados</span>
+        </div>
+        <div class="proof-item">
+          <span class="proof-num">R$ 2.2k+</span>
+          <span>em vendas processadas</span>
+        </div>
+      </div>
+      <div class="showcase-stack" style="margin-top: 16px;">
+        <span class="badge">typescript</span>
+        <span class="badge">next.js</span>
+        <span class="badge">supabase</span>
+        <span class="badge">asaas</span>
+        <span class="badge">langchain</span>
+        <span class="badge">langgraph</span>
+        <span class="badge">n8n</span>
+      </div>
+      <!-- No visible link button — images are clickable -->
+    </div>
+
+    <div class="showcase-screens showcase-screens-equal reveal reveal-d2">
+      <a href="https://5sbrand.com" target="_blank" class="mockup mockup-delay-1" title="Visitar 5S Brand">
+        <div class="mockup-bar">
+          <div class="mockup-dots"><span></span><span></span><span></span></div>
+          <div class="mockup-url">5sbrand.com</div>
+        </div>
+        <div class="screen-mock screen-5s-store">
+          <div class="ss-topbar">
+            <div class="ss-logo">5S</div>
+            <div class="ss-nav">
+              <span style="font-weight:700;color:#1a1a1a;">Home</span>
+              <span>Categorias</span>
+              <span>Produtos</span>
+              <span>Outlet</span>
+            </div>
+          </div>
+          <div class="ss-hero">
+            <div class="ss-hero-title">Sarja Dubai</div>
+            <div class="ss-hero-sub">Arte do Minimalismo</div>
+            <div class="ss-hero-btn">DESCOBRIR COLEÇÃO</div>
+          </div>
+        </div>
+      </a>
+      <a href="https://5sbrand.com" target="_blank" class="mockup mockup-delay-3" title="Visitar 5S Brand">
+        <div class="mockup-bar">
+          <div class="mockup-dots"><span></span><span></span><span></span></div>
+          <div class="mockup-url">admin · 5s brand</div>
+        </div>
+        <div class="screen-mock screen-5s-admin">
+          <div class="sa5-sidebar">
+            <div class="sa5-brand">5s Brand</div>
+            <div class="sa5-nav-item active">Painel Principal</div>
+            <div class="sa5-nav-item">Pedidos</div>
+            <div class="sa5-nav-item">Devoluções</div>
+            <div class="sa5-nav-item">Relatórios</div>
+            <div class="sa5-nav-item" style="margin-top:10px;font-size:9px;opacity:0.4;">Catálogo</div>
+            <div class="sa5-nav-item">Produtos</div>
+            <div class="sa5-nav-item">Estoque</div>
+            <div class="sa5-nav-item">Categorias</div>
+          </div>
+          <div class="sa5-main">
+            <div class="sa5-title">Painel Principal</div>
+            <div class="sa5-cards">
+              <div class="sa5-card">
+                <div class="sa5-card-label">Faturamento Total</div>
+                <div class="sa5-card-value">R$ 2.292</div>
+              </div>
+              <div class="sa5-card">
+                <div class="sa5-card-label">Total Pedidos</div>
+                <div class="sa5-card-value">7</div>
+              </div>
+              <div class="sa5-card">
+                <div class="sa5-card-label">Pendentes</div>
+                <div class="sa5-card-value">0</div>
+              </div>
+              <div class="sa5-card">
+                <div class="sa5-card-label">Produtos</div>
+                <div class="sa5-card-value" style="color:#F87171;">385</div>
+              </div>
+            </div>
+            <div class="sa5-chart">
+              <div class="sa5-bar" style="height:40%"></div>
+              <div class="sa5-bar" style="height:30%"></div>
+              <div class="sa5-bar" style="height:55%"></div>
+              <div class="sa5-bar" style="height:70%"></div>
+              <div class="sa5-bar" style="height:20%"></div>
+              <div class="sa5-bar" style="height:15%"></div>
+              <div class="sa5-bar" style="height:80%"></div>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ SOCIAL PROOF BANNER ═══════════════════ -->
+<div class="proof-banner">
+  <div class="container">
+    <div class="proof-grid reveal">
+      <div>
+        <div class="proof-big" data-count="400">0</div>
+        <div class="proof-text">Candidatos usando ElegeIA</div>
+      </div>
+      <div>
+        <div class="proof-big" data-count="6">0</div>
+        <div class="proof-text">Plataformas em produção</div>
+      </div>
+      <div>
+        <div class="proof-big" data-count="13">0</div>
+        <div class="proof-text">Projetos entregues</div>
+      </div>
+      <div>
+        <div class="proof-big" data-count="31">0</div>
+        <div class="proof-text">Idiomas em automação de e-books</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ MAIS PROJETOS ═══════════════════ -->
+<section class="block" id="mais-projetos">
+  <div class="container">
+    <div class="section-label reveal">demais projetos</div>
+    <h2 class="section-title reveal">Tudo o que construí<span class="gold">.</span></h2>
+    <p class="section-desc reveal">
+      Plataformas, automações e produtos digitais — cada projeto resolve um problema real.
+    </p>
+
+    <div style="height: 40px;"></div>
 
     <div class="filter-bar reveal">
       <button class="filter-btn active" data-filter="all">todos</button>
@@ -676,419 +1526,228 @@ footer a:hover { color: var(--text-primary); }
 
     <div class="projects-grid" id="projects-grid">
 
-      <!-- ── ELEG.EAI ── -->
-      <div class="pc pc-featured reveal pattern-grid"
-           data-cat="saas"
-           style="--card-accent: #8B5CF6; --card-gradient: linear-gradient(135deg, #1a0a2e 0%, #0f0a1a 100%);">
-        <div class="pc-cover">
-          <div class="pc-cover-bg"></div>
-          <div class="pc-cover-pattern"></div>
-          <div class="pc-cover-icon">🧠</div>
-          <div class="pc-cover-label">eleg.eai</div>
+      <!-- SESH -->
+      <div class="pcard reveal" data-cat="saas">
+        <div class="pcard-top">
+          <span class="pcard-icon">🛍️</span>
+          <span class="pcard-year">2026 · <span style="color:var(--success)">live</span></span>
         </div>
-        <div class="pc-body">
-          <div class="pc-row">
-            <span>2026</span>
-            <span class="badge live"><span class="badge-dot"></span> live</span>
-          </div>
-          <h3 class="pc-title">Eleg.eai — CRM Setor Público</h3>
-          <p class="pc-desc">
-            CRM para o setor público com agente de IA integrado ao WhatsApp. Pipeline kanban,
-            inbox com takeover humano, e IA que processa texto, áudio e imagens
-            para qualificar e mover leads automaticamente pelo funil.
-          </p>
-          <div class="pc-stack">
-            <span class="badge">typescript</span>
-            <span class="badge">react</span>
-            <span class="badge">supabase</span>
-            <span class="badge">whatsapp</span>
-            <span class="badge">claude sdk</span>
-            <span class="badge">langchain</span>
-            <span class="badge">langgraph</span>
-            <span class="badge">n8n</span>
-          </div>
-          <a href="https://vscode-elege.wnpesi.easypanel.host/inbox" target="_blank" class="btn btn-secondary" style="justify-self:start; height:34px; font-size:12px;">
-            acessar plataforma <span class="arrow">→</span>
-          </a>
+        <h3 class="pcard-title">SESH — E-commerce Multitenant</h3>
+        <p class="pcard-desc">
+          Plataforma e-commerce multitenant de marca. Cada marca com ambiente isolado,
+          catálogo próprio e operação independente. Agente de IA integrado para atendimento.
+        </p>
+        <div class="pcard-proof">Múltiplas marcas operando de forma independente</div>
+        <div class="pcard-stack">
+          <span class="badge">typescript</span>
+          <span class="badge">next.js</span>
+          <span class="badge">supabase</span>
+          <span class="badge">multitenant</span>
+          <span class="badge">langchain</span>
+          <span class="badge">n8n</span>
         </div>
       </div>
 
-      <!-- ── 5S BRAND ── -->
-      <div class="pc reveal pattern-dots"
-           data-cat="saas"
-           style="--card-accent: #F59E0B; --card-gradient: linear-gradient(135deg, #1a1400 0%, #0f0a05 100%);">
-        <div class="pc-cover">
-          <div class="pc-cover-bg"></div>
-          <div class="pc-cover-pattern"></div>
-          <div class="pc-cover-icon">🛒</div>
-          <div class="pc-cover-label">5sbrand.com</div>
+      <!-- LINKEED CRM -->
+      <div class="pcard reveal" data-cat="saas">
+        <div class="pcard-top">
+          <span class="pcard-icon">💼</span>
+          <span class="pcard-year">2026 · <span style="color:var(--success)">live</span></span>
         </div>
-        <div class="pc-body">
-          <div class="pc-row">
-            <span>2025–2026</span>
-            <span class="badge live"><span class="badge-dot"></span> live</span>
-          </div>
-          <h3 class="pc-title">5S Brand — E-commerce + Admin + IA</h3>
-          <p class="pc-desc">
-            Loja online completa com painel administrativo que gerencia toda a operação.
-            Agente de IA atende clientes via WhatsApp, consulta valores e estoque
-            em tempo real, e envia links dos produtos direto para compra. Pagamentos via Asaas.
-          </p>
-          <div class="pc-stack">
-            <span class="badge">typescript</span>
-            <span class="badge">next.js</span>
-            <span class="badge">supabase</span>
-            <span class="badge">asaas</span>
-            <span class="badge">langchain</span>
-            <span class="badge">langgraph</span>
-            <span class="badge">n8n</span>
-          </div>
-          <a href="https://5sbrand.com" target="_blank" class="btn btn-secondary" style="justify-self:start; height:34px; font-size:12px;">
-            visitar site <span class="arrow">→</span>
-          </a>
+        <h3 class="pcard-title">Linkeed CRM — CRM Empresarial</h3>
+        <p class="pcard-desc">
+          CRM para empresas com agente de IA atuando como SDR. Qualifica leads do marketing
+          e direciona para o time comercial. Pipeline kanban, inbox e automações integradas.
+        </p>
+        <div class="pcard-proof">IA como SDR qualificando leads 24/7</div>
+        <div class="pcard-stack">
+          <span class="badge">typescript</span>
+          <span class="badge">react</span>
+          <span class="badge">supabase</span>
+          <span class="badge">whatsapp</span>
+          <span class="badge">langchain</span>
+          <span class="badge">n8n</span>
         </div>
       </div>
 
-      <!-- ── SESH ── -->
-      <div class="pc reveal pattern-lines"
-           data-cat="saas"
-           style="--card-accent: #06B6D4; --card-gradient: linear-gradient(135deg, #021a1f 0%, #0a0f12 100%);">
-        <div class="pc-cover">
-          <div class="pc-cover-bg"></div>
-          <div class="pc-cover-pattern"></div>
-          <div class="pc-cover-icon">🛍️</div>
-          <div class="pc-cover-label">sesh.com.br</div>
+      <!-- LICITAÇÕES -->
+      <div class="pcard reveal" data-cat="automacao">
+        <div class="pcard-top">
+          <span class="pcard-icon">📋</span>
+          <span class="pcard-year">2026 · <span style="color:var(--accent)">wip</span></span>
         </div>
-        <div class="pc-body">
-          <div class="pc-row">
-            <span>2026</span>
-            <span class="badge live"><span class="badge-dot"></span> live</span>
-          </div>
-          <h3 class="pc-title">SESH — E-commerce Multitenant</h3>
-          <p class="pc-desc">
-            Plataforma e-commerce multitenant de marca. Cada marca com seu ambiente
-            isolado, catálogo próprio e operação independente. Agente de IA integrado
-            para atendimento e qualificação de leads vindos do marketing.
-          </p>
-          <div class="pc-stack">
-            <span class="badge">typescript</span>
-            <span class="badge">next.js</span>
-            <span class="badge">supabase</span>
-            <span class="badge">multitenant</span>
-            <span class="badge">langchain</span>
-            <span class="badge">langgraph</span>
-            <span class="badge">n8n</span>
-          </div>
-          <a href="https://www.sesh.com.br" target="_blank" class="btn btn-secondary" style="justify-self:start; height:34px; font-size:12px;">
-            visitar site <span class="arrow">→</span>
-          </a>
+        <h3 class="pcard-title">Automação de Licitações</h3>
+        <p class="pcard-desc">
+          Captura licitações automaticamente e projeta dados via IA em planilha padronizada.
+          Match com fornecedores e cálculo de preço mínimo competitivo.
+        </p>
+        <div class="pcard-proof">Automação completa do fluxo licitatório</div>
+        <div class="pcard-stack">
+          <span class="badge">typescript</span>
+          <span class="badge">claude sdk</span>
+          <span class="badge">n8n</span>
+          <span class="badge">postgres</span>
         </div>
       </div>
 
-      <!-- ── LINKEED CRM ── -->
-      <div class="pc reveal pattern-wave"
-           data-cat="saas"
-           style="--card-accent: #3B82F6; --card-gradient: linear-gradient(135deg, #0a1628 0%, #0a0f1a 100%);">
-        <div class="pc-cover">
-          <div class="pc-cover-bg"></div>
-          <div class="pc-cover-pattern"></div>
-          <div class="pc-cover-icon">💼</div>
-          <div class="pc-cover-label">crm.linkeed.com</div>
+      <!-- AUTOMAÇÃO DE SITES -->
+      <div class="pcard reveal" data-cat="automacao">
+        <div class="pcard-top">
+          <span class="pcard-icon">🏗️</span>
+          <span class="pcard-year">2026 · <span style="color:var(--success)">live</span></span>
         </div>
-        <div class="pc-body">
-          <div class="pc-row">
-            <span>2026</span>
-            <span class="badge live"><span class="badge-dot"></span> live</span>
-          </div>
-          <h3 class="pc-title">Linkeed CRM — CRM Empresarial</h3>
-          <p class="pc-desc">
-            CRM para empresas com agente de IA atuando como SDR. Qualifica leads
-            vindos do marketing e direciona os qualificados diretamente para o
-            time comercial. Pipeline kanban, inbox e automações integradas.
-          </p>
-          <div class="pc-stack">
-            <span class="badge">typescript</span>
-            <span class="badge">react</span>
-            <span class="badge">supabase</span>
-            <span class="badge">whatsapp</span>
-            <span class="badge">langchain</span>
-            <span class="badge">langgraph</span>
-            <span class="badge">n8n</span>
-          </div>
-          <a href="https://crm.linkeed.com" target="_blank" class="btn btn-secondary" style="justify-self:start; height:34px; font-size:12px;">
-            acessar CRM <span class="arrow">→</span>
-          </a>
+        <h3 class="pcard-title">Automação de Sites — Lead-Gen + Builder</h3>
+        <p class="pcard-desc">
+          Pipeline de lead-gen com qualificador inteligente e builder automático de landing pages.
+          WhatsApp via Evolution API para QR e disparar mensagens.
+        </p>
+        <div class="pcard-proof">Geração automática de landing pages por IA</div>
+        <div class="pcard-stack">
+          <span class="badge">next.js</span>
+          <span class="badge">claude sdk</span>
+          <span class="badge">n8n</span>
+          <span class="badge">evolution api</span>
+          <span class="badge">supabase</span>
         </div>
       </div>
 
-      <!-- ── AUTOMAÇÃO DE LICITAÇÕES ── -->
-      <div class="pc reveal pattern-wave"
-           data-cat="automacao"
-           style="--card-accent: #10B981; --card-gradient: linear-gradient(135deg, #021a12 0%, #0a1210 100%);">
-        <div class="pc-cover">
-          <div class="pc-cover-bg"></div>
-          <div class="pc-cover-pattern"></div>
-          <div class="pc-cover-icon">📋</div>
-          <div class="pc-cover-label">licitações</div>
+      <!-- E-BOOKS -->
+      <div class="pcard reveal" data-cat="automacao">
+        <div class="pcard-top">
+          <span class="pcard-icon">📚</span>
+          <span class="pcard-year">2026 · <span style="color:var(--success)">live</span></span>
         </div>
-        <div class="pc-body">
-          <div class="pc-row">
-            <span>2026</span>
-            <span class="badge wip"><span class="badge-dot"></span> wip</span>
-          </div>
-          <h3 class="pc-title">Automação de Licitações</h3>
-          <p class="pc-desc">
-            Captura licitações automaticamente e projeta os dados via IA em planilha padronizada.
-            Cruza com banco de dados de fornecedores para match ideal e gera
-            o preço mínimo competitivo para disputar cada licitação.
-          </p>
-          <div class="pc-stack">
-            <span class="badge">typescript</span>
-            <span class="badge">claude sdk</span>
-            <span class="badge">n8n</span>
-            <span class="badge">postgres</span>
-          </div>
+        <h3 class="pcard-title">Automação de E-books — 31 Idiomas</h3>
+        <p class="pcard-desc">
+          Traduz e diagrama automaticamente em até 31 idiomas. PDFs A4 finalizados via Puppeteer
+          com 12 componentes e 3 temas. Interface Liquid Glass.
+        </p>
+        <div class="pcard-proof">31 idiomas · 12 componentes · 3 temas</div>
+        <div class="pcard-stack">
+          <span class="badge">fastify</span>
+          <span class="badge">claude sdk</span>
+          <span class="badge">n8n</span>
+          <span class="badge">puppeteer</span>
+          <span class="badge">react</span>
         </div>
       </div>
 
-      <!-- ── AUTOMAÇÃO DE SITES ── -->
-      <div class="pc reveal pattern-grid"
-           data-cat="automacao"
-           style="--card-accent: #EC4899; --card-gradient: linear-gradient(135deg, #1a0515 0%, #120a0f 100%);">
-        <div class="pc-cover">
-          <div class="pc-cover-bg"></div>
-          <div class="pc-cover-pattern"></div>
-          <div class="pc-cover-icon">🏗️</div>
-          <div class="pc-cover-label">automacao-sites</div>
+      <!-- YOUTUBE TRENDS -->
+      <div class="pcard reveal" data-cat="automacao">
+        <div class="pcard-top">
+          <span class="pcard-icon">🎬</span>
+          <span class="pcard-year">2026 · <span style="color:var(--accent)">wip</span></span>
         </div>
-        <div class="pc-body">
-          <div class="pc-row">
-            <span>2026</span>
-            <span class="badge live"><span class="badge-dot"></span> live</span>
-          </div>
-          <h3 class="pc-title">Automação de Sites — Lead-Gen + Builder</h3>
-          <p class="pc-desc">
-            Pipeline de lead-gen com qualificador inteligente e builder automático
-            de landing pages. Integração com WhatsApp via Evolution API
-            para conectar instâncias por QR e disparar mensagens.
-          </p>
-          <div class="pc-stack">
-            <span class="badge">next.js</span>
-            <span class="badge">claude sdk</span>
-            <span class="badge">n8n</span>
-            <span class="badge">evolution api</span>
-            <span class="badge">supabase</span>
-          </div>
+        <h3 class="pcard-title">YouTube Trends → Roteiro → Veo3</h3>
+        <p class="pcard-desc">
+          Pipeline completo de criação de vídeo: busca trends, gera roteiros por nicho com IA,
+          e conecta com Google Veo3 para produção sem intervenção humana.
+        </p>
+        <div class="pcard-proof">Pipeline 100% automatizado de conteúdo</div>
+        <div class="pcard-stack">
+          <span class="badge">typescript</span>
+          <span class="badge">gemini</span>
+          <span class="badge">n8n</span>
+          <span class="badge">veo3</span>
+          <span class="badge">youtube api</span>
         </div>
       </div>
 
-      <!-- ── AUTOMAÇÃO DE E-BOOKS ── -->
-      <div class="pc reveal pattern-dots"
-           data-cat="automacao"
-           style="--card-accent: #F97316; --card-gradient: linear-gradient(135deg, #1a0f00 0%, #120a05 100%);">
-        <div class="pc-cover">
-          <div class="pc-cover-bg"></div>
-          <div class="pc-cover-pattern"></div>
-          <div class="pc-cover-icon">📚</div>
-          <div class="pc-cover-label">ebook-tool</div>
+      <!-- DR. DANIEL -->
+      <div class="pcard reveal" data-cat="app">
+        <div class="pcard-top">
+          <span class="pcard-icon">📱</span>
+          <span class="pcard-year">2026 · <span style="color:var(--success)">live</span></span>
         </div>
-        <div class="pc-body">
-          <div class="pc-row">
-            <span>2026</span>
-            <span class="badge live"><span class="badge-dot"></span> live</span>
-          </div>
-          <h3 class="pc-title">Automação de E-books — 31 Idiomas</h3>
-          <p class="pc-desc">
-            Recebe texto em português, traduz e diagrama automaticamente em até
-            31 idiomas. Gera PDFs A4 finalizados via Puppeteer com 12 componentes
-            e 3 temas. Interface Liquid Glass.
-          </p>
-          <div class="pc-stack">
-            <span class="badge">fastify</span>
-            <span class="badge">claude sdk</span>
-            <span class="badge">n8n</span>
-            <span class="badge">puppeteer</span>
-            <span class="badge">react</span>
-          </div>
+        <h3 class="pcard-title">Dr. Daniel — Jornada Diária</h3>
+        <p class="pcard-desc">
+          App PWA para acompanhamento de rotinas diárias com gamificação,
+          fases, check-ins e recompensas. Internacionalização completa.
+        </p>
+        <div class="pcard-proof">Sistema de gamificação com fases e recompensas</div>
+        <div class="pcard-stack">
+          <span class="badge">react 19</span>
+          <span class="badge">supabase</span>
+          <span class="badge">pwa</span>
+          <span class="badge">i18n</span>
         </div>
       </div>
 
-      <!-- ── YOUTUBE TRENDS + VEO3 ── -->
-      <div class="pc reveal pattern-wave"
-           data-cat="automacao"
-           style="--card-accent: #EF4444; --card-gradient: linear-gradient(135deg, #1a0505 0%, #120a0a 100%);">
-        <div class="pc-cover">
-          <div class="pc-cover-bg"></div>
-          <div class="pc-cover-pattern"></div>
-          <div class="pc-cover-icon">🎬</div>
-          <div class="pc-cover-label">youtube + veo3</div>
+      <!-- RECEITAS FIT -->
+      <div class="pcard reveal" data-cat="app">
+        <div class="pcard-top">
+          <span class="pcard-icon">🥗</span>
+          <span class="pcard-year">2025–2026 · <span style="color:var(--success)">live</span></span>
         </div>
-        <div class="pc-body">
-          <div class="pc-row">
-            <span>2026</span>
-            <span class="badge wip"><span class="badge-dot"></span> wip</span>
-          </div>
-          <h3 class="pc-title">YouTube Trends → Roteiro → Veo3</h3>
-          <p class="pc-desc">
-            Pipeline completo de criação de vídeo: busca trends do YouTube automaticamente,
-            gera roteiros por nicho com IA, e conecta com Google Veo3 para produzir
-            os vídeos sem intervenção humana.
-          </p>
-          <div class="pc-stack">
-            <span class="badge">typescript</span>
-            <span class="badge">gemini</span>
-            <span class="badge">n8n</span>
-            <span class="badge">veo3</span>
-            <span class="badge">youtube api</span>
-          </div>
+        <h3 class="pcard-title">Receitas Fit — App Fitness</h3>
+        <p class="pcard-desc">
+          App PWA de receitas fitness com check-ins, gamificação e conclusão de receitas.
+          Performance otimizada e interface responsiva.
+        </p>
+        <div class="pcard-proof">Engajamento via gamificação de receitas</div>
+        <div class="pcard-stack">
+          <span class="badge">typescript</span>
+          <span class="badge">react</span>
+          <span class="badge">supabase</span>
+          <span class="badge">pwa</span>
         </div>
       </div>
 
-      <!-- ── DR. DANIEL ── -->
-      <div class="pc reveal pattern-lines"
-           data-cat="app"
-           style="--card-accent: #14B8A6; --card-gradient: linear-gradient(135deg, #021a18 0%, #0a1210 100%);">
-        <div class="pc-cover">
-          <div class="pc-cover-bg"></div>
-          <div class="pc-cover-pattern"></div>
-          <div class="pc-cover-icon">📱</div>
-          <div class="pc-cover-label">dr.daniel</div>
+      <!-- LEADS -->
+      <div class="pcard reveal" data-cat="app">
+        <div class="pcard-top">
+          <span class="pcard-icon">🎯</span>
+          <span class="pcard-year">2026 · <span style="color:var(--success)">live</span></span>
         </div>
-        <div class="pc-body">
-          <div class="pc-row">
-            <span>2026</span>
-            <span class="badge live"><span class="badge-dot"></span> live</span>
-          </div>
-          <h3 class="pc-title">Dr. Daniel — Jornada Diária</h3>
-          <p class="pc-desc">
-            App PWA para acompanhamento de rotinas diárias. Sistema de gamificação
-            com fases, check-ins e recompensas. Internacionalização completa
-            e animações com Framer Motion.
-          </p>
-          <div class="pc-stack">
-            <span class="badge">react 19</span>
-            <span class="badge">supabase</span>
-            <span class="badge">pwa</span>
-            <span class="badge">i18n</span>
-          </div>
+        <h3 class="pcard-title">LEADS — Prospecção Inteligente</h3>
+        <p class="pcard-desc">
+          Plataforma de prospecção com disparador de mensagens, SDR automático
+          e gerador de leads do LinkedIn. Pipeline completo de qualificação.
+        </p>
+        <div class="pcard-proof">Prospecção automatizada via LinkedIn</div>
+        <div class="pcard-stack">
+          <span class="badge">next.js</span>
+          <span class="badge">typescript</span>
+          <span class="badge">linkedin</span>
         </div>
       </div>
 
-      <!-- ── RECEITAS FIT ── -->
-      <div class="pc reveal pattern-grid"
-           data-cat="app"
-           style="--card-accent: #84CC16; --card-gradient: linear-gradient(135deg, #0f1a05 0%, #0a120a 100%);">
-        <div class="pc-cover">
-          <div class="pc-cover-bg"></div>
-          <div class="pc-cover-pattern"></div>
-          <div class="pc-cover-icon">🥗</div>
-          <div class="pc-cover-label">receitas-fit</div>
+      <!-- LANDING PAGES -->
+      <div class="pcard reveal" data-cat="lp">
+        <div class="pcard-top">
+          <span class="pcard-icon">✨</span>
+          <span class="pcard-year">2026 · <span style="color:var(--success)">live</span></span>
         </div>
-        <div class="pc-body">
-          <div class="pc-row">
-            <span>2025–2026</span>
-            <span class="badge live"><span class="badge-dot"></span> live</span>
-          </div>
-          <h3 class="pc-title">Receitas Fit — App de Receitas Fitness</h3>
-          <p class="pc-desc">
-            App PWA de receitas fitness com sistema de check-ins, gamificação
-            e conclusão de receitas. Performance otimizada e interface
-            responsiva com animações fluidas.
-          </p>
-          <div class="pc-stack">
-            <span class="badge">typescript</span>
-            <span class="badge">react</span>
-            <span class="badge">supabase</span>
-            <span class="badge">pwa</span>
-          </div>
+        <h3 class="pcard-title">Landing Pages — Clínicas & Institucional</h3>
+        <p class="pcard-desc">
+          Pacote de landing pages para clínicas de estética e projetos institucionais.
+          SINDICAPRO, Dra. Claudia Roque, Mia Clinic. Templates automatizados.
+        </p>
+        <div class="pcard-proof">Sistema de templates para geração de novas LPs</div>
+        <div class="pcard-stack">
+          <span class="badge">html/css</span>
+          <span class="badge">typescript</span>
+          <span class="badge">react</span>
+          <span class="badge">vercel</span>
         </div>
       </div>
 
-      <!-- ── LEADS ── -->
-      <div class="pc reveal pattern-dots"
-           data-cat="app"
-           style="--card-accent: #6366F1; --card-gradient: linear-gradient(135deg, #0a0a1e 0%, #0a0a14 100%);">
-        <div class="pc-cover">
-          <div class="pc-cover-bg"></div>
-          <div class="pc-cover-pattern"></div>
-          <div class="pc-cover-icon">🎯</div>
-          <div class="pc-cover-label">leads</div>
+      <!-- THUMBNAILS -->
+      <div class="pcard reveal" data-cat="app">
+        <div class="pcard-top">
+          <span class="pcard-icon">🖼️</span>
+          <span class="pcard-year">2026 · <span style="color:var(--accent)">wip</span></span>
         </div>
-        <div class="pc-body">
-          <div class="pc-row">
-            <span>2026</span>
-            <span class="badge live"><span class="badge-dot"></span> live</span>
-          </div>
-          <h3 class="pc-title">LEADS — Prospecção Inteligente</h3>
-          <p class="pc-desc">
-            Plataforma de prospecção com disparador de mensagens, SDR automático
-            e gerador de leads do LinkedIn. Pipeline completo do primeiro
-            contato à qualificação.
-          </p>
-          <div class="pc-stack">
-            <span class="badge">next.js</span>
-            <span class="badge">typescript</span>
-            <span class="badge">linkedin</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- ── LANDING PAGES ── -->
-      <div class="pc reveal pattern-lines"
-           data-cat="lp"
-           style="--card-accent: #D946EF; --card-gradient: linear-gradient(135deg, #1a051a 0%, #120a12 100%);">
-        <div class="pc-cover">
-          <div class="pc-cover-bg"></div>
-          <div class="pc-cover-pattern"></div>
-          <div class="pc-cover-icon">✨</div>
-          <div class="pc-cover-label">landing pages</div>
-        </div>
-        <div class="pc-body">
-          <div class="pc-row">
-            <span>2026</span>
-            <span class="badge live"><span class="badge-dot"></span> live</span>
-          </div>
-          <h3 class="pc-title">Landing Pages — Clínicas & Institucional</h3>
-          <p class="pc-desc">
-            Pacote de landing pages para clínicas de estética e projetos institucionais.
-            SINDICAPRO (gestão sindical), Dra. Claudia Roque, Mia Clinic.
-            Sistema de templates para geração automatizada de novas LPs.
-          </p>
-          <div class="pc-stack">
-            <span class="badge">html/css</span>
-            <span class="badge">typescript</span>
-            <span class="badge">react</span>
-            <span class="badge">vercel</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- ── GERADOR DE THUMBNAILS ── -->
-      <div class="pc reveal pattern-wave"
-           data-cat="app"
-           style="--card-accent: #FACC15; --card-gradient: linear-gradient(135deg, #1a1600 0%, #121005 100%);">
-        <div class="pc-cover">
-          <div class="pc-cover-bg"></div>
-          <div class="pc-cover-pattern"></div>
-          <div class="pc-cover-icon">🖼️</div>
-          <div class="pc-cover-label">tumb-gen</div>
-        </div>
-        <div class="pc-body">
-          <div class="pc-row">
-            <span>2026</span>
-            <span class="badge wip"><span class="badge-dot"></span> wip</span>
-          </div>
-          <h3 class="pc-title">Gerador de Thumbnails — YouTube</h3>
-          <p class="pc-desc">
-            Ferramenta que gera thumbnails otimizadas para YouTube usando
-            Gemini AI. Interface intuitiva para criação rápida de capas
-            com alta taxa de clique.
-          </p>
-          <div class="pc-stack">
-            <span class="badge">typescript</span>
-            <span class="badge">gemini</span>
-            <span class="badge">react</span>
-          </div>
+        <h3 class="pcard-title">Gerador de Thumbnails — YouTube</h3>
+        <p class="pcard-desc">
+          Ferramenta que gera thumbnails otimizadas para YouTube usando Gemini AI.
+          Interface intuitiva para criação rápida com alta taxa de clique.
+        </p>
+        <div class="pcard-proof">Thumbnails otimizadas com IA generativa</div>
+        <div class="pcard-stack">
+          <span class="badge">typescript</span>
+          <span class="badge">gemini</span>
+          <span class="badge">react</span>
         </div>
       </div>
 
@@ -1099,14 +1758,13 @@ footer a:hover { color: var(--text-primary); }
 <!-- ═══════════════════ STACK ═══════════════════ -->
 <section class="block" id="stack">
   <div class="container">
-    <div class="section-head reveal">
-      <div class="section-num">§ 02 — stack</div>
-      <h2 class="section-title">Ferramentas do dia a dia.</h2>
-      <p class="section-sub">
-        Tecnologias que uso em produção. Cada escolha é baseada em necessidade real,
-        não hype.
-      </p>
-    </div>
+    <div class="section-label reveal">ferramentas</div>
+    <h2 class="section-title reveal">Stack do dia a dia<span class="gold">.</span></h2>
+    <p class="section-desc reveal">
+      Tecnologias que uso em produção. Cada escolha baseada em necessidade real, não hype.
+    </p>
+
+    <div style="height: 40px;"></div>
 
     <div class="stack-grid reveal">
       <div class="stack-item">
@@ -1172,12 +1830,12 @@ footer a:hover { color: var(--text-primary); }
 <!-- ═══════════════════ SOBRE ═══════════════════ -->
 <section class="block" id="sobre">
   <div class="container">
-    <div class="section-head reveal">
-      <div class="section-num">§ 03 — sobre</div>
-      <h2 class="section-title">Quem está por trás.</h2>
-    </div>
+    <div class="section-label reveal">sobre</div>
+    <h2 class="section-title reveal">Quem está por trás<span class="gold">.</span></h2>
 
-    <div class="about-top reveal">
+    <div style="height: 40px;"></div>
+
+    <div class="about-layout reveal">
       <div class="about-photo">
         <img src="eu%20emp%202.png" alt="Matthew Palacios" />
       </div>
@@ -1199,7 +1857,7 @@ footer a:hover { color: var(--text-primary); }
       </div>
     </div>
 
-    <div class="about-grid reveal reveal-delay-2">
+    <div class="about-grid reveal reveal-d2">
       <div class="stack-item">
         <h4>Foco atual</h4>
         <p>Automações com agentes de IA e plataformas SaaS</p>
@@ -1220,19 +1878,19 @@ footer a:hover { color: var(--text-primary); }
   </div>
 </section>
 
-<!-- ═══════════════════ CTA / CONTATO ═══════════════════ -->
-<section class="cta-section" id="contato">
+<!-- ═══════════════════ CONTATO ═══════════════════ -->
+<section class="cta" id="contato">
   <div class="container">
-    <h2 class="cta-title reveal">Vamos construir algo<span class="ink">?</span></h2>
-    <p class="cta-sub reveal reveal-delay-1">
+    <h2 class="cta-title reveal">Vamos construir algo<span class="gold">?</span></h2>
+    <p class="cta-desc reveal reveal-d1">
       Se você tem um projeto que precisa de tecnologia com inteligência,
       entre em contato.
     </p>
-    <div class="cta-links reveal reveal-delay-2">
-      <a href="https://github.com/matpgomes" target="_blank" class="btn btn-primary">
+    <div class="cta-actions reveal reveal-d2">
+      <a href="https://github.com/matpgomes" target="_blank" class="btn btn-gold">
         <span>GitHub</span> <span class="arrow">→</span>
       </a>
-      <a href="https://wa.me/5521971065912" target="_blank" class="btn btn-secondary">
+      <a href="https://wa.me/5521971065912" target="_blank" class="btn btn-ghost">
         WhatsApp
       </a>
     </div>
@@ -1250,7 +1908,7 @@ footer a:hover { color: var(--text-primary); }
 
 <!-- ═══════════════════ SCRIPTS ═══════════════════ -->
 <script>
-// ── Scroll Reveal (IntersectionObserver) ──────────────────────
+// ── Scroll Reveal ────────────────────────────────────────────
 const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
@@ -1258,19 +1916,18 @@ const revealObserver = new IntersectionObserver((entries) => {
       revealObserver.unobserve(entry.target);
     }
   });
-}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
 
 document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-// ── Animated counters ─────────────────────────────────────────
+// ── Animated counters ────────────────────────────────────────
 const counterObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
       const el = entry.target;
       const target = parseInt(el.dataset.count);
-      const duration = 1200;
+      const duration = 1400;
       const start = performance.now();
-
       function update(now) {
         const elapsed = now - start;
         const progress = Math.min(elapsed / duration, 1);
@@ -1286,69 +1943,53 @@ const counterObserver = new IntersectionObserver((entries) => {
 
 document.querySelectorAll('[data-count]').forEach(el => counterObserver.observe(el));
 
-// ── Filter tabs ───────────────────────────────────────────────
+// ── Filter tabs ──────────────────────────────────────────────
 const filterBtns = document.querySelectorAll('.filter-btn');
-const cards = document.querySelectorAll('.pc');
+const cards = document.querySelectorAll('.pcard');
 
 filterBtns.forEach(btn => {
   btn.addEventListener('click', () => {
     filterBtns.forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
-
     const filter = btn.dataset.filter;
 
     cards.forEach((card, i) => {
       const cat = card.dataset.cat;
       const show = filter === 'all' || cat === filter;
-
       if (show) {
-        card.removeAttribute('data-visible');
+        card.style.display = '';
         card.style.opacity = '0';
-        card.style.transform = 'translateY(20px)';
+        card.style.transform = 'translateY(16px)';
         setTimeout(() => {
-          card.style.transition = 'opacity 0.4s var(--ease-out-quart), transform 0.4s var(--ease-out-quart)';
+          card.style.transition = 'opacity 0.4s var(--ease-out), transform 0.4s var(--ease-out)';
           card.style.opacity = '1';
           card.style.transform = 'translateY(0)';
-        }, i * 60);
+        }, i * 50);
       } else {
-        card.setAttribute('data-visible', 'false');
-      }
-    });
-
-    // Fix grid for featured cards
-    const grid = document.getElementById('projects-grid');
-    const visibleCards = grid.querySelectorAll('.pc:not([data-visible="false"])');
-    visibleCards.forEach(c => {
-      if (filter !== 'all') {
-        c.classList.remove('pc-featured');
-        c.style.gridColumn = '';
-      } else if (c.dataset.cat === 'saas' && c.querySelector('.pc-title')?.textContent.includes('Eleg.eai')) {
-        c.classList.add('pc-featured');
+        card.style.display = 'none';
       }
     });
   });
 });
 
-// ── Card mouse glow effect ────────────────────────────────────
+// ── Card mouse glow ──────────────────────────────────────────
 cards.forEach(card => {
   card.addEventListener('mousemove', (e) => {
     const rect = card.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width) * 100;
-    const y = ((e.clientY - rect.top) / rect.height) * 100;
-    card.style.setProperty('--mx', x + '%');
-    card.style.setProperty('--my', y + '%');
+    card.style.setProperty('--mx', ((e.clientX - rect.left) / rect.width * 100) + '%');
+    card.style.setProperty('--my', ((e.clientY - rect.top) / rect.height * 100) + '%');
   });
 });
 
-// ── Smooth nav scroll ─────────────────────────────────────────
-document.querySelectorAll('.topnav a, .hero-cta a[href^="#"]').forEach(a => {
+// ── Smooth nav scroll ────────────────────────────────────────
+document.querySelectorAll('.nav-links a, .hero-actions a[href^="#"]').forEach(a => {
   a.addEventListener('click', (e) => {
     const id = a.getAttribute('href');
     if (!id.startsWith('#')) return;
     const el = document.querySelector(id);
     if (!el) return;
     e.preventDefault();
-    window.scrollTo({ top: el.offsetTop - 56, behavior: 'smooth' });
+    window.scrollTo({ top: el.offsetTop - 64, behavior: 'smooth' });
   });
 });
 </script>
