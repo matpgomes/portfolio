@@ -135,7 +135,7 @@ body::before {
    HERO
    ══════════════════════════════════════════════════════════════ */
 .hero {
-  padding: 180px 0 100px;
+  padding: 160px 0 80px;
   position: relative;
   overflow: hidden;
   min-height: 100vh;
@@ -168,8 +168,8 @@ body::before {
 .hero-content {
   position: relative; width: 100%;
   display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 48px;
+  grid-template-columns: 1fr 340px;
+  gap: 56px;
   align-items: center;
 }
 .hero-left { max-width: 680px; }
@@ -177,9 +177,10 @@ body::before {
 /* Hero photo */
 .hero-photo {
   position: relative;
-  width: 280px; height: 340px;
+  width: 340px; height: 420px;
   opacity: 0;
   animation: heroPhotoIn 1s var(--ease-out) 0.8s forwards;
+  flex-shrink: 0;
 }
 @keyframes heroPhotoIn {
   from { opacity: 0; transform: translateY(30px) scale(0.95); }
@@ -229,9 +230,19 @@ body::before {
   100% { opacity: 0.2; transform: scale(1.1); }
 }
 
-@media (max-width: 900px) {
-  .hero-content { grid-template-columns: 1fr; }
-  .hero-photo { width: 200px; height: 250px; justify-self: center; order: -1; }
+@media (max-width: 1024px) {
+  .hero-content { grid-template-columns: 1fr 280px; gap: 40px; }
+  .hero-photo { width: 280px; height: 350px; }
+}
+@media (max-width: 768px) {
+  .hero { padding: 120px 0 60px; min-height: auto; }
+  .hero-content { grid-template-columns: 1fr; gap: 32px; text-align: center; }
+  .hero-photo { width: 220px; height: 280px; justify-self: center; order: -1; }
+  .hero-eyebrow { justify-content: center; }
+  .hero-actions { justify-content: center; }
+  .hero-metrics { justify-content: center; }
+  .hero-title { margin-left: auto; margin-right: auto; }
+  .hero-desc { margin-left: auto; margin-right: auto; }
 }
 
 .hero-eyebrow {
@@ -284,10 +295,15 @@ body::before {
 }
 
 .hero-metrics {
-  display: flex; flex-wrap: wrap; gap: 56px;
-  margin-top: 72px;
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  gap: 40px;
+  margin-top: 56px;
   opacity: 0; transform: translateY(20px);
   animation: revealUp 0.7s var(--ease-out) 1.2s forwards;
+}
+@media (max-width: 768px) {
+  .hero-metrics { grid-template-columns: repeat(2, 1fr); gap: 24px 16px; }
 }
 .metric-value {
   font-family: var(--font-display);
@@ -1173,11 +1189,11 @@ footer a:hover { color: var(--accent); }
    RESPONSIVE
    ══════════════════════════════════════════════════════════════ */
 @media (max-width: 768px) {
-  .hero { padding: 140px 0 80px; min-height: auto; }
-  .hero-metrics { gap: 32px; }
+  .hero-metrics { gap: 24px; }
   .nav-links { display: none; }
   section.block, .showcase { padding: 80px 0; }
-  .metric-value { font-size: 32px; }
+  .metric-value { font-size: 28px; }
+  .metric-label { font-size: 10px; }
   .proof-big { font-size: 36px; }
 }
 
@@ -1459,10 +1475,10 @@ footer a:hover { color: var(--accent); }
           <span class="badge">vercel</span>
         </div>
       </div>
-      <a href="#" class="mockup mockup-delay-2" onclick="return false;" style="cursor:default;">
+      <a href="https://www.triaimoveis.com/" target="_blank" class="mockup mockup-delay-2">
         <div class="mockup-bar">
           <div class="mockup-dots"><span></span><span></span><span></span></div>
-          <div class="mockup-url">tria imóveis</div>
+          <div class="mockup-url">triaimoveis.com</div>
         </div>
         <img src="uploads/tria-imoveis.jpg" alt="Tria Imóveis — Marketplace Imobiliário" style="width:100%;display:block;" />
       </a>
