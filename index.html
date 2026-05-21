@@ -566,9 +566,16 @@ section.block {
 .showcase-screens-equal {
   grid-template-columns: 1fr 1fr;
 }
+.showcase-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+}
 @media (max-width: 768px) {
   .showcase-screens,
   .showcase-screens-equal { grid-template-columns: 1fr; }
+  .showcase-split { grid-template-columns: 1fr; gap: 32px; }
 }
 
 .showcase-cta {
@@ -1291,48 +1298,20 @@ footer a:hover { color: var(--accent); }
       </div>
     </div>
 
-    <div class="showcase-screens showcase-screens-single reveal reveal-d2">
+    <div class="showcase-screens reveal reveal-d2">
       <a href="https://elegeia-landing.vercel.app/" target="_blank" class="mockup" title="ElegeIA — Inbox com Agente de IA">
         <div class="mockup-bar">
           <div class="mockup-dots"><span></span><span></span><span></span></div>
           <div class="mockup-url">elegeia — inbox · agente de ia</div>
         </div>
-        <div class="screen-mock screen-elegeia">
-          <div class="se-sidebar">
-            <div class="se-logo">ELEGEIA</div>
-            <div class="se-nav-item">Dashboard</div>
-            <div class="se-nav-item active">Inbox</div>
-            <div class="se-nav-item">Eleitores</div>
-            <div class="se-nav-item">Funil do Eleitor</div>
-            <div class="se-nav-item" style="margin-top:16px; font-size:9px; color:var(--text-dim); opacity:0.5;">FERRAMENTAS</div>
-            <div class="se-nav-item">Agente de IA</div>
-            <div class="se-nav-item">Campanhas</div>
-            <div class="se-nav-item">Templates</div>
-          </div>
-          <div class="se-inbox">
-            <div class="se-inbox-title">Inbox</div>
-            <div class="se-contact">
-              <div class="se-contact-name">Matthew Gomes</div>
-              <div class="se-contact-msg">Claro! João Silva quer aumentar a ofer...</div>
-            </div>
-            <div class="se-contact" style="opacity:0.4; border-color:transparent; background:rgba(255,255,255,0.02);">
-              <div class="se-contact-name" style="color:var(--text-dim)">Maria Santos</div>
-              <div class="se-contact-msg">Obrigada pela informação sobre...</div>
-            </div>
-          </div>
-          <div class="se-chat">
-            <div class="se-bubble user">Eu quero saber mais sobre o plano de governo do João Silva.</div>
-            <div class="se-bubble ai">
-              <div class="se-ai-badge">Agente IA respondendo</div>
-              Obrigado pelo interesse! Para entender melhor suas prioridades, posso perguntar de onde você é e qual a principal dificuldade que você enfrenta no seu dia a dia?
-            </div>
-            <div class="se-bubble user">Eu moro em Caraí, tenho 30 anos, e não consigo encontrar creches...</div>
-            <div class="se-bubble ai">
-              <div class="se-ai-badge">Agente IA respondendo</div>
-              Entendo como a falta de creches pode ser um desafio. Uma das principais propostas do João Silva é ampliar o número de creches e escolas para garantir que mais crianças tenham um lugar seguro.
-            </div>
-          </div>
+        <img src="uploads/elegeia-inbox.jpg" alt="ElegeIA — Inbox com IA processando conversas" style="width:100%;display:block;" />
+      </a>
+      <a href="https://elegeia-landing.vercel.app/" target="_blank" class="mockup mockup-delay-2" title="ElegeIA — Landing Page">
+        <div class="mockup-bar">
+          <div class="mockup-dots"><span></span><span></span><span></span></div>
+          <div class="mockup-url">elegeia-landing.vercel.app</div>
         </div>
+        <img src="uploads/elegeia-landing.jpg" alt="ElegeIA — Landing Page" style="width:100%;display:block;" />
       </a>
     </div>
   </div>
@@ -1381,68 +1360,14 @@ footer a:hover { color: var(--accent); }
           <div class="mockup-dots"><span></span><span></span><span></span></div>
           <div class="mockup-url">theog.com.br</div>
         </div>
-        <div class="screen-mock screen-theog-store">
-          <div class="st-topbar">
-            <div class="st-logo">THE OG</div>
-            <div class="st-nav">
-              <span>TODOS</span><span>VESTUÁRIO</span><span>ACESSÓRIOS</span>
-              <span>PITEIRAS</span><span>FILTROS</span><span>KITS</span>
-            </div>
-          </div>
-          <div class="st-hero">
-            <div class="st-badge-bar">🚀 FRETE GRÁTIS para compras acima de R$ 500</div>
-            <div class="st-hero-text">ORIGINAL<br>PRODUCTS</div>
-          </div>
-        </div>
+        <img src="uploads/theog-site.jpg" alt="The OG Store — E-commerce" style="width:100%;display:block;" />
       </a>
       <a href="https://www.theog.com.br/" target="_blank" class="mockup mockup-delay-2" title="The OG Store — Painel Admin">
         <div class="mockup-bar">
           <div class="mockup-dots"><span></span><span></span><span></span></div>
           <div class="mockup-url">admin · grupo got</div>
         </div>
-        <div class="screen-mock screen-theog-admin">
-          <div class="sa-sidebar">
-            <div class="sa-brand">GRUPO GOT</div>
-            <div class="sa-nav-item active">Dashboard</div>
-            <div class="sa-nav-item">Pedidos</div>
-            <div class="sa-nav-item">Relatórios</div>
-            <div class="sa-nav-item" style="margin-top:10px;font-size:9px;opacity:0.4;">CATÁLOGO</div>
-            <div class="sa-nav-item">Produtos</div>
-            <div class="sa-nav-item">Estoque</div>
-            <div class="sa-nav-item">Categorias</div>
-            <div class="sa-nav-item">Coleções</div>
-          </div>
-          <div class="sa-main">
-            <div class="sa-title">Dashboard</div>
-            <div class="sa-cards">
-              <div class="sa-card">
-                <div class="sa-card-label">Receita Total</div>
-                <div class="sa-card-value">R$ 0,00</div>
-              </div>
-              <div class="sa-card">
-                <div class="sa-card-label">Pedidos</div>
-                <div class="sa-card-value">0</div>
-              </div>
-              <div class="sa-card">
-                <div class="sa-card-label">Ticket Médio</div>
-                <div class="sa-card-value">R$ 0,00</div>
-              </div>
-              <div class="sa-card">
-                <div class="sa-card-label">Estoque Baixo</div>
-                <div class="sa-card-value" style="color:#F59E0B;">12</div>
-              </div>
-            </div>
-            <div class="sa-chart">
-              <div class="sa-bar" style="height:30%"></div>
-              <div class="sa-bar" style="height:20%"></div>
-              <div class="sa-bar" style="height:45%"></div>
-              <div class="sa-bar" style="height:60%"></div>
-              <div class="sa-bar" style="height:35%"></div>
-              <div class="sa-bar" style="height:50%"></div>
-              <div class="sa-bar" style="height:25%"></div>
-            </div>
-          </div>
-        </div>
+        <img src="uploads/theog-admin.jpg" alt="The OG Store — Painel Administrativo" style="width:100%;display:block;" />
       </a>
     </div>
   </div>
@@ -1487,71 +1412,59 @@ footer a:hover { color: var(--accent); }
           <div class="mockup-dots"><span></span><span></span><span></span></div>
           <div class="mockup-url">5sbrand.com</div>
         </div>
-        <div class="screen-mock screen-5s-store">
-          <div class="ss-topbar">
-            <div class="ss-logo">5S</div>
-            <div class="ss-nav">
-              <span style="font-weight:700;color:#1a1a1a;">Home</span>
-              <span>Categorias</span>
-              <span>Produtos</span>
-              <span>Outlet</span>
-            </div>
-          </div>
-          <div class="ss-hero">
-            <div class="ss-hero-title">Sarja Dubai</div>
-            <div class="ss-hero-sub">Arte do Minimalismo</div>
-            <div class="ss-hero-btn">DESCOBRIR COLEÇÃO</div>
-          </div>
-        </div>
+        <img src="uploads/5sbrand-site.jpg" alt="5S Brand — E-commerce de Moda" style="width:100%;display:block;" />
       </a>
       <a href="https://5sbrand.com" target="_blank" class="mockup mockup-delay-3" title="Visitar 5S Brand">
         <div class="mockup-bar">
           <div class="mockup-dots"><span></span><span></span><span></span></div>
           <div class="mockup-url">admin · 5s brand</div>
         </div>
-        <div class="screen-mock screen-5s-admin">
-          <div class="sa5-sidebar">
-            <div class="sa5-brand">5s Brand</div>
-            <div class="sa5-nav-item active">Painel Principal</div>
-            <div class="sa5-nav-item">Pedidos</div>
-            <div class="sa5-nav-item">Devoluções</div>
-            <div class="sa5-nav-item">Relatórios</div>
-            <div class="sa5-nav-item" style="margin-top:10px;font-size:9px;opacity:0.4;">Catálogo</div>
-            <div class="sa5-nav-item">Produtos</div>
-            <div class="sa5-nav-item">Estoque</div>
-            <div class="sa5-nav-item">Categorias</div>
+        <img src="uploads/5sbrand-admin.jpg" alt="5S Brand — Painel Administrativo" style="width:100%;display:block;" />
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ SHOWCASE: TRIA IMÓVEIS ═══════════════════ -->
+<div class="showcase" style="overflow:hidden;">
+  <div class="container-wide" style="position:relative;">
+    <div class="showcase-split reveal">
+      <div>
+        <div class="showcase-tag tag-saas" style="background:rgba(100,160,180,0.10); color:#7CC4D4; border-color:rgba(100,160,180,0.15);"><span class="badge-live"></span> Marketplace · Imobiliário</div>
+        <h2 class="showcase-title" style="margin-top:16px;">Tria Imóveis — Marketplace Imobiliário</h2>
+        <p class="showcase-desc">
+          Marketplace que conecta corretores, corretoras e donos de imóveis para
+          triangulação de comissões. Gerimos a conexão entre as partes, divulgamos
+          imóveis com SEO avançado e automatizamos o fluxo de comissionamento.
+        </p>
+        <div class="showcase-proof" style="margin-top:20px;">
+          <div class="proof-item">
+            <span class="proof-num">100+</span>
+            <span>clientes satisfeitos</span>
           </div>
-          <div class="sa5-main">
-            <div class="sa5-title">Painel Principal</div>
-            <div class="sa5-cards">
-              <div class="sa5-card">
-                <div class="sa5-card-label">Faturamento Total</div>
-                <div class="sa5-card-value">R$ 2.292</div>
-              </div>
-              <div class="sa5-card">
-                <div class="sa5-card-label">Total Pedidos</div>
-                <div class="sa5-card-value">7</div>
-              </div>
-              <div class="sa5-card">
-                <div class="sa5-card-label">Pendentes</div>
-                <div class="sa5-card-value">0</div>
-              </div>
-              <div class="sa5-card">
-                <div class="sa5-card-label">Produtos</div>
-                <div class="sa5-card-value" style="color:#F87171;">385</div>
-              </div>
-            </div>
-            <div class="sa5-chart">
-              <div class="sa5-bar" style="height:40%"></div>
-              <div class="sa5-bar" style="height:30%"></div>
-              <div class="sa5-bar" style="height:55%"></div>
-              <div class="sa5-bar" style="height:70%"></div>
-              <div class="sa5-bar" style="height:20%"></div>
-              <div class="sa5-bar" style="height:15%"></div>
-              <div class="sa5-bar" style="height:80%"></div>
-            </div>
+          <div class="proof-item">
+            <span class="proof-num">50+</span>
+            <span>imóveis vendidos</span>
+          </div>
+          <div class="proof-item">
+            <span class="proof-num">4.9</span>
+            <span>avaliação dos clientes</span>
           </div>
         </div>
+        <div class="showcase-stack" style="margin-top:16px;">
+          <span class="badge">typescript</span>
+          <span class="badge">next.js</span>
+          <span class="badge">supabase</span>
+          <span class="badge">seo</span>
+          <span class="badge">vercel</span>
+        </div>
+      </div>
+      <a href="#" class="mockup mockup-delay-2" onclick="return false;" style="cursor:default;">
+        <div class="mockup-bar">
+          <div class="mockup-dots"><span></span><span></span><span></span></div>
+          <div class="mockup-url">tria imóveis</div>
+        </div>
+        <img src="uploads/tria-imoveis.jpg" alt="Tria Imóveis — Marketplace Imobiliário" style="width:100%;display:block;" />
       </a>
     </div>
   </div>
