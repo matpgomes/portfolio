@@ -165,7 +165,74 @@ body::before {
 }
 @keyframes fadeIn { to { opacity: 1; } }
 
-.hero-content { position: relative; width: 100%; max-width: 840px; }
+.hero-content {
+  position: relative; width: 100%;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 48px;
+  align-items: center;
+}
+.hero-left { max-width: 680px; }
+
+/* Hero photo */
+.hero-photo {
+  position: relative;
+  width: 280px; height: 340px;
+  opacity: 0;
+  animation: heroPhotoIn 1s var(--ease-out) 0.8s forwards;
+}
+@keyframes heroPhotoIn {
+  from { opacity: 0; transform: translateY(30px) scale(0.95); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+.hero-photo-img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  border-radius: var(--radius-xl);
+  border: 2px solid var(--border-light);
+  position: relative; z-index: 1;
+  animation: photoFloat 8s ease-in-out infinite;
+}
+@keyframes photoFloat {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33% { transform: translateY(-10px) rotate(0.5deg); }
+  66% { transform: translateY(-4px) rotate(-0.3deg); }
+}
+.hero-photo::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: calc(var(--radius-xl) + 3px);
+  background: linear-gradient(135deg, var(--accent), rgba(201,165,92,0.1), var(--accent));
+  background-size: 200% 200%;
+  animation: borderShift 6s ease-in-out infinite;
+  z-index: 0;
+  opacity: 0.6;
+}
+@keyframes borderShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+.hero-photo::after {
+  content: '';
+  position: absolute;
+  width: 120%; height: 120%;
+  top: -10%; left: -10%;
+  background: radial-gradient(circle, var(--accent-glow) 0%, transparent 60%);
+  opacity: 0.15;
+  z-index: -1;
+  animation: photoGlow 4s ease-in-out infinite alternate;
+}
+@keyframes photoGlow {
+  0% { opacity: 0.1; transform: scale(1); }
+  100% { opacity: 0.2; transform: scale(1.1); }
+}
+
+@media (max-width: 900px) {
+  .hero-content { grid-template-columns: 1fr; }
+  .hero-photo { width: 200px; height: 250px; justify-self: center; order: -1; }
+}
 
 .hero-eyebrow {
   display: inline-flex; align-items: center; gap: 10px;
@@ -1142,34 +1209,43 @@ footer a:hover { color: var(--accent); }
 <!-- ═══════════════════ HERO ═══════════════════ -->
 <section class="hero">
   <div class="container hero-content">
-    <div class="hero-eyebrow">disponível para projetos</div>
-    <h1 class="hero-title">
-      <span class="line">Construo</span>
-      <span class="line"><span class="subtle">produtos digitais</span></span>
-      <span class="line">com IA<span class="gold">.</span></span>
-    </h1>
-    <p class="hero-desc">
-      Full-stack developer. Crio <strong>plataformas SaaS</strong>,
-      <strong>automações inteligentes</strong> e <strong>e-commerces</strong>
-      que operam com agentes de IA — do lead ao fechamento.
-    </p>
-    <div class="hero-actions">
-      <a href="#projetos" class="btn btn-gold"><span>ver projetos</span> <span class="arrow">→</span></a>
-      <a href="#contato" class="btn btn-ghost">entrar em contato</a>
+    <div class="hero-left">
+      <div class="hero-eyebrow">disponível para projetos</div>
+      <h1 class="hero-title">
+        <span class="line">Construo</span>
+        <span class="line"><span class="subtle">produtos digitais</span></span>
+        <span class="line">com IA<span class="gold">.</span></span>
+      </h1>
+      <p class="hero-desc">
+        Full-stack developer. Crio <strong>plataformas SaaS</strong>,
+        <strong>automações inteligentes</strong> e <strong>e-commerces</strong>
+        que operam com agentes de IA — do lead ao fechamento.
+      </p>
+      <div class="hero-actions">
+        <a href="#projetos" class="btn btn-gold"><span>ver projetos</span> <span class="arrow">→</span></a>
+        <a href="#contato" class="btn btn-ghost">entrar em contato</a>
+      </div>
+      <div class="hero-metrics">
+        <div>
+          <div class="metric-value" data-count="27">0</div>
+          <div class="metric-label">Projetos entregues</div>
+        </div>
+        <div>
+          <div class="metric-value" data-count="12">0</div>
+          <div class="metric-label">Plataformas em produção</div>
+        </div>
+        <div>
+          <div class="metric-value" data-count="9">0</div>
+          <div class="metric-label">Automações com IA</div>
+        </div>
+        <div>
+          <div class="metric-value" data-count="5000" data-suffix="+">0</div>
+          <div class="metric-label">Usuários atendidos</div>
+        </div>
+      </div>
     </div>
-    <div class="hero-metrics">
-      <div>
-        <div class="metric-value" data-count="13">0</div>
-        <div class="metric-label">Projetos entregues</div>
-      </div>
-      <div>
-        <div class="metric-value" data-count="6">0</div>
-        <div class="metric-label">Plataformas em produção</div>
-      </div>
-      <div>
-        <div class="metric-value" data-count="4">0</div>
-        <div class="metric-label">Automações com IA</div>
-      </div>
+    <div class="hero-photo">
+      <img class="hero-photo-img" src="eu%20emp%202.png" alt="Matthew Palacios" />
     </div>
   </div>
 </section>
@@ -1486,20 +1562,20 @@ footer a:hover { color: var(--accent); }
   <div class="container">
     <div class="proof-grid reveal">
       <div>
-        <div class="proof-big" data-count="400">0</div>
-        <div class="proof-text">Candidatos usando ElegeIA</div>
+        <div class="proof-big" data-count="5000" data-suffix="+">0</div>
+        <div class="proof-text">Usuários impactados pelos sistemas</div>
       </div>
       <div>
-        <div class="proof-big" data-count="6">0</div>
+        <div class="proof-big" data-count="12">0</div>
         <div class="proof-text">Plataformas em produção</div>
       </div>
       <div>
-        <div class="proof-big" data-count="13">0</div>
+        <div class="proof-big" data-count="27">0</div>
         <div class="proof-text">Projetos entregues</div>
       </div>
       <div>
-        <div class="proof-big" data-count="31">0</div>
-        <div class="proof-text">Idiomas em automação de e-books</div>
+        <div class="proof-big" data-count="9">0</div>
+        <div class="proof-text">Automações com IA ativas</div>
       </div>
     </div>
   </div>
@@ -1926,13 +2002,15 @@ const counterObserver = new IntersectionObserver((entries) => {
     if (entry.isIntersecting) {
       const el = entry.target;
       const target = parseInt(el.dataset.count);
-      const duration = 1400;
+      const suffix = el.dataset.suffix || '';
+      const duration = target > 1000 ? 2000 : 1400;
       const start = performance.now();
       function update(now) {
         const elapsed = now - start;
         const progress = Math.min(elapsed / duration, 1);
         const eased = 1 - Math.pow(1 - progress, 4);
-        el.textContent = Math.round(eased * target);
+        const val = Math.round(eased * target);
+        el.textContent = (target >= 1000 ? val.toLocaleString('pt-BR') : val) + (progress >= 1 ? suffix : '');
         if (progress < 1) requestAnimationFrame(update);
       }
       requestAnimationFrame(update);
